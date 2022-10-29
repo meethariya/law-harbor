@@ -7,7 +7,8 @@
 <title>LawHarbor</title>
 </head>
 <body>
-	<h1>Law Harbor Index Page</h1>
-	<a href="register">Register User</a>
+	<h1>Law Harbor Index Page</h1><br>
+	<a href="register">Register User</a><br>
+	<a href="login">Login User</a><br>
 </body>
 </html>

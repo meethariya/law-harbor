@@ -1,0 +1,140 @@
+[WARN ] 28-10-2022 12:52 com.virtusa.dao.UserDao:20 Dao Constructor called
+[WARN ] 28-10-2022 12:52 com.virtusa.service.UserService:18 Service Constructor called
+[WARN ] 28-10-2022 12:52 com.virtusa.controller.UserController:24 Controller Constructor called
+[WARN ] 28-10-2022 12:52 com.virtusa.controller.UserController:29 Index called
+[WARN ] 28-10-2022 12:55 com.virtusa.controller.UserController:29 Index called
+[WARN ] 28-10-2022 12:55 com.virtusa.dao.UserDao:20 Dao Constructor called
+[WARN ] 28-10-2022 12:55 com.virtusa.service.UserService:18 Service Constructor called
+[WARN ] 28-10-2022 12:55 com.virtusa.controller.UserController:24 Controller Constructor called
+[WARN ] 28-10-2022 12:58 com.virtusa.dao.UserDao:20 Dao Constructor called
+[WARN ] 28-10-2022 12:58 com.virtusa.service.UserService:18 Service Constructor called
+[WARN ] 28-10-2022 12:58 com.virtusa.controller.UserController:24 Controller Constructor called
+[WARN ] 28-10-2022 12:58 servlet.mvc.support.DefaultHandlerExceptionResolver:208 Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported]
+[WARN ] 28-10-2022 12:59 com.virtusa.dao.UserDao:20 Dao Constructor called
+[WARN ] 28-10-2022 12:59 com.virtusa.service.UserService:18 Service Constructor called
+[WARN ] 28-10-2022 12:59 com.virtusa.controller.UserController:24 Controller Constructor called
+[WARN ] 28-10-2022 13:06 com.virtusa.dao.UserDao:20 Dao Constructor called
+[WARN ] 28-10-2022 13:06 com.virtusa.service.UserService:18 Service Constructor called
+[WARN ] 28-10-2022 13:06 com.virtusa.controller.UserController:24 Controller Constructor called
+[WARN ] 28-10-2022 16:13 com.virtusa.dao.UserDao:20 Dao Constructor called
+[WARN ] 28-10-2022 16:13 com.virtusa.service.UserService:22 Service Constructor called
+[WARN ] 28-10-2022 16:13 com.virtusa.controller.UserController:24 Controller Constructor called
+[WARN ] 28-10-2022 17:00 com.virtusa.dao.UserDao:20 Dao Constructor called
+[WARN ] 28-10-2022 17:00 com.virtusa.service.UserService:22 Service Constructor called
+[WARN ] 28-10-2022 17:00 com.virtusa.controller.UserController:24 Controller Constructor called
+[WARN ] 28-10-2022 17:00 com.virtusa.controller.UserController:29 Index called
+[WARN ] 28-10-2022 17:13 com.virtusa.dao.UserDao:20 Dao Constructor called
+[WARN ] 28-10-2022 17:13 com.virtusa.service.UserService:22 Service Constructor called
+[WARN ] 28-10-2022 17:13 com.virtusa.controller.UserController:24 Controller Constructor called
+[WARN ] 29-10-2022 13:10 com.virtusa.dao.UserDao:20 Dao Constructor called
+[WARN ] 29-10-2022 13:10 com.virtusa.service.UserService:24 Service Constructor called
+[WARN ] 29-10-2022 13:10 com.virtusa.controller.UserController:30 Controller Constructor called
+[WARN ] 29-10-2022 13:10 com.virtusa.controller.UserController:35 Index called
+[WARN ] 29-10-2022 13:10 servlet.mvc.support.DefaultHandlerExceptionResolver:208 Resolved [org.springframework.validation.BindException: org.springframework.validation.BeanPropertyBindingResult: 5 errors<EOL>Field error in object 'user' on field 'username': rejected value [null]; codes [NotEmpty.user.username,NotEmpty.username,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.username,username]; arguments []; default message [username]]; default message [must not be empty]<EOL>Field error in object 'user' on field 'password': rejected value [null]; codes [NotEmpty.user.password,NotEmpty.password,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.password,password]; arguments []; default message [password]]; default message [must not be empty]<EOL>Field error in object 'user' on field 'role': rejected value [null]; codes [NotEmpty.user.role,NotEmpty.role,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.role,role]; arguments []; default message [role]]; default message [must not be empty]<EOL>Field error in object 'user' on field 'mobileNumber': rejected value [null]; codes [NotEmpty.user.mobileNumber,NotEmpty.mobileNumber,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.mobileNumber,mobileNumber]; arguments []; default message [mobileNumber]]; default message [must not be empty]<EOL>Field error in object 'user' on field 'email': rejected value [null]; codes [NotEmpty.user.email,NotEmpty.email,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.email,email]; arguments []; default message [email]]; default message [must not be empty]]
+[WARN ] 29-10-2022 13:10 servlet.mvc.support.DefaultHandlerExceptionResolver:208 Resolved [org.springframework.validation.BindException: org.springframework.validation.BeanPropertyBindingResult: 5 errors<EOL>Field error in object 'user' on field 'mobileNumber': rejected value [null]; codes [NotEmpty.user.mobileNumber,NotEmpty.mobileNumber,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.mobileNumber,mobileNumber]; arguments []; default message [mobileNumber]]; default message [must not be empty]<EOL>Field error in object 'user' on field 'username': rejected value [null]; codes [NotEmpty.user.username,NotEmpty.username,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.username,username]; arguments []; default message [username]]; default message [must not be empty]<EOL>Field error in object 'user' on field 'role': rejected value [null]; codes [NotEmpty.user.role,NotEmpty.role,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.role,role]; arguments []; default message [role]]; default message [must not be empty]<EOL>Field error in object 'user' on field 'email': rejected value [null]; codes [NotEmpty.user.email,NotEmpty.email,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.email,email]; arguments []; default message [email]]; default message [must not be empty]<EOL>Field error in object 'user' on field 'password': rejected value [null]; codes [NotEmpty.user.password,NotEmpty.password,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.password,password]; arguments []; default message [password]]; default message [must not be empty]]
+[WARN ] 29-10-2022 13:10 servlet.mvc.support.DefaultHandlerExceptionResolver:208 Resolved [org.springframework.validation.BindException: org.springframework.validation.BeanPropertyBindingResult: 5 errors<EOL>Field error in object 'user' on field 'mobileNumber': rejected value [null]; codes [NotEmpty.user.mobileNumber,NotEmpty.mobileNumber,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.mobileNumber,mobileNumber]; arguments []; default message [mobileNumber]]; default message [must not be empty]<EOL>Field error in object 'user' on field 'email': rejected value [null]; codes [NotEmpty.user.email,NotEmpty.email,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.email,email]; arguments []; default message [email]]; default message [must not be empty]<EOL>Field error in object 'user' on field 'role': rejected value [null]; codes [NotEmpty.user.role,NotEmpty.role,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.role,role]; arguments []; default message [role]]; default message [must not be empty]<EOL>Field error in object 'user' on field 'password': rejected value [null]; codes [NotEmpty.user.password,NotEmpty.password,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.password,password]; arguments []; default message [password]]; default message [must not be empty]<EOL>Field error in object 'user' on field 'username': rejected value [null]; codes [NotEmpty.user.username,NotEmpty.username,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.username,username]; arguments []; default message [username]]; default message [must not be empty]]
+[WARN ] 29-10-2022 13:11 com.virtusa.controller.UserController:35 Index called
+[WARN ] 29-10-2022 13:11 servlet.mvc.support.DefaultHandlerExceptionResolver:208 Resolved [org.springframework.validation.BindException: org.springframework.validation.BeanPropertyBindingResult: 5 errors<EOL>Field error in object 'user' on field 'mobileNumber': rejected value [null]; codes [NotEmpty.user.mobileNumber,NotEmpty.mobileNumber,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.mobileNumber,mobileNumber]; arguments []; default message [mobileNumber]]; default message [must not be empty]<EOL>Field error in object 'user' on field 'email': rejected value [null]; codes [NotEmpty.user.email,NotEmpty.email,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.email,email]; arguments []; default message [email]]; default message [must not be empty]<EOL>Field error in object 'user' on field 'role': rejected value [null]; codes [NotEmpty.user.role,NotEmpty.role,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.role,role]; arguments []; default message [role]]; default message [must not be empty]<EOL>Field error in object 'user' on field 'username': rejected value [null]; codes [NotEmpty.user.username,NotEmpty.username,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.username,username]; arguments []; default message [username]]; default message [must not be empty]<EOL>Field error in object 'user' on field 'password': rejected value [null]; codes [NotEmpty.user.password,NotEmpty.password,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.password,password]; arguments []; default message [password]]; default message [must not be empty]]
+[WARN ] 29-10-2022 13:11 servlet.mvc.support.DefaultHandlerExceptionResolver:208 Resolved [org.springframework.validation.BindException: org.springframework.validation.BeanPropertyBindingResult: 5 errors<EOL>Field error in object 'user' on field 'mobileNumber': rejected value [null]; codes [NotEmpty.user.mobileNumber,NotEmpty.mobileNumber,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.mobileNumber,mobileNumber]; arguments []; default message [mobileNumber]]; default message [must not be empty]<EOL>Field error in object 'user' on field 'email': rejected value [null]; codes [NotEmpty.user.email,NotEmpty.email,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.email,email]; arguments []; default message [email]]; default message [must not be empty]<EOL>Field error in object 'user' on field 'role': rejected value [null]; codes [NotEmpty.user.role,NotEmpty.role,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.role,role]; arguments []; default message [role]]; default message [must not be empty]<EOL>Field error in object 'user' on field 'username': rejected value [null]; codes [NotEmpty.user.username,NotEmpty.username,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.username,username]; arguments []; default message [username]]; default message [must not be empty]<EOL>Field error in object 'user' on field 'password': rejected value [null]; codes [NotEmpty.user.password,NotEmpty.password,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.password,password]; arguments []; default message [password]]; default message [must not be empty]]
+[WARN ] 29-10-2022 13:11 servlet.mvc.support.DefaultHandlerExceptionResolver:208 Resolved [org.springframework.validation.BindException: org.springframework.validation.BeanPropertyBindingResult: 5 errors<EOL>Field error in object 'user' on field 'password': rejected value [null]; codes [NotEmpty.user.password,NotEmpty.password,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.password,password]; arguments []; default message [password]]; default message [must not be empty]<EOL>Field error in object 'user' on field 'role': rejected value [null]; codes [NotEmpty.user.role,NotEmpty.role,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.role,role]; arguments []; default message [role]]; default message [must not be empty]<EOL>Field error in object 'user' on field 'mobileNumber': rejected value [null]; codes [NotEmpty.user.mobileNumber,NotEmpty.mobileNumber,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.mobileNumber,mobileNumber]; arguments []; default message [mobileNumber]]; default message [must not be empty]<EOL>Field error in object 'user' on field 'username': rejected value [null]; codes [NotEmpty.user.username,NotEmpty.username,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.username,username]; arguments []; default message [username]]; default message [must not be empty]<EOL>Field error in object 'user' on field 'email': rejected value [null]; codes [NotEmpty.user.email,NotEmpty.email,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.email,email]; arguments []; default message [email]]; default message [must not be empty]]
+[WARN ] 29-10-2022 13:12 com.virtusa.dao.UserDao:20 Dao Constructor called
+[WARN ] 29-10-2022 13:12 com.virtusa.service.UserService:24 Service Constructor called
+[WARN ] 29-10-2022 13:12 com.virtusa.controller.UserController:30 Controller Constructor called
+[WARN ] 29-10-2022 13:12 servlet.mvc.support.DefaultHandlerExceptionResolver:208 Resolved [org.springframework.validation.BindException: org.springframework.validation.BeanPropertyBindingResult: 7 errors<EOL>Field error in object 'userDto' on field 'username': rejected value []; codes [NotEmpty.userDto.username,NotEmpty.username,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [userDto.username,username]; arguments []; default message [username]]; default message [must not be empty]<EOL>Field error in object 'userDto' on field 'password': rejected value []; codes [NotEmpty.userDto.password,NotEmpty.password,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [userDto.password,password]; arguments []; default message [password]]; default message [must not be empty]<EOL>Field error in object 'userDto' on field 'mobileNumber': rejected value []; codes [Length.userDto.mobileNumber,Length.mobileNumber,Length.java.lang.String,Length]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [userDto.mobileNumber,mobileNumber]; arguments []; default message [mobileNumber],10,10]; default message [length must be between 10 and 10]<EOL>Field error in object 'userDto' on field 'role': rejected value []; codes [NotEmpty.userDto.role,NotEmpty.role,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [userDto.role,role]; arguments []; default message [role]]; default message [must not be empty]<EOL>Field error in object 'userDto' on field 'mobileNumber': rejected value []; codes [NotEmpty.userDto.mobileNumber,NotEmpty.mobileNumber,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [userDto.mobileNumber,mobileNumber]; arguments []; default message [mobileNumber]]; default message [must not be empty]<EOL>Field error in object 'userDto' on field 'password': rejected value []; codes [Length.userDto.password,Length.password,Length.java.lang.String,Length]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [userDto.password,password]; arguments []; default message [password],30,8]; default message [length must be between 8 and 30]<EOL>Field error in object 'userDto' on field 'email': rejected value []; codes [NotEmpty.userDto.email,NotEmpty.email,NotEmpty.java.lang.String,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [userDto.email,email]; arguments []; default message [email]]; default message [must not be empty]]
+[WARN ] 29-10-2022 13:15 com.virtusa.dao.UserDao:20 Dao Constructor called
+[WARN ] 29-10-2022 13:15 com.virtusa.service.UserService:24 Service Constructor called
+[WARN ] 29-10-2022 13:15 com.virtusa.controller.UserController:31 Controller Constructor called
+[WARN ] 29-10-2022 13:16 com.virtusa.dao.UserDao:20 Dao Constructor called
+[WARN ] 29-10-2022 13:16 com.virtusa.service.UserService:24 Service Constructor called
+[WARN ] 29-10-2022 13:16 com.virtusa.controller.UserController:32 Controller Constructor called
+[WARN ] 29-10-2022 13:18 com.virtusa.dao.UserDao:20 Dao Constructor called
+[WARN ] 29-10-2022 13:18 com.virtusa.service.UserService:24 Service Constructor called
+[WARN ] 29-10-2022 13:18 com.virtusa.controller.UserController:32 Controller Constructor called
+[ERROR] 29-10-2022 13:18 servlet.tags.form.InputTag:86 Neither BindingResult nor plain target object for bean name 'user' available as request attribute
+java.lang.IllegalStateException: Neither BindingResult nor plain target object for bean name 'user' available as request attribute
+	at org.springframework.web.servlet.support.BindStatus.<init>(BindStatus.java:153) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getBindStatus(AbstractDataBoundFormElementTag.java:178) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getPropertyPath(AbstractDataBoundFormElementTag.java:199) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getName(AbstractDataBoundFormElementTag.java:164) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.writeDefaultAttributes(AbstractDataBoundFormElementTag.java:123) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.tags.form.AbstractHtmlElementTag.writeDefaultAttributes(AbstractHtmlElementTag.java:460) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.tags.form.InputTag.writeTagContent(InputTag.java:357) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.tags.form.AbstractFormTag.doStartTagInternal(AbstractFormTag.java:87) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.tags.RequestContextAwareTag.doStartTag(RequestContextAwareTag.java:83) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.apache.jsp.WEB_002dINF.views.UserRegistration_jsp._jspx_meth_form_005finput_005f0(UserRegistration_jsp.java:404) ~[?:?]
+	at org.apache.jsp.WEB_002dINF.views.UserRegistration_jsp._jspService(UserRegistration_jsp.java:168) ~[?:?]
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70) ~[jasper.jar:9.0.62]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764) ~[servlet-api.jar:4.0.FR]
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:466) ~[jasper.jar:9.0.62]
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:379) ~[jasper.jar:9.0.62]
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:327) ~[jasper.jar:9.0.62]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764) ~[servlet-api.jar:4.0.FR]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[catalina.jar:9.0.62]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-websocket.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:711) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:459) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:385) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:313) ~[catalina.jar:9.0.62]
+	at org.springframework.web.servlet.view.InternalResourceView.renderMergedOutputModel(InternalResourceView.java:171) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:316) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1401) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1145) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1084) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:681) ~[servlet-api.jar:4.0.FR]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764) ~[servlet-api.jar:4.0.FR]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[catalina.jar:9.0.62]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-websocket.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:687) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360) ~[catalina.jar:9.0.62]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399) ~[tomcat-coyote.jar:9.0.62]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-coyote.jar:9.0.62]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890) ~[tomcat-coyote.jar:9.0.62]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743) ~[tomcat-coyote.jar:9.0.62]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-coyote.jar:9.0.62]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-util.jar:9.0.62]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-util.jar:9.0.62]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-util.jar:9.0.62]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+[WARN ] 29-10-2022 13:19 com.virtusa.dao.UserDao:20 Dao Constructor called
+[WARN ] 29-10-2022 13:19 com.virtusa.service.UserService:24 Service Constructor called
+[WARN ] 29-10-2022 13:19 com.virtusa.controller.UserController:32 Controller Constructor called
+[WARN ] 29-10-2022 13:30 engine.jdbc.spi.SqlExceptionHelper:137 SQL Error: 1, SQLState: 23000
+[ERROR] 29-10-2022 13:30 engine.jdbc.spi.SqlExceptionHelper:142 ORA-00001: unique constraint (MEET.SYS_C007040) violated
+
+[WARN ] 29-10-2022 16:19 com.virtusa.dao.UserDao:20 Dao Constructor called
+[WARN ] 29-10-2022 16:19 com.virtusa.service.UserService:24 Service Constructor called
+[WARN ] 29-10-2022 16:19 com.virtusa.controller.UserController:34 Controller Constructor called
+[WARN ] 29-10-2022 16:19 com.virtusa.controller.UserController:39 Index called
+[WARN ] 29-10-2022 16:28 com.virtusa.dao.UserDao:20 Dao Constructor called
+[WARN ] 29-10-2022 16:28 com.virtusa.service.UserService:24 Service Constructor called
+[WARN ] 29-10-2022 16:28 com.virtusa.controller.UserController:34 Controller Constructor called
+[WARN ] 29-10-2022 16:48 com.virtusa.dao.UserDao:20 Dao Constructor called
+[WARN ] 29-10-2022 16:48 com.virtusa.service.UserService:25 Service Constructor called
+[WARN ] 29-10-2022 16:48 com.virtusa.controller.UserController:34 Controller Constructor called
+[WARN ] 29-10-2022 16:48 com.virtusa.controller.UserController:39 Index called
+[WARN ] 29-10-2022 16:58 com.virtusa.dao.UserDao:20 Dao Constructor called
+[WARN ] 29-10-2022 16:58 com.virtusa.service.UserService:25 Service Constructor called
+[WARN ] 29-10-2022 16:58 com.virtusa.controller.UserController:35 Controller Constructor called
+[WARN ] 29-10-2022 17:52 com.virtusa.dao.UserDao:23 Dao Constructor called
+[WARN ] 29-10-2022 17:52 com.virtusa.service.UserService:26 Service Constructor called
+[WARN ] 29-10-2022 17:52 com.virtusa.controller.UserController:35 Controller Constructor called
+[WARN ] 29-10-2022 17:52 com.virtusa.controller.UserController:40 Index called
+[WARN ] 29-10-2022 17:58 com.virtusa.dao.UserDao:23 Dao Constructor called
+[WARN ] 29-10-2022 17:58 com.virtusa.service.UserService:26 Service Constructor called
+[WARN ] 29-10-2022 17:58 com.virtusa.controller.UserController:35 Controller Constructor called

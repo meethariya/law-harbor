@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan(basePackages = {"com.virtusa.dao","com.virtusa.service","com.virtusa.model"})
+@ComponentScan(basePackages = {"com.virtusa.dao","com.virtusa.service","com.virtusa.model","com.virtusa.dto"})
 public class HibernateConfig {
 
 	// Database configuration

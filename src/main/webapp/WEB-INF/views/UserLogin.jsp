@@ -10,16 +10,16 @@
 </head>
 <body>
 	<h1>Login</h1>
-	<h2>${credentialErr}</h2>
-	<form action="loginForm" method="POST">
-		<label for="email">Email:</label>
-		<br>
-		<input type="email" id="email" name="email"/>
-		<label for="password">Password:</label>
-		<br>
-		<input type="password" id="password" name="password"/>		
-		<br>
-		<input type="submit" value="Submit" />
-	</form>
+	<h2>${errMessage}</h2>
+	<form:form action="loginForm" method="POST" modelAttribute="user">
+		<label for="email">Email: </label>
+		<form:input type="email" 	name="email"		id="email" 		path="email"/>
+		<form:errors path="email"/><br>
+		
+		<label for="password">Password: </label>
+		<form:password 				name="password"		id="password" 	path="password"/>
+		<form:errors path="password"/><br>
+		<form:button value="Submit">Submit</form:button>
+	</form:form>
 </body>
 </html>

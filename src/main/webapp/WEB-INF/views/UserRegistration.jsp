@@ -9,19 +9,34 @@
 <title>User Registration</title>
 </head>
 <body>
-	<h1>Customer Registration Form</h1><br>
-	<form action="registerForm" method="POST">
+	<h1>Customer Registration Form</h1>
+	<h2>${errMessage}</h2><br>
+	<form:form action="registerForm" method="POST" modelAttribute="user">
 		<label for="email">Email: </label>
-		<input type="email" 	name="email"		id="email"><br>
+		<form:input type="email" 	name="email"		id="email" 		path="email"/>
+		<form:errors path="email"/><br>
+		
 		<label for="password">Password: </label>
-		<input type="password" 	name="password"		id="password"><br>
+		<form:password 				name="password"		id="password" 	path="password"/>
+		<form:errors path="password"/><br>
+		
 		<label for="username">User Name: </label>
-		<input type="text" 		name="username"		id="username"><br>
+		<form:input 				name="username"		id="username" 	path="username"/>
+		<form:errors path="username"/><br>
+		
 		<label for="mobile">Mobile Number: </label>
-		<input type="number" 	name="mobileNumber"	id="mobile"><br>
+		<form:input type="number" 	name="mobileNumber"	id="mobile" 	path="mobileNumber"/>
+		<form:errors path="mobileNumber"/><br>
+		
 		<label for="role">Role: </label>
-		<input type="text" 		name="role"			id="role"><br>
-		<input type="submit" 	value="Submit" />
-	</form>
+		<form:select 				name="role"			id="role" 		path="role">  
+			<option value = "user" selected> User </option>  
+			<option value = "lawyer"> Lawyer </option>  
+			<option value = "admin"> Admin </option>   
+		</form:select>  
+		<form:errors path="role"/><br>
+		
+		<form:button value="Submit">Submit</form:button>
+	</form:form>
 </body>
 </html>

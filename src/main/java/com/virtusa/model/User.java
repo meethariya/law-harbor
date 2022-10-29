@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.virtusa.dto.UserDto;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -42,6 +44,14 @@ public class User {
 		this.mobileNumber = mobileNumber;
 		this.active = active;
 		this.role = role;
+	}
+	public User(UserDto dto) {
+		super();
+		this.email = dto.getEmail();
+		this.password = dto.getPassword();
+		this.username = dto.getUsername();
+		this.mobileNumber = dto.getMobileNumber();
+		this.role = dto.getRole();
 	}
 	public int getId() {
 		return id;
