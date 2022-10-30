@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.virtusa.dto.BookingData;
 import com.virtusa.dto.LoginUserDto;
 import com.virtusa.dto.UserDto;
 import com.virtusa.exception.IncorrectLoginDetailsException;
@@ -108,6 +109,7 @@ public class UserController {
 		if(email != null) {
 			service.logoutUser(email);
 			session.removeAttribute(EMAIL);						// remove session on logout
+			log.info(email);
 		}		
 		return REDIRECTLOGIN;
 	}
@@ -120,5 +122,11 @@ public class UserController {
 		}
 		model.addAttribute("allCase", service.getUserCase(email));
 		return "UserCase";
+	}
+	
+	@PostMapping("/bookingForm")
+	public String bookAppointment(@ModelAttribute("bookingData") BookingData booking) {
+		
+		return "redirect:home";
 	}
 }

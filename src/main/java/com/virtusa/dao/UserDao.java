@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.virtusa.model.CaseRecord;
+import com.virtusa.model.Lawyer;
 import com.virtusa.model.User;
 
 @Repository
@@ -31,6 +32,11 @@ public class UserDao {
 		factory.getCurrentSession().persist(user);
 	}
 
+	public void saveLawyer(Lawyer user) {
+		// Saves Lawyer to database
+		factory.getCurrentSession().persist(user);
+	}
+
 	public User getUser(String email) {
 		// Returns user matching with email. Returns Null if no such record present
 		Session session = factory.getCurrentSession();
@@ -43,10 +49,10 @@ public class UserDao {
 		factory.getCurrentSession().update(user);
 	}
 	
-	public List<User> getAllLawyer(){
+	public List<Lawyer> getAllLawyer(){
 		// returns list of lawyers
 		Session session = factory.getCurrentSession();
-		Query<User> allLawyer = session.createQuery("from User where role = 'lawyer'", User.class);
+		Query<Lawyer> allLawyer = session.createQuery("from Lawyer", Lawyer.class);
 		return allLawyer.getResultList();
 	}
 	
@@ -61,7 +67,7 @@ public class UserDao {
 	public List<CaseRecord> getUserCase(User user){
 		// return list of cases registered by given user
 		Session session = factory.getCurrentSession();
-		Query<CaseRecord> query = session.createQuery("from CaseRecord where userId = '"
+		Query<CaseRecord> query = session.createQuery("from CaseRecord where user_id = '"
 						+user+"'", CaseRecord.class);
 		return query.getResultList();
 	}

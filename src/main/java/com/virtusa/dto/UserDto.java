@@ -28,6 +28,12 @@ public class UserDto {
 		
 	@NotEmpty
 	private String role;
+	
+	private int experience;
+	
+	private String expertise;
+	
+	private String lawFirmName;
 
 	public UserDto() {
 		super();
@@ -71,6 +77,30 @@ public class UserDto {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public int getExperience() {
+		return experience;
+	}
+
+	public void setExperience(int experience) {
+		this.experience = experience;
+	}
+
+	public String getExpertise() {
+		return expertise;
+	}
+
+	public void setExpertise(String expertise) {
+		this.expertise = expertise;
+	}
+
+	public String getLawFirmName() {
+		return lawFirmName;
+	}
+
+	public void setLawFirmName(String lawFirmName) {
+		this.lawFirmName = lawFirmName;
 	}
 	
 }

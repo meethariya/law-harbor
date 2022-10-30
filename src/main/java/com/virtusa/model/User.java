@@ -5,11 +5,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 import com.virtusa.dto.UserDto;
 
 @Entity
+@Inheritance(strategy=InheritanceType.JOINED)
 @Table(name = "users")
 public class User {
 	@Id
@@ -30,6 +33,7 @@ public class User {
 	
 	private boolean active;
 	
+	@Column(nullable = false, length = 10)
 	private String role;
 	
 	public User() {

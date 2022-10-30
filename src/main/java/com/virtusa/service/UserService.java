@@ -16,6 +16,7 @@ import com.virtusa.exception.IncorrectLoginDetailsException;
 import com.virtusa.exception.UserAlreadyExistException;
 import com.virtusa.exception.UserNotFoundException;
 import com.virtusa.model.CaseRecord;
+import com.virtusa.model.Lawyer;
 import com.virtusa.model.User;
 
 @Service
@@ -41,8 +42,12 @@ public class UserService {
 		if(userDao.getUserByNumber(user.getMobileNumber())!=null) {			
 			throw new UserAlreadyExistException("User Already Exist with mobile number "+user.getMobileNumber());
 		}
-		
-		userDao.saveUser(userDtoToUser(user));
+		if(user.getRole().equals("lawyer")){			
+			userDao.saveLawyer(userDtoToLawyer(user));
+		}
+		else {			
+			userDao.saveUser(userDtoToUser(user));
+		}
 	}
 	
 	@Transactional
@@ -69,7 +74,7 @@ public class UserService {
 	}
 	
 	@Transactional
-	public List<User> getAllLawyer(){
+	public List<Lawyer> getAllLawyer(){
 		// returns list of lawyers
 		return userDao.getAllLawyer();
 	}
@@ -85,6 +90,10 @@ public class UserService {
 	public User userDtoToUser(UserDto myUser) {
 		// converts DTO object to model object
 		return new User(myUser);
+	}
+	public Lawyer userDtoToLawyer(UserDto myUser) {
+		// converts DTO object to model object
+		return new Lawyer(myUser);
 	}
 	
 	@Transactional

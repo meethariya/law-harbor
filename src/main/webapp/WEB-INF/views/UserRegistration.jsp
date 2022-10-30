@@ -36,7 +36,25 @@
 		</form:select>  
 		<form:errors path="role"/><br>
 		
+		<!-- Additional lawyer information -->
+		<div id="myDiv" style="display: none">
+			<label for="experience">Experience(yrs): </label>
+			<form:input type="number" name="experience"	id="experience" path="experience"/><br>
+			<label for="expertise">Expertise: </label>
+			<form:input  			name="expertise"	id="expertise" path="expertise"/><br>
+			<label for="lawFirmName">Law Firm Name: </label>
+			<form:input 			name="lawFirmName"	id="lawFirmName" path="lawFirmName"/><br>
+		</div>
+		
 		<form:button value="Submit">Submit</form:button>
 	</form:form>
+	
+	<script type="text/javascript">
+		<!-- Opens additional lawyer information form on role option "lawyer" -->
+		var myDiv = document.getElementById("myDiv");
+		document.getElementById("role").onchange = function(){
+		  myDiv.style.display = (this.selectedIndex == 1) ? "block" : "none";
+		}
+	</script>
 </body>
 </html>

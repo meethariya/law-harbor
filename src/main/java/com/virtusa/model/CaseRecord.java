@@ -25,7 +25,7 @@ public class CaseRecord {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private User userId;
+	private User user;
 	
 	@Column(name="date_time", nullable = false)
 	private Date date;
@@ -44,9 +44,9 @@ public class CaseRecord {
 	public CaseRecord() {
 		super();
 	}
-	public CaseRecord(User userId, Date date, String eventDetail, String actionTaken, User issuedBy) {
+	public CaseRecord(User user, Date date, String eventDetail, String actionTaken, User issuedBy) {
 		super();
-		this.userId = userId;
+		this.user = user;
 		this.date = date;
 		this.eventDetail = eventDetail;
 		this.actionTaken = actionTaken;
@@ -58,11 +58,11 @@ public class CaseRecord {
 	public void setCaseRecordId(int caseRecordId) {
 		this.caseRecordId = caseRecordId;
 	}
-	public User getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
-	public void setUserId(User userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 	public Date getDate() {
 		return date;
@@ -90,7 +90,7 @@ public class CaseRecord {
 	}
 	@Override
 	public String toString() {
-		return "CaseRecord [caseRecordId=" + caseRecordId + ", userId=" + userId + ", date=" + date + ", eventDetail="
+		return "CaseRecord [caseRecordId=" + caseRecordId + ", user=" + user + ", date=" + date + ", eventDetail="
 				+ eventDetail + ", actionTaken=" + actionTaken + ", issuedBy=" + issuedBy + "]";
 	}
 	

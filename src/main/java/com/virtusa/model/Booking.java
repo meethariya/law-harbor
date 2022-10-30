@@ -25,15 +25,12 @@ public class Booking {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private User clientDetail;
+	private User client;
 	
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private User lawyerDetail;
-	
-	@Column(name = "law_firm_name", length = 30, nullable = false)
-	private String lawfirmName;
+	private User lawyer;
 	
 	@Column(name = "date_time", nullable = false)
 	private Date date;
@@ -44,11 +41,10 @@ public class Booking {
 	public Booking() {
 		super();
 	}
-	public Booking(User clientDetail, User lawyerDetail, String lawfirmName, Date date, boolean bookingStatus) {
+	public Booking(User client, User lawyer, Date date, boolean bookingStatus) {
 		super();
-		this.clientDetail = clientDetail;
-		this.lawyerDetail = lawyerDetail;
-		this.lawfirmName = lawfirmName;
+		this.client = client;
+		this.lawyer = lawyer;
 		this.date = date;
 		this.bookingStatus = bookingStatus;
 	}
@@ -58,23 +54,17 @@ public class Booking {
 	public void setBookingId(int bookingId) {
 		this.bookingId = bookingId;
 	}
-	public User getClientDetail() {
-		return clientDetail;
+	public User getClient() {
+		return client;
 	}
-	public void setClientDetail(User clientDetail) {
-		this.clientDetail = clientDetail;
+	public void setClient(User client) {
+		this.client = client;
 	}
-	public User getLawyerDetail() {
-		return lawyerDetail;
+	public User getLawyer() {
+		return lawyer;
 	}
-	public void setLawyerDetail(User lawyerDetail) {
-		this.lawyerDetail = lawyerDetail;
-	}
-	public String getLawfirmName() {
-		return lawfirmName;
-	}
-	public void setLawfirmName(String lawfirmName) {
-		this.lawfirmName = lawfirmName;
+	public void setLawyer(User lawyer) {
+		this.lawyer = lawyer;
 	}
 	public Date getDate() {
 		return date;
@@ -90,8 +80,9 @@ public class Booking {
 	}
 	@Override
 	public String toString() {
-		return "Booking [bookingId=" + bookingId + ", clientDetail=" + clientDetail + ", lawyerDetail=" + lawyerDetail
-				+ ", lawfirmName=" + lawfirmName + ", date=" + date + ", bookingStatus=" + bookingStatus + "]";
+		return "Booking [bookingId=" + bookingId + ", client=" + client + ", lawyer=" + lawyer
+				+ ", date=" + date + ", bookingStatus=" + bookingStatus + "]";
 	}
+	
 	
 }

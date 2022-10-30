@@ -26,12 +26,12 @@ public class Report {
 	@OneToOne
 	@JoinColumn(nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private Booking appointmentDetail;
+	private Booking appointment;
 	
 	@OneToOne
 	@JoinColumn(nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private CaseRecord caseRecordDetail;
+	private CaseRecord caseRecord;
 	
 	@Column(name = "date_time")
 	private Date dateTime;
@@ -47,11 +47,11 @@ public class Report {
 	public Report() {
 		super();
 	}
-	public Report(Booking appointmentDetail, CaseRecord caseRecordDetail, Date date, String reportDetail,
+	public Report(Booking appointment, CaseRecord caseRecord, Date date, String reportDetail,
 			User issuedBy) {
 		super();
-		this.appointmentDetail = appointmentDetail;
-		this.caseRecordDetail = caseRecordDetail;
+		this.appointment = appointment;
+		this.caseRecord = caseRecord;
 		this.dateTime = date;
 		this.reportDetail = reportDetail;
 		this.issuedBy = issuedBy;
@@ -62,17 +62,17 @@ public class Report {
 	public void setReportId(int reportId) {
 		this.reportId = reportId;
 	}
-	public Booking getAppointmentDetail() {
-		return appointmentDetail;
+	public Booking getAppointment() {
+		return appointment;
 	}
-	public void setAppointmentDetail(Booking appointmentDetail) {
-		this.appointmentDetail = appointmentDetail;
+	public void setAppointment(Booking appointment) {
+		this.appointment = appointment;
 	}
-	public CaseRecord getCaseRecordDetail() {
-		return caseRecordDetail;
+	public CaseRecord getCaseRecord() {
+		return caseRecord;
 	}
-	public void setCaseRecordDetail(CaseRecord caseRecordDetail) {
-		this.caseRecordDetail = caseRecordDetail;
+	public void setCaseRecord(CaseRecord caseRecord) {
+		this.caseRecord = caseRecord;
 	}
 	public Date getDateTime() {
 		return dateTime;
@@ -94,8 +94,8 @@ public class Report {
 	}
 	@Override
 	public String toString() {
-		return "Report [reportId=" + reportId + ", appointmentDetail=" + appointmentDetail + ", caseRecordDetail="
-				+ caseRecordDetail + ", date=" + dateTime + ", reportDetail=" + reportDetail + ", issuedBy=" + issuedBy + "]";
+		return "Report [reportId=" + reportId + ", appointment=" + appointment + ", caseRecord="
+				+ caseRecord + ", date=" + dateTime + ", reportDetail=" + reportDetail + ", issuedBy=" + issuedBy + "]";
 	}
 	
 }
