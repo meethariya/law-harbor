@@ -213,3 +213,159 @@ java.lang.IllegalStateException: Neither BindingResult nor plain target object f
 [WARN ] 30-10-2022 15:17 com.virtusa.dao.UserDao:24 Dao Constructor called
 [WARN ] 30-10-2022 15:17 com.virtusa.service.UserService:27 Service Constructor called
 [WARN ] 30-10-2022 15:17 com.virtusa.controller.UserController:36 Controller Constructor called
+[WARN ] 30-10-2022 19:31 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 19:31 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 19:31 com.virtusa.controller.UserController:37 Controller Constructor called
+[WARN ] 30-10-2022 19:31 com.virtusa.controller.UserController:42 Index called
+[WARN ] 30-10-2022 19:42 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 19:42 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 19:42 com.virtusa.controller.UserController:37 Controller Constructor called
+[WARN ] 30-10-2022 19:42 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 19:42 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 19:42 com.virtusa.controller.UserController:37 Controller Constructor called
+[WARN ] 30-10-2022 19:43 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 19:43 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 19:43 com.virtusa.controller.UserController:37 Controller Constructor called
+[WARN ] 30-10-2022 19:44 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 19:44 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 19:44 com.virtusa.controller.UserController:37 Controller Constructor called
+[WARN ] 30-10-2022 19:45 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 19:45 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 19:45 com.virtusa.controller.UserController:37 Controller Constructor called
+[WARN ] 30-10-2022 19:53 servlet.mvc.support.DefaultHandlerExceptionResolver:208 Resolved [org.springframework.validation.BindException: org.springframework.validation.BeanPropertyBindingResult: 1 errors<EOL>Field error in object 'bookingData' on field 'lawyer': rejected value [Lawyer [experience=3, expertise=admin, lawFirmName=null, getId()=4, getEmail()=lawyer@gmail.com, getPassword()=12345678, getUsername()=Lawyer 1, getMobileNumber()=1234567890, isActive()=false]]; codes [typeMismatch.bookingData.lawyer,typeMismatch.lawyer,typeMismatch.com.virtusa.model.User,typeMismatch]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [bookingData.lawyer,lawyer]; arguments []; default message [lawyer]]; default message [Failed to convert property value of type 'java.lang.String' to required type 'com.virtusa.model.User' for property 'lawyer'; nested exception is java.lang.IllegalStateException: Cannot convert value of type 'java.lang.String' to required type 'com.virtusa.model.User' for property 'lawyer': no matching editors or conversion strategy found]]
+[WARN ] 30-10-2022 19:56 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 19:56 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 19:56 com.virtusa.controller.UserController:37 Controller Constructor called
+[WARN ] 30-10-2022 20:05 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 20:05 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 20:05 com.virtusa.controller.UserController:39 Controller Constructor called
+[WARN ] 30-10-2022 20:05 engine.jdbc.spi.SqlExceptionHelper:137 SQL Error: 1722, SQLState: 42000
+[ERROR] 30-10-2022 20:05 engine.jdbc.spi.SqlExceptionHelper:142 ORA-01722: invalid number
+
+[WARN ] 30-10-2022 20:06 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 20:06 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 20:06 com.virtusa.controller.UserController:39 Controller Constructor called
+[WARN ] 30-10-2022 20:07 servlet.mvc.support.DefaultHandlerExceptionResolver:208 Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported]
+[WARN ] 30-10-2022 20:07 com.virtusa.controller.UserController:44 Index called
+[WARN ] 30-10-2022 20:07 engine.jdbc.spi.SqlExceptionHelper:137 SQL Error: 1722, SQLState: 42000
+[ERROR] 30-10-2022 20:07 engine.jdbc.spi.SqlExceptionHelper:142 ORA-01722: invalid number
+
+[WARN ] 30-10-2022 20:08 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 20:09 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 20:09 com.virtusa.controller.UserController:39 Controller Constructor called
+[WARN ] 30-10-2022 20:16 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 20:17 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 20:17 com.virtusa.controller.UserController:39 Controller Constructor called
+[WARN ] 30-10-2022 20:17 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 20:17 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 20:17 com.virtusa.controller.UserController:39 Controller Constructor called
+[WARN ] 30-10-2022 20:18 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 20:18 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 20:18 com.virtusa.controller.UserController:39 Controller Constructor called
+[WARN ] 30-10-2022 20:22 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 20:22 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 20:22 com.virtusa.controller.UserController:39 Controller Constructor called
+[WARN ] 30-10-2022 20:23 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 20:23 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 20:23 com.virtusa.controller.UserController:39 Controller Constructor called
+[WARN ] 30-10-2022 20:23 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 20:23 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 20:23 com.virtusa.controller.UserController:39 Controller Constructor called
+[WARN ] 30-10-2022 20:24 engine.jdbc.spi.SqlExceptionHelper:137 SQL Error: 1722, SQLState: 42000
+[ERROR] 30-10-2022 20:24 engine.jdbc.spi.SqlExceptionHelper:142 ORA-01722: invalid number
+
+[WARN ] 30-10-2022 20:26 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 20:26 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 20:26 com.virtusa.controller.UserController:38 Controller Constructor called
+[WARN ] 30-10-2022 20:27 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 20:27 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 20:27 com.virtusa.controller.UserController:38 Controller Constructor called
+[WARN ] 30-10-2022 20:27 com.virtusa.controller.UserController:43 Index called
+[WARN ] 30-10-2022 20:27 engine.jdbc.spi.SqlExceptionHelper:137 SQL Error: 1722, SQLState: 42000
+[ERROR] 30-10-2022 20:27 engine.jdbc.spi.SqlExceptionHelper:142 ORA-01722: invalid number
+
+[WARN ] 30-10-2022 20:29 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 20:29 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 20:29 com.virtusa.controller.UserController:38 Controller Constructor called
+[WARN ] 30-10-2022 20:29 engine.jdbc.spi.SqlExceptionHelper:137 SQL Error: 1722, SQLState: 42000
+[ERROR] 30-10-2022 20:29 engine.jdbc.spi.SqlExceptionHelper:142 ORA-01722: invalid number
+
+[WARN ] 30-10-2022 20:34 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 20:34 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 20:34 com.virtusa.controller.UserController:38 Controller Constructor called
+[WARN ] 30-10-2022 20:34 engine.jdbc.spi.SqlExceptionHelper:137 SQL Error: 1722, SQLState: 42000
+[ERROR] 30-10-2022 20:34 engine.jdbc.spi.SqlExceptionHelper:142 ORA-01722: invalid number
+
+[WARN ] 30-10-2022 20:35 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 20:35 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 20:35 com.virtusa.controller.UserController:38 Controller Constructor called
+[WARN ] 30-10-2022 20:36 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 20:36 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 20:36 com.virtusa.controller.UserController:38 Controller Constructor called
+[WARN ] 30-10-2022 20:37 engine.jdbc.spi.SqlExceptionHelper:137 SQL Error: 1722, SQLState: 42000
+[ERROR] 30-10-2022 20:37 engine.jdbc.spi.SqlExceptionHelper:142 ORA-01722: invalid number
+
+[WARN ] 30-10-2022 21:48 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 21:48 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 21:48 com.virtusa.controller.UserController:38 Controller Constructor called
+[WARN ] 30-10-2022 21:48 com.virtusa.controller.UserController:43 Index called
+[WARN ] 30-10-2022 21:56 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 21:56 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 21:56 com.virtusa.controller.UserController:38 Controller Constructor called
+[WARN ] 30-10-2022 22:02 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 22:02 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 22:02 com.virtusa.controller.UserController:38 Controller Constructor called
+[WARN ] 30-10-2022 22:04 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 22:04 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 22:04 com.virtusa.controller.UserController:38 Controller Constructor called
+[WARN ] 30-10-2022 22:26 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 22:26 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 22:26 com.virtusa.controller.UserController:38 Controller Constructor called
+[WARN ] 30-10-2022 22:27 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 22:27 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 22:27 com.virtusa.controller.UserController:38 Controller Constructor called
+[WARN ] 30-10-2022 23:12 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 23:12 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 23:12 com.virtusa.controller.UserController:38 Controller Constructor called
+[WARN ] 30-10-2022 23:14 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 23:14 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 23:14 com.virtusa.controller.UserController:38 Controller Constructor called
+[WARN ] 30-10-2022 23:14 com.virtusa.controller.UserController:43 Index called
+[WARN ] 30-10-2022 23:16 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 23:16 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 23:16 com.virtusa.controller.UserController:38 Controller Constructor called
+[WARN ] 30-10-2022 23:32 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 23:32 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 23:32 com.virtusa.controller.UserController:38 Controller Constructor called
+[WARN ] 30-10-2022 23:32 engine.jdbc.spi.SqlExceptionHelper:137 SQL Error: 1722, SQLState: 42000
+[ERROR] 30-10-2022 23:32 engine.jdbc.spi.SqlExceptionHelper:142 ORA-01722: invalid number
+
+[WARN ] 30-10-2022 23:34 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 30-10-2022 23:34 com.virtusa.service.UserService:33 Service Constructor called
+[WARN ] 30-10-2022 23:34 com.virtusa.controller.UserController:38 Controller Constructor called
+[WARN ] 31-10-2022 00:04 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 31-10-2022 00:04 com.virtusa.service.UserService:35 Service Constructor called
+[WARN ] 31-10-2022 00:04 com.virtusa.controller.UserController:41 Controller Constructor called
+[WARN ] 31-10-2022 00:04 springframework.web.servlet.PageNotFound:1278 No mapping for GET /project/removeBooking21
+[WARN ] 31-10-2022 00:05 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 31-10-2022 00:05 com.virtusa.service.UserService:35 Service Constructor called
+[WARN ] 31-10-2022 00:05 com.virtusa.controller.UserController:41 Controller Constructor called
+[WARN ] 31-10-2022 00:05 springframework.web.servlet.PageNotFound:1278 No mapping for GET /project/removeBooking/21
+[WARN ] 31-10-2022 00:06 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 31-10-2022 00:06 com.virtusa.service.UserService:35 Service Constructor called
+[WARN ] 31-10-2022 00:06 com.virtusa.controller.UserController:41 Controller Constructor called
+[WARN ] 31-10-2022 00:07 servlet.mvc.support.DefaultHandlerExceptionResolver:208 Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: "allbooking"]
+[WARN ] 31-10-2022 00:08 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 31-10-2022 00:08 com.virtusa.service.UserService:35 Service Constructor called
+[WARN ] 31-10-2022 00:08 com.virtusa.controller.UserController:41 Controller Constructor called
+[WARN ] 31-10-2022 00:09 servlet.mvc.support.DefaultHandlerExceptionResolver:208 Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: "allbooking"]
+[WARN ] 31-10-2022 00:10 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 31-10-2022 00:10 com.virtusa.service.UserService:35 Service Constructor called
+[WARN ] 31-10-2022 00:10 com.virtusa.controller.UserController:41 Controller Constructor called
+[WARN ] 31-10-2022 00:10 springframework.web.servlet.PageNotFound:1278 No mapping for GET /project/allbooking
+[WARN ] 31-10-2022 00:11 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 31-10-2022 00:11 com.virtusa.service.UserService:35 Service Constructor called
+[WARN ] 31-10-2022 00:11 com.virtusa.controller.UserController:41 Controller Constructor called
+[WARN ] 31-10-2022 00:13 com.virtusa.dao.UserDao:26 Dao Constructor called
+[WARN ] 31-10-2022 00:13 com.virtusa.service.UserService:35 Service Constructor called
+[WARN ] 31-10-2022 00:13 com.virtusa.controller.UserController:41 Controller Constructor called

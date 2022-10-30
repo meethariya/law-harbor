@@ -1,5 +1,8 @@
 package com.virtusa.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -10,11 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.virtusa.dao.UserDao;
+import com.virtusa.dto.BookingDto;
 import com.virtusa.dto.LoginUserDto;
 import com.virtusa.dto.UserDto;
+import com.virtusa.exception.BookingAlreadyConfirmedException;
 import com.virtusa.exception.IncorrectLoginDetailsException;
+import com.virtusa.exception.NoBookingFoundException;
+import com.virtusa.exception.SlotAlreadyReservedException;
 import com.virtusa.exception.UserAlreadyExistException;
 import com.virtusa.exception.UserNotFoundException;
+import com.virtusa.model.Booking;
 import com.virtusa.model.CaseRecord;
 import com.virtusa.model.Lawyer;
 import com.virtusa.model.User;
@@ -87,18 +95,62 @@ public class UserService {
 		userDao.userActiveStatusUpdate(user);
 	}
 	
+	@Transactional
+	public List<CaseRecord> getUserCase(String email){
+		// returns list of cases reported by user
+		return userDao.getUserCase(userDao.getUser(email));
+	}
+
+	@Transactional
+	public void bookAppointment(BookingDto bookingDto) {
+		Booking booking = bookingDtoTobooking(bookingDto);
+		if(userDao.existingBooking(booking.getLawyer(), booking.getDate())) {			
+			throw new SlotAlreadyReservedException("Please change your slot");
+		}
+		userDao.bookAppointment(booking);		
+	}
 	public User userDtoToUser(UserDto myUser) {
 		// converts DTO object to model object
 		return new User(myUser);
 	}
+	
 	public Lawyer userDtoToLawyer(UserDto myUser) {
 		// converts DTO object to model object
 		return new Lawyer(myUser);
 	}
 	
 	@Transactional
-	public List<CaseRecord> getUserCase(String email){
-		// returns list of cases reported by user
-		return userDao.getUserCase(userDao.getUser(email));
+	public Booking bookingDtoTobooking(BookingDto booking) {
+		// converts DTO object to model object
+		booking.setClient(getUser(booking.getUserEmail()));
+		booking.setLawyer(userDao.getLawyer(booking.getLawyerEmail()));
+		SimpleDateFormat ft = new SimpleDateFormat("MM-dd-yyyy HH");
+		try {
+			Date bookingDateTime = ft.parse(booking.getAppointmentDate()+" "+booking.getAppointmentTime());
+			booking.setDateTime(bookingDateTime);
+		} catch (ParseException e) {
+			log.error(e.getStackTrace());
+		}
+		return new Booking(booking);
+	}
+
+	@Transactional
+	public List<Booking> getAllBooking(String email) {
+		// Returns all booking by a user
+		User user = getUser(email);
+		return userDao.getAllBooking(user);
+		
+	}
+	
+	@Transactional
+	public void removeBooking(int id) {
+		Booking booking = userDao.getBooking(id);
+		if(booking==null) {
+			throw new NoBookingFoundException("No appointment with id "+id);
+		}
+		if(booking.isBookingStatus()) {
+			throw new BookingAlreadyConfirmedException("Booking is already confirmed by lawyer. Please contact Lawyer");
+		}
+		userDao.removeBooking(booking);
 	}
 }

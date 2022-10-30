@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.virtusa.dto.BookingDto;
+
 @Entity
 @Table(name = "appointment")
 public class Booking {
@@ -30,7 +32,7 @@ public class Booking {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private User lawyer;
+	private Lawyer lawyer;
 	
 	@Column(name = "date_time", nullable = false)
 	private Date date;
@@ -41,12 +43,18 @@ public class Booking {
 	public Booking() {
 		super();
 	}
-	public Booking(User client, User lawyer, Date date, boolean bookingStatus) {
+	public Booking(User client, Lawyer lawyer, Date date, boolean bookingStatus) {
 		super();
 		this.client = client;
 		this.lawyer = lawyer;
 		this.date = date;
 		this.bookingStatus = bookingStatus;
+	}
+	public Booking(BookingDto booking) {
+		super();
+		this.client = booking.getClient();
+		this.lawyer = booking.getLawyer();
+		this.date = booking.getDateTime();
 	}
 	public int getBookingId() {
 		return bookingId;
@@ -60,10 +68,10 @@ public class Booking {
 	public void setClient(User client) {
 		this.client = client;
 	}
-	public User getLawyer() {
+	public Lawyer getLawyer() {
 		return lawyer;
 	}
-	public void setLawyer(User lawyer) {
+	public void setLawyer(Lawyer lawyer) {
 		this.lawyer = lawyer;
 	}
 	public Date getDate() {

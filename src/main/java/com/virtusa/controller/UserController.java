@@ -11,13 +11,18 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.virtusa.dto.BookingData;
+import com.virtusa.dto.BookingDto;
 import com.virtusa.dto.LoginUserDto;
 import com.virtusa.dto.UserDto;
+import com.virtusa.exception.BookingAlreadyConfirmedException;
 import com.virtusa.exception.IncorrectLoginDetailsException;
+import com.virtusa.exception.NoBookingFoundException;
+import com.virtusa.exception.SlotAlreadyReservedException;
 import com.virtusa.exception.UserAlreadyExistException;
 import com.virtusa.exception.UserNotFoundException;
 import com.virtusa.service.UserService;
@@ -38,19 +43,17 @@ public class UserController {
 	
 	@GetMapping("/")
 	public String index() {
-		log.warn("Index called");
 		return "Index";
 	}
 	
 	@GetMapping("/register")
 	public String getRegisterPage(@ModelAttribute("user") UserDto myuser) {
-		log.info("Get Register Called");
 		return "UserRegistration";
 	}
 	
 	@PostMapping("/registerForm")
 	public String postRegisterForm(@Valid @ModelAttribute("user") UserDto myUser,
-			Errors error, Model model) {
+			Errors error, RedirectAttributes redirectAttribute) {
 		try {			
 			if(error.hasErrors()) {	
 				throw new IncorrectLoginDetailsException("Enter Details");
@@ -60,21 +63,20 @@ public class UserController {
 			service.saveUser(myUser);
 		}
 		catch(UserAlreadyExistException | IncorrectLoginDetailsException e){	
-			model.addAttribute("errMessage", e.getMessage());
-			return "UserRegistration";
+			redirectAttribute.addFlashAttribute("errMessage", e.getMessage());
+			return "redirect:register";
 		}
 		return	REDIRECTLOGIN;
 	}
 
 	@GetMapping("/login")
 	public String getLoginPage(@ModelAttribute("user") LoginUserDto myuser) {
-		log.info("Get Register Called");
 		return "UserLogin";
 	}
 	
 	@PostMapping("/loginForm")
 	public String postLoginForm(@Valid @ModelAttribute("user") LoginUserDto myUser,
-			Errors error, Model model, HttpSession session) {
+			Errors error, RedirectAttributes redirectAttribute, HttpSession session) {
 		try {
 			if(error.hasErrors()) {			
 				throw new IncorrectLoginDetailsException("Enter Details");
@@ -84,15 +86,16 @@ public class UserController {
 			service.loginUser(myUser);
 		}
 		catch(IncorrectLoginDetailsException | UserNotFoundException e) {
-			model.addAttribute("errMessage", e.getMessage());
-			return "UserLogin";
+			redirectAttribute.addFlashAttribute("errMessage", e.getMessage());
+			return REDIRECTLOGIN;
 		}
 		session.setAttribute(EMAIL, myUser.getEmail());		// set session on login
 		return	"redirect:home";
 	}
 	
 	@GetMapping("/home")
-	public String getHome(Model model, HttpSession session) {
+	public String getHome(Model model, HttpSession session, 
+			@ModelAttribute("bookingStatus") String bookingStatus) {
 		String email = (String) session.getAttribute(EMAIL);
 		if(email == null) {
 			return REDIRECTLOGIN;
@@ -100,6 +103,7 @@ public class UserController {
 		
 		model.addAttribute("userName",service.getUser(email).getUsername());
 		model.addAttribute("allLawyer", service.getAllLawyer());
+		model.addAttribute("bookingStatus", bookingStatus);
 		return "UserHome";
 	}
 	
@@ -109,13 +113,13 @@ public class UserController {
 		if(email != null) {
 			service.logoutUser(email);
 			session.removeAttribute(EMAIL);						// remove session on logout
-			log.info(email);
 		}		
 		return REDIRECTLOGIN;
 	}
 	
 	@GetMapping("/caseRecord")
 	public String getCases(Model model, HttpSession session) {
+		// Shows all cases by a user
 		String email = (String) session.getAttribute(EMAIL);
 		if(email == null) {
 			return REDIRECTLOGIN;
@@ -125,8 +129,40 @@ public class UserController {
 	}
 	
 	@PostMapping("/bookingForm")
-	public String bookAppointment(@ModelAttribute("bookingData") BookingData booking) {
-		
+	public String bookAppointment(@ModelAttribute("bookingData") BookingDto booking,
+			RedirectAttributes redirectAttribute) {
+		// take appointment for user
+		String bookingStatus = "bookingStatus";
+		try {
+			service.bookAppointment(booking);
+			redirectAttribute.addFlashAttribute(bookingStatus, "Slot reserved");
+		}
+		catch(SlotAlreadyReservedException e) {
+			redirectAttribute.addFlashAttribute(bookingStatus, "Slot already exists");			
+		}
 		return "redirect:home";
+	}
+	
+	@GetMapping("/allBooking")
+	public String allAppointment(Model model, HttpSession session, 
+			@ModelAttribute("message") String message ) {
+		// returns list of bookings made by user
+		model.addAttribute("allBooking",service.getAllBooking((String) session.getAttribute(EMAIL)));
+		model.addAttribute("removeBookingMessage", message);
+		return "UserBooking";
+	}
+	
+	@GetMapping("/removeBooking/{bookingId}")
+	public String removeBooking(@PathVariable("bookingId") int id,
+			RedirectAttributes redirectAttributes) {
+		// removes booking if it is not confirmed by lawyer
+		try {			
+			service.removeBooking(id);
+			redirectAttributes.addFlashAttribute("message", "Appointment cancelled");
+		}
+		catch(NoBookingFoundException | BookingAlreadyConfirmedException e) {			
+			redirectAttributes.addFlashAttribute("message", e.getMessage());
+		}
+		return "redirect:/allBooking";
 	}
 }

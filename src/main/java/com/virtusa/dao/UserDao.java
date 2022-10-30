@@ -1,5 +1,6 @@
 package com.virtusa.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -12,6 +13,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.virtusa.model.Booking;
 import com.virtusa.model.CaseRecord;
 import com.virtusa.model.Lawyer;
 import com.virtusa.model.User;
@@ -43,6 +45,14 @@ public class UserDao {
 		Query<User> query = session.createQuery("from User where email='"+email+"'", User.class);
 		return query.uniqueResult();
 	}
+
+	public Lawyer getLawyer(String email) {
+		// Returns user matching with email. Returns Null if no such record present
+		Session session = factory.getCurrentSession();
+		User user = getUser(email);
+		Query<Lawyer> query = session.createQuery("from Lawyer where id = '"+user.getId()+"'", Lawyer.class);
+		return query.uniqueResult();
+	}
 	
 	public void userActiveStatusUpdate(User user) {
 		// changes user's active attribute to online
@@ -71,4 +81,35 @@ public class UserDao {
 						+user+"'", CaseRecord.class);
 		return query.getResultList();
 	}
+	
+	public boolean existingBooking(Lawyer lawyer, Date bookingDate) {
+		// returns boolean value to check if any appointment is reserved
+		// for given lawyer for given date and time.
+		Session session = factory.getCurrentSession();
+		Query<Booking> query = session.createQuery("from Booking where Lawyer = '" + 
+					lawyer.getId()+"' and date='"+bookingDate+"'", Booking.class);
+		return query.uniqueResult()!=null;
+	}
+	public void bookAppointment(Booking booking) {
+		// books an appointment
+		factory.getCurrentSession().save(booking);
+	}
+
+	public List<Booking> getAllBooking(User user) {
+		// returns List of Bookings by given user
+		Session session = factory.getCurrentSession();
+		Query<Booking> query = session.createQuery("from Booking where client='"+user.getId()+"'", Booking.class);
+		return query.getResultList();
+	}
+	
+	public Booking getBooking(int id) {
+		// returns booking object provided id
+		return factory.getCurrentSession().get(Booking.class, id);
+	}
+
+	public void removeBooking(Booking booking) {
+		// removes/cancels a booking made by user
+		factory.getCurrentSession().remove(booking);
+	}
 }
+

@@ -5,13 +5,17 @@
 <html lang="en">
 <head>
 <meta charset="ISO-8859-1">
-<title>Case Records</title>
+<title>User Bookings</title>
 </head>
 <body>
-	<h3>Case Records</h3>
+	<h3>User Bookings</h3>
+	<h3>${ removeBookingMessage }</h3>
 	<ul>
-		<c:forEach var="caseRecord" items="${allCase}">
-			<li>${caseRecord}</li>
+		<c:forEach var="booking" items="${allBooking}">
+			<li>
+				${booking}
+				<a href="removeBooking/${booking.getBookingId()}"><button>Remove Booking</button></a>
+			</li>
 		</c:forEach>
 	</ul>
 	<br><a href="home">Home</a>
