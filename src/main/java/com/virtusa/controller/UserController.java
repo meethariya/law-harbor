@@ -31,19 +31,22 @@ import com.virtusa.service.UserService;
 @RequestMapping("/")
 public class UserController {
 	private static final Logger log = LogManager.getLogger(UserController.class);
+	
 	private static final String REDIRECTLOGIN = "redirect:login";
-	private static final String EMAIL = "email";
+	private static final String REDIRECTHOME = "redirect:home";
+	private static final String MISSINGVALUE = "Enter Details";
+	private static final String EMAIL = "userEmail";
 	
 	@Autowired
 	UserService service;
 	
 	public UserController() {
-		log.warn("Controller Constructor called");
+		log.warn("UserController Constructor called");
 	}
 	
 	@GetMapping("/")
 	public String index() {
-		return "Index";
+		return REDIRECTLOGIN;
 	}
 	
 	@GetMapping("/register")
@@ -53,18 +56,18 @@ public class UserController {
 	
 	@PostMapping("/registerForm")
 	public String postRegisterForm(@Valid @ModelAttribute("user") UserDto myUser,
-			Errors error, RedirectAttributes redirectAttribute) {
+			Errors error, Model model) {
 		try {			
 			if(error.hasErrors()) {	
-				throw new IncorrectLoginDetailsException("Enter Details");
+				throw new IncorrectLoginDetailsException(MISSINGVALUE);
 			}
 			
 			// registers users or throws error if user already exist
 			service.saveUser(myUser);
 		}
 		catch(UserAlreadyExistException | IncorrectLoginDetailsException e){	
-			redirectAttribute.addFlashAttribute("errMessage", e.getMessage());
-			return "redirect:register";
+			model.addAttribute("errMessage", e.getMessage());
+			return "UserRegistration";
 		}
 		return	REDIRECTLOGIN;
 	}
@@ -79,18 +82,28 @@ public class UserController {
 			Errors error, RedirectAttributes redirectAttribute, HttpSession session) {
 		try {
 			if(error.hasErrors()) {			
-				throw new IncorrectLoginDetailsException("Enter Details");
+				throw new IncorrectLoginDetailsException(MISSINGVALUE);
 			}
 			
 			// login user or throws error UserNotFound or IncorrectLoginDetailException
-			service.loginUser(myUser);
+			String role = service.loginUser(myUser);
+			if(role.equals("user")) {
+				session.setAttribute(EMAIL, myUser.getEmail());		// set session for user
+				return	REDIRECTHOME;				
+			}
+			else if(role.equals("lawyer")) {				
+				session.setAttribute("lawyerEmail", myUser.getEmail());		// set session for lawyer
+				return	"redirect:lawyer/";				
+			}
+			else {				
+				session.setAttribute("adminEmail", myUser.getEmail());		// set session for admin
+				return	"redirect:admin/";				
+			}
 		}
 		catch(IncorrectLoginDetailsException | UserNotFoundException e) {
 			redirectAttribute.addFlashAttribute("errMessage", e.getMessage());
 			return REDIRECTLOGIN;
 		}
-		session.setAttribute(EMAIL, myUser.getEmail());		// set session on login
-		return	"redirect:home";
 	}
 	
 	@GetMapping("/home")
@@ -129,18 +142,23 @@ public class UserController {
 	}
 	
 	@PostMapping("/bookingForm")
-	public String bookAppointment(@ModelAttribute("bookingData") BookingDto booking,
-			RedirectAttributes redirectAttribute) {
+	public String bookAppointment(@Valid @ModelAttribute("bookingData") BookingDto booking,
+			Errors error, RedirectAttributes redirectAttribute) {
 		// take appointment for user
 		String bookingStatus = "bookingStatus";
-		try {
-			service.bookAppointment(booking);
-			redirectAttribute.addFlashAttribute(bookingStatus, "Slot reserved");
+		if(error.hasErrors()) {			
+			redirectAttribute.addFlashAttribute(bookingStatus, MISSINGVALUE);
 		}
-		catch(SlotAlreadyReservedException e) {
-			redirectAttribute.addFlashAttribute(bookingStatus, "Slot already exists");			
+		else {			
+			try {
+				service.bookAppointment(booking);
+				redirectAttribute.addFlashAttribute(bookingStatus, "Slot reserved");
+			}
+			catch(SlotAlreadyReservedException e) {
+				redirectAttribute.addFlashAttribute(bookingStatus, "Slot already exists");			
+			}
 		}
-		return "redirect:home";
+		return REDIRECTHOME;
 	}
 	
 	@GetMapping("/allBooking")

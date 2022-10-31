@@ -23,7 +23,7 @@ public class UserDao {
 	private static final Logger log = LogManager.getLogger(UserDao.class);
 
 	public UserDao() {
-		log.warn("Dao Constructor called");
+		log.warn("UserDao Constructor called");
 	}
 
 	@Autowired

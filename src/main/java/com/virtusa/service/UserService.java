@@ -32,7 +32,7 @@ public class UserService {
 	private static final Logger log = LogManager.getLogger(UserService.class);
 	
 	public UserService() {
-		log.warn("Service Constructor called");
+		log.warn("UserService Constructor called");
 	}
 	
 	@Autowired
@@ -59,7 +59,7 @@ public class UserService {
 	}
 	
 	@Transactional
-	public void loginUser(LoginUserDto requestedUser) {
+	public String loginUser(LoginUserDto requestedUser) {
 		// Verifies valid email and password. Throws error in case of incorrect credentials.
 		// sets user's status online.
 		User dbUser = getUser(requestedUser.getEmail());
@@ -73,6 +73,7 @@ public class UserService {
 		
 		dbUser.setActive(true);
 		userDao.userActiveStatusUpdate(dbUser);
+		return dbUser.getRole();
 	}
 
 	@Transactional
@@ -124,7 +125,8 @@ public class UserService {
 		// converts DTO object to model object
 		booking.setClient(getUser(booking.getUserEmail()));
 		booking.setLawyer(userDao.getLawyer(booking.getLawyerEmail()));
-		SimpleDateFormat ft = new SimpleDateFormat("MM-dd-yyyy HH");
+		SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH");
+		log.info(booking.getAppointmentDate());
 		try {
 			Date bookingDateTime = ft.parse(booking.getAppointmentDate()+" "+booking.getAppointmentTime());
 			booking.setDateTime(bookingDateTime);

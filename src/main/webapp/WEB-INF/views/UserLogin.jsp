@@ -21,5 +21,6 @@
 		<form:errors path="password"/><br>
 		<form:button value="Submit">Submit</form:button>
 	</form:form>
+	<a href="register">Not yet registered? SignUp</a><br>
 </body>
 </html>

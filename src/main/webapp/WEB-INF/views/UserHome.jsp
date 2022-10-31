@@ -30,7 +30,7 @@
 			</select>
 			<br/>
 			<input type="hidden" id = "setLawyer" name="lawyerEmail">
-			<input type="hidden" id = "setClient" name="userEmail" value="${ sessionScope.email }">			
+			<input type="hidden" id = "setClient" name="userEmail" value="${ sessionScope.userEmail }">			
 			<button type="submit">Book</button>
 		</form>
 	</div>
@@ -49,6 +49,12 @@
 	    } else {
 	      x.style.display = "none";
 	    }
+	    <!-- Set Min date as today -->
+	    var d = new Date();
+	    var s = d.getFullYear() + '-' + 
+        ('0' + (d.getMonth()+1)).slice(-2) + '-' +
+        ('0' + d.getDate()).slice(-2);
+	    document.getElementById('appointmentDate').setAttribute('min', s);
 	  }
 	</script>
 </body>

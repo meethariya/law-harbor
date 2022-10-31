@@ -2,15 +2,22 @@ package com.virtusa.dto;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotEmpty;
+
+import org.springframework.stereotype.Component;
+
 import com.virtusa.model.Lawyer;
 import com.virtusa.model.User;
 
+@Component
 public class BookingDto {
 	private String userEmail;
 	private User client;
 	private String lawyerEmail;
 	private Lawyer lawyer;
+	@NotEmpty
 	private String appointmentDate;
+	@NotEmpty
 	private String appointmentTime;
 	private Date dateTime;
 	public BookingDto() {
