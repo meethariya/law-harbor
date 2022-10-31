@@ -34,17 +34,22 @@ public class LawyerDao {
 
 	public List<Booking> getAllAppointment(Lawyer lawyer) {
 		Session session = factory.getCurrentSession();
-		Query<Booking> query = session.createQuery("from Booking where lawyer = "+lawyer.getId(), Booking.class);
+		Query<Booking> query = session.createQuery("from Booking where lawyer = :lawyer", Booking.class);
+		query.setParameter("lawyer", lawyer);
 		return query.getResultList();
 	}
 	
+	public Booking getBooking(int bookingId) {
+		return userDao.getBooking(bookingId);
+	}
+	
 	public void approveBooking(int bookingId) {
-		Booking appointment = userDao.getBooking(bookingId);
+		Booking appointment = getBooking(bookingId);
 		appointment.setBookingStatus(true);
 		factory.getCurrentSession().update(appointment);
 	}
 
-	public void cancelBooking(int bookingId) {
-		userDao.removeBooking(userDao.getBooking(bookingId));
+	public void cancelBooking(Booking booking) {
+		userDao.removeBooking(booking);
 	}
 }

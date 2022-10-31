@@ -146,6 +146,7 @@ public class UserService {
 	
 	@Transactional
 	public void removeBooking(int id) {
+		// removes booking given id. If no id found throws error.
 		Booking booking = userDao.getBooking(id);
 		if(booking==null) {
 			throw new NoBookingFoundException("No appointment with id "+id);

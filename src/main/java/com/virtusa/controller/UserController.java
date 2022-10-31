@@ -79,7 +79,7 @@ public class UserController {
 	
 	@PostMapping("/loginForm")
 	public String postLoginForm(@Valid @ModelAttribute("user") LoginUserDto myUser,
-			Errors error, RedirectAttributes redirectAttribute, HttpSession session) {
+			Errors error, Model model, HttpSession session) {
 		try {
 			if(error.hasErrors()) {			
 				throw new IncorrectLoginDetailsException(MISSINGVALUE);
@@ -101,8 +101,8 @@ public class UserController {
 			}
 		}
 		catch(IncorrectLoginDetailsException | UserNotFoundException e) {
-			redirectAttribute.addFlashAttribute("errMessage", e.getMessage());
-			return REDIRECTLOGIN;
+			model.addAttribute("errMessage", e.getMessage());
+			return "UserLogin";
 		}
 	}
 	

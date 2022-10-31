@@ -42,7 +42,8 @@ public class UserDao {
 	public User getUser(String email) {
 		// Returns user matching with email. Returns Null if no such record present
 		Session session = factory.getCurrentSession();
-		Query<User> query = session.createQuery("from User where email='"+email+"'", User.class);
+		Query<User> query = session.createQuery("from User where email = :email", User.class);
+		query.setParameter("email", email);
 		return query.uniqueResult();
 	}
 
@@ -50,7 +51,8 @@ public class UserDao {
 		// Returns user matching with email. Returns Null if no such record present
 		Session session = factory.getCurrentSession();
 		User user = getUser(email);
-		Query<Lawyer> query = session.createQuery("from Lawyer where id = '"+user.getId()+"'", Lawyer.class);
+		Query<Lawyer> query = session.createQuery("from Lawyer where id = :id", Lawyer.class);
+		query.setParameter("id",user.getId());
 		return query.uniqueResult();
 	}
 	
@@ -69,16 +71,16 @@ public class UserDao {
 	public User getUserByNumber(String mobileNumber) {
 		// Finds user by mobile number
 		Session session = factory.getCurrentSession();
-		Query<User> query = session.createQuery("from User where mobile_number = '" + 
-								mobileNumber + "'", User.class);
+		Query<User> query = session.createQuery("from User where mobile_number = :number", User.class);
+		query.setParameter("number", mobileNumber);
 		return query.uniqueResult();
 	}
 	
 	public List<CaseRecord> getUserCase(User user){
 		// return list of cases registered by given user
 		Session session = factory.getCurrentSession();
-		Query<CaseRecord> query = session.createQuery("from CaseRecord where user_id = '"
-						+user+"'", CaseRecord.class);
+		Query<CaseRecord> query = session.createQuery("from CaseRecord where user = :user", CaseRecord.class);
+		query.setParameter("user", user);
 		return query.getResultList();
 	}
 	
@@ -86,8 +88,10 @@ public class UserDao {
 		// returns boolean value to check if any appointment is reserved
 		// for given lawyer for given date and time.
 		Session session = factory.getCurrentSession();
-		Query<Booking> query = session.createQuery("from Booking where Lawyer = '" + 
-					lawyer.getId()+"' and date='"+bookingDate+"'", Booking.class);
+		String q = "from Booking where lawyer = :lawyer and date = :bookingDate";
+		Query<Booking> query = session.createQuery(q, Booking.class);
+		query.setParameter("lawyer", lawyer);
+		query.setParameter("bookingDate", bookingDate);
 		return query.uniqueResult()!=null;
 	}
 	public void bookAppointment(Booking booking) {
@@ -98,7 +102,8 @@ public class UserDao {
 	public List<Booking> getAllBooking(User user) {
 		// returns List of Bookings by given user
 		Session session = factory.getCurrentSession();
-		Query<Booking> query = session.createQuery("from Booking where client='"+user.getId()+"'", Booking.class);
+		Query<Booking> query = session.createQuery("from Booking where client = :user", Booking.class);
+		query.setParameter("user", user);
 		return query.getResultList();
 	}
 	
@@ -109,6 +114,7 @@ public class UserDao {
 
 	public void removeBooking(Booking booking) {
 		// removes/cancels a booking made by user
+		if(booking==null) return;
 		factory.getCurrentSession().remove(booking);
 	}
 }

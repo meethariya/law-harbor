@@ -10,6 +10,7 @@
 <body>
 	<h1>Welcome ${username}</h1>
 	<h2>All Appointments</h2>
+	<h3>${ err }</h3>
 	<c:forEach var="booking" items="${allBooking}">
 		<p>${booking}</p>
 		<c:choose>
