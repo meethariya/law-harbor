@@ -20,6 +20,8 @@ public class BookingDto {
 	@NotEmpty
 	private String appointmentTime;
 	private Date dateTime;
+	@NotEmpty
+	private String subject;
 	public BookingDto() {
 		super();
 	}
@@ -64,6 +66,12 @@ public class BookingDto {
 	}
 	public void setLawyerEmail(String lawyerEmail) {
 		this.lawyerEmail = lawyerEmail;
+	}
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 	
 }

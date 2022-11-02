@@ -108,7 +108,8 @@ public class UserController {
 	
 	@GetMapping("/home")
 	public String getHome(Model model, HttpSession session, 
-			@ModelAttribute("bookingStatus") String bookingStatus) {
+			@ModelAttribute("bookingStatus") String bookingStatus,
+			@ModelAttribute("booking") BookingDto bookingDto) {
 		String email = (String) session.getAttribute(EMAIL);
 		if(email == null) {
 			return REDIRECTLOGIN;
@@ -142,14 +143,14 @@ public class UserController {
 	}
 	
 	@PostMapping("/bookingForm")
-	public String bookAppointment(@Valid @ModelAttribute("bookingData") BookingDto booking,
+	public String bookAppointment(@Valid @ModelAttribute("booking") BookingDto booking,
 			Errors error, RedirectAttributes redirectAttribute) {
 		// take appointment for user
 		String bookingStatus = "bookingStatus";
-		if(error.hasErrors()) {			
+		if(error.hasErrors()) {
 			redirectAttribute.addFlashAttribute(bookingStatus, MISSINGVALUE);
 		}
-		else {			
+		else {
 			try {
 				service.bookAppointment(booking);
 				redirectAttribute.addFlashAttribute(bookingStatus, "Slot reserved");

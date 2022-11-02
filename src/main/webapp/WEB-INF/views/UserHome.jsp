@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="tags"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,21 +20,27 @@
 	
 	<!-- Booking form -->
 	<div id="appointmentForm" style="display: none">
-		<form action="bookingForm" method='POST'>
+		<form:form action="bookingForm" method='POST' modelAttribute="booking">
 			<label for="appointmentDate">Date</label> 
-			<input type="date" id="appointmentDate" name="appointmentDate">
+			<form:input type="date" id="appointmentDate" name="appointmentDate" path="appointmentDate" required="true" />
+			<form:errors path="appointmentDate"/>
 			<br>
 			<label for="appointmentTime">Slot Time</label> 
-			<select id = "appointmentTime" name= "appointmentTime">
+			<form:select id = "appointmentTime" name= "appointmentTime" path="appointmentTime" required="true" >
 				<%for (int i = 9; i <= 19; i++) {%>
-				<option value="<%=i%>"> <%=i %>:00 </option>
+				<form:option value="<%=i%>"> <%=i %>:00 </form:option>
 				<%}%>
-			</select>
-			<br/>
+			</form:select>
+			<form:errors path="appointmentTime"/>
+			<br>
+			<label for="subject">Subject</label> 
+			<form:input type="text" id="subject" name="subject" path="subject" required="true" />
+			<form:errors path="subject"/>
+			<br>
 			<input type="hidden" id = "setLawyer" name="lawyerEmail">
 			<input type="hidden" id = "setClient" name="userEmail" value="${ sessionScope.userEmail }">			
 			<button type="submit">Book</button>
-		</form>
+		</form:form>
 	</div>
 	
 	<a href="caseRecord"> Case Record</a>

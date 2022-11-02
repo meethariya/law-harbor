@@ -13,23 +13,23 @@
 	<h2>${errMessage}</h2><br>
 	<form:form action="registerForm" method="POST" modelAttribute="user">
 		<label for="email">Email: </label>
-		<form:input type="email" 	name="email"		id="email" 		path="email"/>
+		<form:input type="email" 	name="email"		id="email" 		path="email" required="true" />
 		<form:errors path="email"/><br>
 		
 		<label for="password">Password: </label>
-		<form:password 				name="password"		id="password" 	path="password"/>
+		<form:password 				name="password"		id="password" 	path="password" required="true" />
 		<form:errors path="password"/><br>
 		
 		<label for="username">User Name: </label>
-		<form:input 				name="username"		id="username" 	path="username"/>
+		<form:input 				name="username"		id="username" 	path="username" required="true" />
 		<form:errors path="username"/><br>
 		
 		<label for="mobile">Mobile Number: </label>
-		<form:input type="number" 	name="mobileNumber"	id="mobile" 	path="mobileNumber"/>
+		<form:input type="number" 	name="mobileNumber"	id="mobile" 	path="mobileNumber" min="0" required="true" />
 		<form:errors path="mobileNumber"/><br>
 		
 		<label for="role">Role: </label>
-		<form:select 				name="role"			id="role" 		path="role">  
+		<form:select 				name="role"			id="role" 		path="role" required="true" >  
 			<option value = "user" selected> User </option>  
 			<option value = "lawyer"> Lawyer </option>  
 			<option value = "admin"> Admin </option>   
@@ -39,7 +39,7 @@
 		<!-- Additional lawyer information -->
 		<div id="myDiv" style="display: none">
 			<label for="experience">Experience(yrs): </label>
-			<form:input type="number" name="experience"	id="experience" path="experience"/><br>
+			<form:input type="number" name="experience"	id="experience" path="experience" min="0"/><br>
 			<label for="expertise">Expertise: </label>
 			<form:input  			name="expertise"	id="expertise" path="expertise"/><br>
 			<label for="lawFirmName">Law Firm Name: </label>

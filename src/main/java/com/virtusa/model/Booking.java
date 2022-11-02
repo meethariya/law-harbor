@@ -40,6 +40,9 @@ public class Booking {
 	@Column(name = "status")
 	private boolean bookingStatus;
 	
+	@Column(nullable = false)
+	private String subject;
+	
 	public Booking() {
 		super();
 	}
@@ -55,6 +58,7 @@ public class Booking {
 		this.client = booking.getClient();
 		this.lawyer = booking.getLawyer();
 		this.date = booking.getDateTime();
+		this.subject = booking.getSubject();
 	}
 	public int getBookingId() {
 		return bookingId;
@@ -86,11 +90,18 @@ public class Booking {
 	public void setBookingStatus(boolean bookingStatus) {
 		this.bookingStatus = bookingStatus;
 	}
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
 	@Override
 	public String toString() {
-		return "Booking [bookingId=" + bookingId + ", client=" + client + ", lawyer=" + lawyer
-				+ ", date=" + date + ", bookingStatus=" + bookingStatus + "]";
+		return "Booking [bookingId=" + bookingId + ", client=" + client + ", lawyer=" + lawyer + ", date=" + date
+				+ ", bookingStatus=" + bookingStatus + ", subject=" + subject + "]";
 	}
+	
 	
 	
 }

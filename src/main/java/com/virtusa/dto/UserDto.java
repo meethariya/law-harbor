@@ -34,7 +34,7 @@ public class UserDto {
 	private String expertise;
 	
 	private String lawFirmName;
-
+	
 	public UserDto() {
 		super();
 	}
@@ -102,5 +102,13 @@ public class UserDto {
 	public void setLawFirmName(String lawFirmName) {
 		this.lawFirmName = lawFirmName;
 	}
+
+	@Override
+	public String toString() {
+		return "UserDto [email=" + email + ", password=" + password + ", username=" + username + ", mobileNumber="
+				+ mobileNumber + ", role=" + role + ", experience=" + experience + ", expertise=" + expertise
+				+ ", lawFirmName=" + lawFirmName + "]";
+	}
+
 	
 }
