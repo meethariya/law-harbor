@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.virtusa.dto.CaseRecordDto;
+
 @Entity
 @Table(name = "case")
 public class CaseRecord {
@@ -39,18 +41,26 @@ public class CaseRecord {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private User issuedBy;
+	private Lawyer issuedBy;
 	
 	public CaseRecord() {
 		super();
 	}
-	public CaseRecord(User user, Date date, String eventDetail, String actionTaken, User issuedBy) {
+	public CaseRecord(User user, Date date, String eventDetail, String actionTaken, Lawyer issuedBy) {
 		super();
 		this.user = user;
 		this.date = date;
 		this.eventDetail = eventDetail;
 		this.actionTaken = actionTaken;
 		this.issuedBy = issuedBy;
+	}
+	public CaseRecord(CaseRecordDto caseRecordDto) {
+		super();
+		this.user = caseRecordDto.getUser();
+		this.date = caseRecordDto.getDate();
+		this.eventDetail = caseRecordDto.getEventDetail();
+		this.actionTaken = caseRecordDto.getActionTaken();
+		this.issuedBy = caseRecordDto.getIssuedBy();
 	}
 	public int getCaseRecordId() {
 		return caseRecordId;
@@ -82,10 +92,10 @@ public class CaseRecord {
 	public void setActionTaken(String actionTaken) {
 		this.actionTaken = actionTaken;
 	}
-	public User getIssuedBy() {
+	public Lawyer getIssuedBy() {
 		return issuedBy;
 	}
-	public void setIssuedBy(User issuedBy) {
+	public void setIssuedBy(Lawyer issuedBy) {
 		this.issuedBy = issuedBy;
 	}
 	@Override

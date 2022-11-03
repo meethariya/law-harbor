@@ -34,7 +34,7 @@
 		<form:input type="hidden" name="role" id="addrole" path="role" value="lawyer"/>
 		<form:errors path="role"/><br>
 		
-		<label for="experience">Experience(yrs): </label>
+		<label for="experience">Experience(years): </label>
 		<form:input type="number" name="experience"	id="addexperience" path="experience" min="0"/><br>
 		
 		<label for="expertise">Expertise: </label>

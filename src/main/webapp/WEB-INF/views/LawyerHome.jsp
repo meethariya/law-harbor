@@ -22,6 +22,7 @@
 	</c:forEach>
 	<br>
 
+	<a href="caseRecord">Case Record</a>
 	<a href="logout">Logout</a>
 </body>
 </html>

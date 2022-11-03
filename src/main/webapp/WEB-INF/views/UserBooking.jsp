@@ -14,7 +14,11 @@
 		<c:forEach var="booking" items="${allBooking}">
 			<li>
 				${booking}
-				<a href="removeBooking/${booking.getBookingId()}"><button>Remove Booking</button></a>
+				<c:choose>
+					<c:when test="${!booking.isBookingStatus() }">
+						<a href="removeBooking/${booking.getBookingId()}"><button>Remove Booking</button></a>
+					</c:when>
+				</c:choose>
 			</li>
 		</c:forEach>
 	</ul>

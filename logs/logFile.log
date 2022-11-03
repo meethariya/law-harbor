@@ -1,0 +1,370 @@
+[WARN ] 02-11-2022 22:38 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 02-11-2022 22:38 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 02-11-2022 22:38 com.virtusa.dao.LawyerDao:23 LawyerDao Constructor Called
+[WARN ] 02-11-2022 22:38 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 02-11-2022 22:38 com.virtusa.service.UserService:35 UserService Constructor called
+[WARN ] 02-11-2022 22:38 com.virtusa.service.LawyerService:24 LawyerService Constructor Called
+[WARN ] 02-11-2022 22:38 com.virtusa.controller.AdminController:35 AdminController Constructor Called
+[WARN ] 02-11-2022 22:38 com.virtusa.controller.LawyerController:27 LawyerController Constructor Called
+[WARN ] 02-11-2022 22:38 com.virtusa.controller.UserController:44 UserController Constructor called
+[WARN ] 02-11-2022 22:40 engine.jdbc.spi.SqlExceptionHelper:137 SQL Error: 904, SQLState: 42000
+[ERROR] 02-11-2022 22:40 engine.jdbc.spi.SqlExceptionHelper:142 ORA-00904: "LAWYER": invalid identifier
+
+[WARN ] 02-11-2022 22:41 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 02-11-2022 22:41 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 02-11-2022 22:41 com.virtusa.dao.LawyerDao:23 LawyerDao Constructor Called
+[WARN ] 02-11-2022 22:41 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 02-11-2022 22:41 com.virtusa.service.UserService:35 UserService Constructor called
+[WARN ] 02-11-2022 22:41 com.virtusa.service.LawyerService:24 LawyerService Constructor Called
+[WARN ] 02-11-2022 22:41 com.virtusa.controller.AdminController:35 AdminController Constructor Called
+[WARN ] 02-11-2022 22:41 com.virtusa.controller.LawyerController:27 LawyerController Constructor Called
+[WARN ] 02-11-2022 22:41 com.virtusa.controller.UserController:44 UserController Constructor called
+[WARN ] 03-11-2022 10:51 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 03-11-2022 10:51 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 03-11-2022 10:51 com.virtusa.dao.LawyerDao:23 LawyerDao Constructor Called
+[WARN ] 03-11-2022 10:51 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 03-11-2022 10:51 com.virtusa.service.UserService:35 UserService Constructor called
+[WARN ] 03-11-2022 10:51 com.virtusa.service.LawyerService:24 LawyerService Constructor Called
+[WARN ] 03-11-2022 10:51 com.virtusa.controller.AdminController:35 AdminController Constructor Called
+[WARN ] 03-11-2022 10:51 com.virtusa.controller.LawyerController:29 LawyerController Constructor Called
+[WARN ] 03-11-2022 10:51 com.virtusa.controller.UserController:44 UserController Constructor called
+[ERROR] 03-11-2022 10:51 servlet.tags.form.InputTag:86 Neither BindingResult nor plain target object for bean name 'case' available as request attribute
+java.lang.IllegalStateException: Neither BindingResult nor plain target object for bean name 'case' available as request attribute
+	at org.springframework.web.servlet.support.BindStatus.<init>(BindStatus.java:153) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getBindStatus(AbstractDataBoundFormElementTag.java:178) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getPropertyPath(AbstractDataBoundFormElementTag.java:199) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getName(AbstractDataBoundFormElementTag.java:164) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.writeDefaultAttributes(AbstractDataBoundFormElementTag.java:123) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.tags.form.AbstractHtmlElementTag.writeDefaultAttributes(AbstractHtmlElementTag.java:460) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.tags.form.InputTag.writeTagContent(InputTag.java:357) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.tags.form.AbstractFormTag.doStartTagInternal(AbstractFormTag.java:87) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.tags.RequestContextAwareTag.doStartTag(RequestContextAwareTag.java:83) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.apache.jsp.WEB_002dINF.views.LawyerCase_jsp._jspx_meth_form_005finput_005f0(LawyerCase_jsp.java:357) ~[?:?]
+	at org.apache.jsp.WEB_002dINF.views.LawyerCase_jsp._jspService(LawyerCase_jsp.java:179) ~[?:?]
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70) ~[jasper.jar:9.0.62]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764) ~[servlet-api.jar:4.0.FR]
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:466) ~[jasper.jar:9.0.62]
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:379) ~[jasper.jar:9.0.62]
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:327) ~[jasper.jar:9.0.62]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764) ~[servlet-api.jar:4.0.FR]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[catalina.jar:9.0.62]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-websocket.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:711) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:459) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:385) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:313) ~[catalina.jar:9.0.62]
+	at org.springframework.web.servlet.view.InternalResourceView.renderMergedOutputModel(InternalResourceView.java:171) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:316) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1401) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1145) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1084) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655) ~[servlet-api.jar:4.0.FR]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764) ~[servlet-api.jar:4.0.FR]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[catalina.jar:9.0.62]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-websocket.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:687) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360) ~[catalina.jar:9.0.62]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399) ~[tomcat-coyote.jar:9.0.62]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-coyote.jar:9.0.62]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890) ~[tomcat-coyote.jar:9.0.62]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743) ~[tomcat-coyote.jar:9.0.62]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-coyote.jar:9.0.62]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-util.jar:9.0.62]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-util.jar:9.0.62]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-util.jar:9.0.62]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+[WARN ] 03-11-2022 10:52 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 03-11-2022 10:52 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 03-11-2022 10:52 com.virtusa.dao.LawyerDao:23 LawyerDao Constructor Called
+[WARN ] 03-11-2022 10:52 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 03-11-2022 10:52 com.virtusa.service.UserService:35 UserService Constructor called
+[WARN ] 03-11-2022 10:52 com.virtusa.service.LawyerService:24 LawyerService Constructor Called
+[WARN ] 03-11-2022 10:52 com.virtusa.controller.AdminController:35 AdminController Constructor Called
+[WARN ] 03-11-2022 10:52 com.virtusa.controller.LawyerController:29 LawyerController Constructor Called
+[WARN ] 03-11-2022 10:52 com.virtusa.controller.UserController:44 UserController Constructor called
+[ERROR] 03-11-2022 10:52 servlet.tags.form.ErrorsTag:86 Invalid property 'email' of bean class [com.virtusa.dto.CaseRecordDto]: Bean property 'email' is not readable or has an invalid getter method: Does the return type of the getter match the parameter type of the setter?
+org.springframework.beans.NotReadablePropertyException: Invalid property 'email' of bean class [com.virtusa.dto.CaseRecordDto]: Bean property 'email' is not readable or has an invalid getter method: Does the return type of the getter match the parameter type of the setter?
+	at org.springframework.beans.AbstractNestablePropertyAccessor.getPropertyValue(AbstractNestablePropertyAccessor.java:627) ~[spring-beans-5.3.20.jar:5.3.20]
+	at org.springframework.beans.AbstractNestablePropertyAccessor.getPropertyValue(AbstractNestablePropertyAccessor.java:617) ~[spring-beans-5.3.20.jar:5.3.20]
+	at org.springframework.validation.AbstractPropertyBindingResult.getActualFieldValue(AbstractPropertyBindingResult.java:104) ~[spring-context-5.3.20.jar:5.3.20]
+	at org.springframework.validation.AbstractBindingResult.getFieldValue(AbstractBindingResult.java:228) ~[spring-context-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.support.BindStatus.<init>(BindStatus.java:129) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getBindStatus(AbstractDataBoundFormElementTag.java:178) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.tags.form.ErrorsTag.shouldRender(ErrorsTag.java:289) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.tags.form.AbstractHtmlElementBodyTag.writeTagContent(AbstractHtmlElementBodyTag.java:52) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.tags.form.AbstractFormTag.doStartTagInternal(AbstractFormTag.java:87) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.tags.RequestContextAwareTag.doStartTag(RequestContextAwareTag.java:83) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.apache.jsp.WEB_002dINF.views.LawyerCase_jsp._jspService(LawyerCase_jsp.java:193) ~[?:?]
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70) ~[jasper.jar:9.0.62]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764) ~[servlet-api.jar:4.0.FR]
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:466) ~[jasper.jar:9.0.62]
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:379) ~[jasper.jar:9.0.62]
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:327) ~[jasper.jar:9.0.62]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764) ~[servlet-api.jar:4.0.FR]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[catalina.jar:9.0.62]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-websocket.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:711) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:459) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:385) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:313) ~[catalina.jar:9.0.62]
+	at org.springframework.web.servlet.view.InternalResourceView.renderMergedOutputModel(InternalResourceView.java:171) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:316) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1401) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1145) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1084) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655) ~[servlet-api.jar:4.0.FR]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764) ~[servlet-api.jar:4.0.FR]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[catalina.jar:9.0.62]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-websocket.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:687) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360) ~[catalina.jar:9.0.62]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399) ~[tomcat-coyote.jar:9.0.62]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-coyote.jar:9.0.62]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890) ~[tomcat-coyote.jar:9.0.62]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743) ~[tomcat-coyote.jar:9.0.62]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-coyote.jar:9.0.62]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-util.jar:9.0.62]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-util.jar:9.0.62]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-util.jar:9.0.62]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+[ERROR] 03-11-2022 10:53 servlet.tags.form.ErrorsTag:86 Invalid property 'username' of bean class [com.virtusa.dto.CaseRecordDto]: Bean property 'username' is not readable or has an invalid getter method: Does the return type of the getter match the parameter type of the setter?
+org.springframework.beans.NotReadablePropertyException: Invalid property 'username' of bean class [com.virtusa.dto.CaseRecordDto]: Bean property 'username' is not readable or has an invalid getter method: Does the return type of the getter match the parameter type of the setter?
+	at org.springframework.beans.AbstractNestablePropertyAccessor.getPropertyValue(AbstractNestablePropertyAccessor.java:627) ~[spring-beans-5.3.20.jar:5.3.20]
+	at org.springframework.beans.AbstractNestablePropertyAccessor.getPropertyValue(AbstractNestablePropertyAccessor.java:617) ~[spring-beans-5.3.20.jar:5.3.20]
+	at org.springframework.validation.AbstractPropertyBindingResult.getActualFieldValue(AbstractPropertyBindingResult.java:104) ~[spring-context-5.3.20.jar:5.3.20]
+	at org.springframework.validation.AbstractBindingResult.getFieldValue(AbstractBindingResult.java:228) ~[spring-context-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.support.BindStatus.<init>(BindStatus.java:129) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getBindStatus(AbstractDataBoundFormElementTag.java:178) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.tags.form.ErrorsTag.shouldRender(ErrorsTag.java:289) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.tags.form.AbstractHtmlElementBodyTag.writeTagContent(AbstractHtmlElementBodyTag.java:52) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.tags.form.AbstractFormTag.doStartTagInternal(AbstractFormTag.java:87) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.tags.RequestContextAwareTag.doStartTag(RequestContextAwareTag.java:83) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.apache.jsp.WEB_002dINF.views.LawyerCase_jsp._jspService(LawyerCase_jsp.java:261) ~[?:?]
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70) ~[jasper.jar:9.0.62]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764) ~[servlet-api.jar:4.0.FR]
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:466) ~[jasper.jar:9.0.62]
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:379) ~[jasper.jar:9.0.62]
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:327) ~[jasper.jar:9.0.62]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764) ~[servlet-api.jar:4.0.FR]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[catalina.jar:9.0.62]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-websocket.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:711) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:459) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:385) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:313) ~[catalina.jar:9.0.62]
+	at org.springframework.web.servlet.view.InternalResourceView.renderMergedOutputModel(InternalResourceView.java:171) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:316) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1401) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1145) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1084) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655) ~[servlet-api.jar:4.0.FR]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.3.20.jar:5.3.20]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764) ~[servlet-api.jar:4.0.FR]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[catalina.jar:9.0.62]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-websocket.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:687) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360) ~[catalina.jar:9.0.62]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399) ~[tomcat-coyote.jar:9.0.62]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-coyote.jar:9.0.62]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890) ~[tomcat-coyote.jar:9.0.62]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743) ~[tomcat-coyote.jar:9.0.62]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-coyote.jar:9.0.62]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-util.jar:9.0.62]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-util.jar:9.0.62]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-util.jar:9.0.62]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+[WARN ] 03-11-2022 11:39 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 03-11-2022 11:39 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 03-11-2022 11:39 com.virtusa.dao.LawyerDao:24 LawyerDao Constructor Called
+[WARN ] 03-11-2022 11:39 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 03-11-2022 11:39 com.virtusa.service.UserService:35 UserService Constructor called
+[WARN ] 03-11-2022 11:39 com.virtusa.service.LawyerService:28 LawyerService Constructor Called
+[WARN ] 03-11-2022 11:39 com.virtusa.controller.AdminController:35 AdminController Constructor Called
+[WARN ] 03-11-2022 11:39 com.virtusa.controller.LawyerController:31 LawyerController Constructor Called
+[WARN ] 03-11-2022 11:39 com.virtusa.controller.UserController:44 UserController Constructor called
+[WARN ] 03-11-2022 11:50 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 03-11-2022 11:50 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 03-11-2022 11:50 com.virtusa.dao.LawyerDao:24 LawyerDao Constructor Called
+[WARN ] 03-11-2022 11:50 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 03-11-2022 11:50 com.virtusa.service.UserService:35 UserService Constructor called
+[WARN ] 03-11-2022 11:50 com.virtusa.service.LawyerService:28 LawyerService Constructor Called
+[WARN ] 03-11-2022 11:50 com.virtusa.controller.AdminController:35 AdminController Constructor Called
+[WARN ] 03-11-2022 11:50 com.virtusa.controller.LawyerController:31 LawyerController Constructor Called
+[WARN ] 03-11-2022 11:50 com.virtusa.controller.UserController:44 UserController Constructor called
+[WARN ] 03-11-2022 11:50 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 03-11-2022 11:50 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 03-11-2022 11:50 com.virtusa.dao.LawyerDao:24 LawyerDao Constructor Called
+[WARN ] 03-11-2022 11:50 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 03-11-2022 11:50 com.virtusa.service.UserService:35 UserService Constructor called
+[WARN ] 03-11-2022 11:50 com.virtusa.service.LawyerService:28 LawyerService Constructor Called
+[WARN ] 03-11-2022 11:50 com.virtusa.controller.AdminController:35 AdminController Constructor Called
+[WARN ] 03-11-2022 11:50 com.virtusa.controller.LawyerController:31 LawyerController Constructor Called
+[WARN ] 03-11-2022 11:50 com.virtusa.controller.UserController:44 UserController Constructor called
+[WARN ] 03-11-2022 11:51 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 03-11-2022 11:51 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 03-11-2022 11:51 com.virtusa.dao.LawyerDao:24 LawyerDao Constructor Called
+[WARN ] 03-11-2022 11:51 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 03-11-2022 11:51 com.virtusa.service.UserService:35 UserService Constructor called
+[WARN ] 03-11-2022 11:51 com.virtusa.service.LawyerService:28 LawyerService Constructor Called
+[WARN ] 03-11-2022 11:51 com.virtusa.controller.AdminController:35 AdminController Constructor Called
+[WARN ] 03-11-2022 11:51 com.virtusa.controller.LawyerController:31 LawyerController Constructor Called
+[WARN ] 03-11-2022 11:51 com.virtusa.controller.UserController:44 UserController Constructor called
+[WARN ] 03-11-2022 11:52 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 03-11-2022 11:52 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 03-11-2022 11:52 com.virtusa.dao.LawyerDao:24 LawyerDao Constructor Called
+[WARN ] 03-11-2022 11:52 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 03-11-2022 11:52 com.virtusa.service.UserService:35 UserService Constructor called
+[WARN ] 03-11-2022 11:52 com.virtusa.service.LawyerService:28 LawyerService Constructor Called
+[WARN ] 03-11-2022 11:52 com.virtusa.controller.AdminController:35 AdminController Constructor Called
+[WARN ] 03-11-2022 11:52 com.virtusa.controller.LawyerController:31 LawyerController Constructor Called
+[WARN ] 03-11-2022 11:52 com.virtusa.controller.UserController:44 UserController Constructor called
+[WARN ] 03-11-2022 12:24 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 03-11-2022 12:24 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 03-11-2022 12:24 com.virtusa.dao.LawyerDao:24 LawyerDao Constructor Called
+[WARN ] 03-11-2022 12:24 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 03-11-2022 12:24 com.virtusa.service.UserService:35 UserService Constructor called
+[WARN ] 03-11-2022 12:24 com.virtusa.service.LawyerService:28 LawyerService Constructor Called
+[WARN ] 03-11-2022 12:24 com.virtusa.controller.AdminController:35 AdminController Constructor Called
+[WARN ] 03-11-2022 12:24 com.virtusa.controller.LawyerController:31 LawyerController Constructor Called
+[WARN ] 03-11-2022 12:24 com.virtusa.controller.UserController:44 UserController Constructor called
+[WARN ] 03-11-2022 12:25 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 03-11-2022 12:25 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 03-11-2022 12:25 com.virtusa.dao.LawyerDao:24 LawyerDao Constructor Called
+[WARN ] 03-11-2022 12:25 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 03-11-2022 12:25 com.virtusa.service.UserService:35 UserService Constructor called
+[WARN ] 03-11-2022 12:25 com.virtusa.service.LawyerService:28 LawyerService Constructor Called
+[WARN ] 03-11-2022 12:25 com.virtusa.controller.AdminController:35 AdminController Constructor Called
+[WARN ] 03-11-2022 12:25 com.virtusa.controller.LawyerController:31 LawyerController Constructor Called
+[WARN ] 03-11-2022 12:25 com.virtusa.controller.UserController:44 UserController Constructor called
+[WARN ] 03-11-2022 12:26 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 03-11-2022 12:27 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 03-11-2022 12:27 com.virtusa.dao.LawyerDao:24 LawyerDao Constructor Called
+[WARN ] 03-11-2022 12:27 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 03-11-2022 12:27 com.virtusa.service.UserService:35 UserService Constructor called
+[WARN ] 03-11-2022 12:27 com.virtusa.service.LawyerService:29 LawyerService Constructor Called
+[WARN ] 03-11-2022 12:27 com.virtusa.controller.AdminController:35 AdminController Constructor Called
+[WARN ] 03-11-2022 12:27 com.virtusa.controller.LawyerController:32 LawyerController Constructor Called
+[WARN ] 03-11-2022 12:27 com.virtusa.controller.UserController:44 UserController Constructor called
+[WARN ] 03-11-2022 12:29 servlet.mvc.support.DefaultHandlerExceptionResolver:208 Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: "caseRecord"]
+[WARN ] 03-11-2022 12:32 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 03-11-2022 12:32 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 03-11-2022 12:32 com.virtusa.dao.LawyerDao:24 LawyerDao Constructor Called
+[WARN ] 03-11-2022 12:32 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 03-11-2022 12:32 com.virtusa.service.UserService:35 UserService Constructor called
+[WARN ] 03-11-2022 12:32 com.virtusa.service.LawyerService:29 LawyerService Constructor Called
+[WARN ] 03-11-2022 12:32 com.virtusa.controller.AdminController:35 AdminController Constructor Called
+[WARN ] 03-11-2022 12:32 com.virtusa.controller.LawyerController:32 LawyerController Constructor Called
+[WARN ] 03-11-2022 12:32 com.virtusa.controller.UserController:44 UserController Constructor called
+[WARN ] 03-11-2022 13:49 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 03-11-2022 13:50 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 03-11-2022 13:50 com.virtusa.dao.LawyerDao:24 LawyerDao Constructor Called
+[WARN ] 03-11-2022 13:50 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 03-11-2022 13:50 com.virtusa.service.UserService:35 UserService Constructor called
+[WARN ] 03-11-2022 13:50 com.virtusa.service.LawyerService:29 LawyerService Constructor Called
+[WARN ] 03-11-2022 13:50 com.virtusa.controller.AdminController:35 AdminController Constructor Called
+[WARN ] 03-11-2022 13:50 com.virtusa.controller.LawyerController:32 LawyerController Constructor Called
+[WARN ] 03-11-2022 13:50 com.virtusa.controller.UserController:44 UserController Constructor called
+[WARN ] 03-11-2022 14:08 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 03-11-2022 14:08 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 03-11-2022 14:08 com.virtusa.dao.LawyerDao:24 LawyerDao Constructor Called
+[WARN ] 03-11-2022 14:08 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 03-11-2022 14:08 com.virtusa.service.UserService:35 UserService Constructor called
+[WARN ] 03-11-2022 14:08 com.virtusa.service.LawyerService:29 LawyerService Constructor Called
+[WARN ] 03-11-2022 14:08 com.virtusa.controller.AdminController:35 AdminController Constructor Called
+[WARN ] 03-11-2022 14:08 com.virtusa.controller.LawyerController:34 LawyerController Constructor Called
+[WARN ] 03-11-2022 14:08 com.virtusa.controller.UserController:44 UserController Constructor called
+[WARN ] 03-11-2022 14:10 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 03-11-2022 14:10 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 03-11-2022 14:10 com.virtusa.dao.LawyerDao:24 LawyerDao Constructor Called
+[WARN ] 03-11-2022 14:10 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 03-11-2022 14:10 com.virtusa.service.UserService:35 UserService Constructor called
+[WARN ] 03-11-2022 14:10 com.virtusa.service.LawyerService:29 LawyerService Constructor Called
+[WARN ] 03-11-2022 14:10 com.virtusa.controller.AdminController:35 AdminController Constructor Called
+[WARN ] 03-11-2022 14:10 com.virtusa.controller.LawyerController:34 LawyerController Constructor Called
+[WARN ] 03-11-2022 14:10 com.virtusa.controller.UserController:44 UserController Constructor called
+[WARN ] 03-11-2022 14:13 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 03-11-2022 14:14 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 03-11-2022 14:14 com.virtusa.dao.LawyerDao:24 LawyerDao Constructor Called
+[WARN ] 03-11-2022 14:14 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 03-11-2022 14:14 com.virtusa.service.UserService:35 UserService Constructor called
+[WARN ] 03-11-2022 14:14 com.virtusa.service.LawyerService:29 LawyerService Constructor Called
+[WARN ] 03-11-2022 14:14 com.virtusa.controller.AdminController:35 AdminController Constructor Called
+[WARN ] 03-11-2022 14:14 com.virtusa.controller.LawyerController:34 LawyerController Constructor Called
+[WARN ] 03-11-2022 14:14 com.virtusa.controller.UserController:44 UserController Constructor called
+[WARN ] 03-11-2022 14:15 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 03-11-2022 14:15 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 03-11-2022 14:15 com.virtusa.dao.LawyerDao:24 LawyerDao Constructor Called
+[WARN ] 03-11-2022 14:15 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 03-11-2022 14:15 com.virtusa.service.UserService:35 UserService Constructor called
+[WARN ] 03-11-2022 14:15 com.virtusa.service.LawyerService:29 LawyerService Constructor Called
+[WARN ] 03-11-2022 14:15 com.virtusa.controller.AdminController:35 AdminController Constructor Called
+[WARN ] 03-11-2022 14:15 com.virtusa.controller.LawyerController:34 LawyerController Constructor Called
+[WARN ] 03-11-2022 14:15 com.virtusa.controller.UserController:44 UserController Constructor called
+[WARN ] 03-11-2022 14:21 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 03-11-2022 14:21 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 03-11-2022 14:21 com.virtusa.dao.LawyerDao:24 LawyerDao Constructor Called
+[WARN ] 03-11-2022 14:21 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 03-11-2022 14:21 com.virtusa.service.UserService:35 UserService Constructor called
+[WARN ] 03-11-2022 14:21 com.virtusa.service.LawyerService:29 LawyerService Constructor Called
+[WARN ] 03-11-2022 14:21 com.virtusa.controller.AdminController:35 AdminController Constructor Called
+[WARN ] 03-11-2022 14:21 com.virtusa.controller.LawyerController:34 LawyerController Constructor Called
+[WARN ] 03-11-2022 14:21 com.virtusa.controller.UserController:44 UserController Constructor called
+[WARN ] 03-11-2022 14:22 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 03-11-2022 14:22 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 03-11-2022 14:22 com.virtusa.dao.LawyerDao:24 LawyerDao Constructor Called
+[WARN ] 03-11-2022 14:22 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 03-11-2022 14:22 com.virtusa.service.UserService:35 UserService Constructor called
+[WARN ] 03-11-2022 14:22 com.virtusa.service.LawyerService:29 LawyerService Constructor Called
+[WARN ] 03-11-2022 14:22 com.virtusa.controller.AdminController:35 AdminController Constructor Called
+[WARN ] 03-11-2022 14:22 com.virtusa.controller.LawyerController:34 LawyerController Constructor Called
+[WARN ] 03-11-2022 14:22 com.virtusa.controller.UserController:44 UserController Constructor called
+[WARN ] 03-11-2022 14:27 engine.jdbc.spi.SqlExceptionHelper:137 SQL Error: 12899, SQLState: 72000
+[ERROR] 03-11-2022 14:27 engine.jdbc.spi.SqlExceptionHelper:142 ORA-12899: value too large for column "MEET"."CASE"."ACTION_TAKEN" (actual: 922, maximum: 255)
+
