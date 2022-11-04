@@ -16,13 +16,37 @@
 		<c:choose>
 			<c:when test="${ !booking.isBookingStatus() }">
 				<a href="approveBooking/${booking.getBookingId()}"><button>Approve Appointment</button></a>
+				<a href="cancelBooking/${booking.getBookingId()}"><button>Cancel Appointment</button></a>	
 			</c:when>
+			<c:otherwise>
+				<c:choose>
+					<c:when test="${booking.getReport() == null }">				
+						<a href="report/${booking.getBookingId()}"><button>Generate Report</button></a>
+					</c:when>
+					<c:otherwise>
+						<button onclick="divToggler('${booking.getReport().getReportId() }')">View Report</button>	
+						<div id="viewReportDiv${booking.getReport().getReportId() }" style="display: none">
+							<p>${booking.getReport()}</p>
+						</div>			
+					</c:otherwise>
+				</c:choose>
+			</c:otherwise>
 		</c:choose>
-		<a href="cancelBooking/${booking.getBookingId()}"><button>Cancel Appointment</button></a>	
 	</c:forEach>
 	<br>
 
 	<a href="caseRecord">Case Record</a>
 	<a href="logout">Logout</a>
+	
+	<script type="text/javascript">
+		function divToggler(reportId){
+			var x = document.getElementById("viewReportDiv"+reportId);
+			if (x.style.display === "none") {
+				x.style.display = "block";
+			} else {
+				x.style.display = "none";
+			}
+		}
+	</script>
 </body>
 </html>

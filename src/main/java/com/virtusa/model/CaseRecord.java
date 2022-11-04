@@ -43,6 +43,15 @@ public class CaseRecord {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Lawyer issuedBy;
 	
+	@ManyToOne()
+	private Report report;
+	
+	public Report getReport() {
+		return report;
+	}
+	public void setReport(Report report) {
+		this.report = report;
+	}
 	public CaseRecord() {
 		super();
 	}
@@ -101,7 +110,7 @@ public class CaseRecord {
 	@Override
 	public String toString() {
 		return "CaseRecord [caseRecordId=" + caseRecordId + ", user=" + user + ", date=" + date + ", eventDetail="
-				+ eventDetail + ", actionTaken=" + actionTaken + ", issuedBy=" + issuedBy + "]";
+				+ eventDetail + ", actionTaken=" + actionTaken + ", issuedBy=" + issuedBy + ", report=" + report + "]";
 	}
 	
 }

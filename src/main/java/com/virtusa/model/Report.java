@@ -1,6 +1,7 @@
 package com.virtusa.model;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,11 +10,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+
+import com.virtusa.dto.ReportDto;
 
 @Entity
 @Table(name = "report")
@@ -23,15 +27,14 @@ public class Report {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int reportId;
 	
-	@OneToOne
-	@JoinColumn(nullable = false)
+	@OneToOne(mappedBy = "report")
+	@JoinColumn(unique = true, nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Booking appointment;
 	
-	@OneToOne
-	@JoinColumn(nullable = false)
+	@OneToMany(mappedBy = "report")
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private CaseRecord caseRecord;
+	private Set<CaseRecord> caseRecord;
 	
 	@Column(name = "date_time")
 	private Date dateTime;
@@ -42,19 +45,27 @@ public class Report {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private User issuedBy;
+	private Lawyer issuedBy;
 	
 	public Report() {
 		super();
 	}
-	public Report(Booking appointment, CaseRecord caseRecord, Date date, String reportDetail,
-			User issuedBy) {
+	public Report(Booking appointment, Set<CaseRecord> caseRecord, Date date, String reportDetail,
+			Lawyer issuedBy) {
 		super();
 		this.appointment = appointment;
 		this.caseRecord = caseRecord;
 		this.dateTime = date;
 		this.reportDetail = reportDetail;
 		this.issuedBy = issuedBy;
+	}
+	public Report(ReportDto reportDto) {
+		this.appointment = reportDto.getAppointment();
+		this.caseRecord = reportDto.getCaseRecord();
+		this.dateTime = reportDto.getDate();
+		this.reportDetail = reportDto.getReportDetail();
+		this.issuedBy = reportDto.getLawyer();
+		
 	}
 	public int getReportId() {
 		return reportId;
@@ -68,10 +79,10 @@ public class Report {
 	public void setAppointment(Booking appointment) {
 		this.appointment = appointment;
 	}
-	public CaseRecord getCaseRecord() {
+	public Set<CaseRecord> getCaseRecord() {
 		return caseRecord;
 	}
-	public void setCaseRecord(CaseRecord caseRecord) {
+	public void setCaseRecord(Set<CaseRecord> caseRecord) {
 		this.caseRecord = caseRecord;
 	}
 	public Date getDateTime() {
@@ -86,16 +97,16 @@ public class Report {
 	public void setReportDetail(String reportDetail) {
 		this.reportDetail = reportDetail;
 	}
-	public User getIssuedBy() {
+	public Lawyer getIssuedBy() {
 		return issuedBy;
 	}
-	public void setIssuedBy(User issuedBy) {
+	public void setIssuedBy(Lawyer issuedBy) {
 		this.issuedBy = issuedBy;
 	}
 	@Override
 	public String toString() {
-		return "Report [reportId=" + reportId + ", appointment=" + appointment + ", caseRecord="
-				+ caseRecord + ", date=" + dateTime + ", reportDetail=" + reportDetail + ", issuedBy=" + issuedBy + "]";
+		return "Report [reportId=" + reportId + ", appointment=" + appointment.getBookingId() + 
+				", date=" + dateTime + ", reportDetail=" + reportDetail + ", issuedBy=" + issuedBy + "]";
 	}
 	
 }

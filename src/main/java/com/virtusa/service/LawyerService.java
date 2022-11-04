@@ -1,7 +1,9 @@
 package com.virtusa.service;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -12,12 +14,15 @@ import org.springframework.stereotype.Service;
 
 import com.virtusa.dao.LawyerDao;
 import com.virtusa.dto.CaseRecordDto;
-import com.virtusa.exception.CaseRecordNotFound;
+import com.virtusa.dto.ReportDto;
+import com.virtusa.exception.CaseRecordNotFoundException;
 import com.virtusa.exception.NoBookingFoundException;
+import com.virtusa.exception.ReportALreadyExistException;
 import com.virtusa.exception.UserNotFoundException;
 import com.virtusa.model.Booking;
 import com.virtusa.model.CaseRecord;
 import com.virtusa.model.Lawyer;
+import com.virtusa.model.Report;
 import com.virtusa.model.User;
 
 
@@ -99,7 +104,7 @@ public class LawyerService {
 	public void deleteCaseRecord(int caseRecordId) {
 		CaseRecord caseRecord = dao.getCaseRecord(caseRecordId);
 		if(caseRecord==null) {
-			throw new CaseRecordNotFound("No Case with id "+caseRecordId);
+			throw new CaseRecordNotFoundException("No Case with id "+caseRecordId);
 		}
 		dao.deleteCaseRecord(caseRecord);
 	}
@@ -107,10 +112,71 @@ public class LawyerService {
 	public void editCaseRecord(CaseRecordDto caseRecordDto, int caseRecordId) {
 		CaseRecord dbCaseRecord = dao.getCaseRecord(caseRecordId);
 		if(dbCaseRecord==null) {
-			throw new CaseRecordNotFound("No Case with id "+caseRecordId);
+			throw new CaseRecordNotFoundException("No Case with id "+caseRecordId);
 		}
 		dbCaseRecord.setDate(new Date());
 		dbCaseRecord.setActionTaken(caseRecordDto.getActionTaken());
 		dbCaseRecord.setEventDetail(caseRecordDto.getEventDetail());
+	}
+
+	@Transactional
+	public Booking getBooking(int bookingId) {
+		Booking booking = dao.getBooking(bookingId);
+		if(booking==null) {
+			throw new NoBookingFoundException("No appointment with ID "+bookingId);
+		}
+		return booking;
+	}
+
+	@Transactional
+	public List<CaseRecord> getCaseOfUser(User user, Lawyer lawyer) {
+		List<CaseRecord> caseRecords =  dao.getCaseOfUser(user, lawyer);
+		if(caseRecords.isEmpty()) {
+			throw new CaseRecordNotFoundException("Create a Case Record for the user first");
+		}
+		return caseRecords;
+	}
+	
+	@Transactional
+	public CaseRecord getCaseRecord(int id) {
+		CaseRecord caseRecord =  dao.getCaseRecord(id);
+		if(caseRecord==null) {
+			throw new CaseRecordNotFoundException("No case with ID: "+id);
+		}
+		return caseRecord;
+	}
+
+	@Transactional
+	public Set<CaseRecord> stringIdToCaseRecord(String allId){
+		Set<CaseRecord> allCaseRecord = new HashSet<>();
+		for(String i: allId.split(",")) {
+			allCaseRecord.add(getCaseRecord(Integer.parseInt(i)));
+		}
+		return allCaseRecord;
+	}
+	
+	@Transactional
+	public void addReport(ReportDto reportDto) {
+		Report report = new Report(reportDto);
+		if(dao.getReportByBooking(report.getAppointment())!=null) {
+			throw new ReportALreadyExistException("Report for this appointment already exist");
+		}
+		// adding report
+		int id = dao.addReport(report);
+		Report myReport = getReport(id);
+		// editing all its caserecord to set report
+		for(CaseRecord i: myReport.getCaseRecord()) {
+			i.setReport(myReport);
+			dao.updateCaseRecordReport(i);
+		}
+		// editing booking to set report
+		Booking booking = myReport.getAppointment();
+		booking.setReport(myReport);
+		dao.updateBookingReport(booking);
+	}
+	
+	@Transactional
+	public Report getReport(int id) {
+		return dao.getReport(id);
 	}
 }

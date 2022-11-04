@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.virtusa.model.Lawyer;
 import com.virtusa.model.User;
 
@@ -15,8 +17,10 @@ public class CaseRecordDto {
 	private String userEmail;
 	private Date date;
 	@NotEmpty
+	@Length(max = 255)
 	private String eventDetail;
 	@NotEmpty
+	@Length(max = 255)
 	private String actionTaken;
 	private Lawyer issuedBy;
 	public CaseRecordDto() {

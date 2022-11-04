@@ -24,13 +24,17 @@ public class AdminDao {
 	UserDao userDao;
 	
 	public void deleteLawyer(Lawyer lawyer) {
+		// Deletes Lawyer
 		factory.getCurrentSession().remove(lawyer);
 	}
 	
 	public User getUserByNumber(String number) {
+		// Gets user by Phone number. Method code written in UserDao
 		return userDao.getUserByNumber(number);
 	}
+	
 	public Lawyer getLawyer(int lawyerId) {
+		// returns lawyer by id
 		return factory.getCurrentSession().get(Lawyer.class, lawyerId);
 	}
 }

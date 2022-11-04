@@ -1,5 +1,7 @@
 package com.virtusa.controller;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -17,9 +19,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.virtusa.dto.CaseRecordDto;
-import com.virtusa.exception.CaseRecordNotFound;
+import com.virtusa.dto.ReportDto;
+import com.virtusa.exception.CaseRecordNotFoundException;
 import com.virtusa.exception.NoBookingFoundException;
+import com.virtusa.exception.ReportALreadyExistException;
 import com.virtusa.exception.UserNotFoundException;
+import com.virtusa.model.Booking;
+import com.virtusa.model.Lawyer;
+import com.virtusa.model.User;
 import com.virtusa.service.LawyerService;
 
 @Controller
@@ -27,6 +34,7 @@ import com.virtusa.service.LawyerService;
 public class LawyerController {
 	private static final Logger log = LogManager.getLogger(LawyerController.class);
 	private static final String REDIRECTLOGIN = "redirect:/login";
+	private static final String REDIRECTHOME = "redirect:/lawyer/";
 	private static final String EMAIL = "lawyerEmail";
 	private static final String ERR = "errMessage";
 	
@@ -76,7 +84,7 @@ public class LawyerController {
 			redirectAttribute.addFlashAttribute(ERR, e.getMessage());
 		}
 		
-		return "redirect:/lawyer/";
+		return REDIRECTHOME;
 	}
 
 	@GetMapping("/cancelBooking/{bookingId}")
@@ -93,7 +101,7 @@ public class LawyerController {
 			redirectAttribute.addFlashAttribute(ERR, e.getMessage());
 		}
 		
-		return "redirect:/lawyer/";
+		return REDIRECTHOME;
 	}
 	
 	@GetMapping("/caseRecord")
@@ -144,7 +152,7 @@ public class LawyerController {
 			service.deleteCaseRecord(caseRecordId);
 			redirectAttributes.addFlashAttribute(ERR, "Case Record deleted successfully");
 		}
-		catch(CaseRecordNotFound e) {
+		catch(CaseRecordNotFoundException e) {
 			redirectAttributes.addFlashAttribute(ERR, e.getMessage());
 		}
 		return "redirect:/lawyer/caseRecord";
@@ -166,13 +174,66 @@ public class LawyerController {
 				service.editCaseRecord(caseRecordDto, caseRecordId);
 				redirectAttributes.addFlashAttribute(ERR, "Case Record edited successfully");
 			}
-			catch(CaseRecordNotFound e) {
+			catch(CaseRecordNotFoundException e) {
 				redirectAttributes.addFlashAttribute(ERR, e.getMessage());			
 			}
 		}
 		return "redirect:/lawyer/caseRecord";
 	}
 	
+	
+	@GetMapping("report/{bookingId}")
+	public String reportPage(@PathVariable("bookingId") int bookingId,
+			@ModelAttribute("report") ReportDto report, 
+			Model model, RedirectAttributes redirectAttributes, HttpSession session) {
+		if(sessionChecker(session)) {
+			return REDIRECTLOGIN;
+		}
+		
+		model.addAttribute("bookingId", bookingId);
+		
+		try {			
+			Booking booking = service.getBooking(bookingId);
+			User user = booking.getClient();
+			Lawyer lawyer = booking.getLawyer();
+			model.addAttribute("userCaseRecord",service.getCaseOfUser(user, lawyer));
+		}
+		catch(NoBookingFoundException | CaseRecordNotFoundException e){
+			redirectAttributes.addFlashAttribute(ERR, e.getMessage());
+			return REDIRECTHOME;
+		}
+		
+		return "LawyerReport";
+	}
+	
+	@PostMapping("report")
+	public String addReport(@Valid @ModelAttribute("report") ReportDto reportDto,
+			Errors error, RedirectAttributes redirectAttributes, HttpSession session) {
+		if(sessionChecker(session)) {
+			return REDIRECTLOGIN;
+		}
+		
+		if(error.hasErrors()) {			
+			redirectAttributes.addFlashAttribute(ERR, "Select Minimum one case record");
+			return "redirect:report/"+reportDto.getBookingId();
+		}
+		
+		reportDto.setCaseRecord(service.stringIdToCaseRecord(reportDto.getTempCaseRecord()));
+		reportDto.setAppointment(service.getBooking(reportDto.getBookingId()));
+		reportDto.setDate(new Date());
+		String email = (String) session.getAttribute(EMAIL);
+		reportDto.setLawyer(service.getLawyer(email));
+		
+		try {
+			service.addReport(reportDto);
+			redirectAttributes.addFlashAttribute(ERR, "Report generated Successfully");
+		}
+		catch(ReportALreadyExistException e){
+			redirectAttributes.addFlashAttribute(ERR, e.getMessage());
+		}
+		
+		return REDIRECTHOME;
+	}
 	
 	public boolean sessionChecker(HttpSession session) {
 		// checks if lawyer session is active or not

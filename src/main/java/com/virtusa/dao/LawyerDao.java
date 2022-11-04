@@ -10,9 +10,11 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.virtusa.exception.ReportNotFoundException;
 import com.virtusa.model.Booking;
 import com.virtusa.model.CaseRecord;
 import com.virtusa.model.Lawyer;
+import com.virtusa.model.Report;
 import com.virtusa.model.User;
 
 
@@ -73,5 +75,40 @@ public class LawyerDao {
 	}
 	public CaseRecord getCaseRecord(int caseRecordId) {
 		return factory.getCurrentSession().get(CaseRecord.class, caseRecordId);
+	}
+
+	public List<CaseRecord> getCaseOfUser(User user, Lawyer lawyer) {
+		Session session = factory.getCurrentSession();
+		Query<CaseRecord> query = session.createQuery("from CaseRecord where issuedBy = :issuedByLawyer and user = :user and report is null", CaseRecord.class);
+		query.setParameter("issuedByLawyer", lawyer);
+		query.setParameter("user", user);
+		return query.getResultList();
+	}
+
+	public Report getReportByBooking(Booking booking) {
+		Session session = factory.getCurrentSession();
+		Query<Report> query = session.createQuery("From Report where appointment = :booking", Report.class);
+		query.setParameter("booking", booking);
+		return query.uniqueResult();
+	}
+	
+	public int addReport(Report report) {
+		return (int) factory.getCurrentSession().save(report);
+	}
+
+	public Report getReport(int id) {
+		Report report = factory.getCurrentSession().get(Report.class, id);
+		if(report==null) {
+			throw new ReportNotFoundException("No report with ID "+id);
+		}
+		return report;
+	}
+	
+	public void updateCaseRecordReport(CaseRecord caseRecord) {
+		factory.getCurrentSession().update(caseRecord);
+	}
+
+	public void updateBookingReport(Booking appointment) {
+		factory.getCurrentSession().update(appointment);
 	}
 }

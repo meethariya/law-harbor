@@ -32,13 +32,13 @@
 		<form:select 				name="role"			id="role" 		path="role" required="true" >  
 			<option value = "user" selected> User </option>  
 			<option value = "lawyer"> Lawyer </option>  
-			<option value = "admin"> Admin </option>   
+			<!-- <option value = "admin"> Admin </option> -->   
 		</form:select>  
 		<form:errors path="role"/><br>
 		
 		<!-- Additional lawyer information -->
 		<div id="myDiv" style="display: none">
-			<label for="experience">Experience(yrs): </label>
+			<label for="experience">Experience(years): </label>
 			<form:input type="number" name="experience"	id="experience" path="experience" min="0"/><br>
 			<label for="expertise">Expertise: </label>
 			<form:input  			name="expertise"	id="expertise" path="expertise"/><br>

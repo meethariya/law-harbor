@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
@@ -42,6 +43,9 @@ public class Booking {
 	
 	@Column(nullable = false)
 	private String subject;
+	
+	@OneToOne
+	private Report report;
 	
 	public Booking() {
 		super();
@@ -96,10 +100,16 @@ public class Booking {
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
+	public Report getReport() {
+		return report;
+	}
+	public void setReport(Report report) {
+		this.report = report;
+	}
 	@Override
 	public String toString() {
 		return "Booking [bookingId=" + bookingId + ", client=" + client + ", lawyer=" + lawyer + ", date=" + date
-				+ ", bookingStatus=" + bookingStatus + ", subject=" + subject + "]";
+				+ ", bookingStatus=" + bookingStatus + ", subject=" + subject + ", report=" + report + "]";
 	}
 	
 	
