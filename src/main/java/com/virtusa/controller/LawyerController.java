@@ -1,11 +1,14 @@
 package com.virtusa.controller;
 
+import java.util.Locale;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -33,7 +36,6 @@ public class LawyerController {
 	private static final Logger log = LogManager.getLogger(LawyerController.class);
 	private static final String REDIRECTLOGIN = "redirect:/login";
 	private static final String REDIRECTHOME = "redirect:/lawyer/";
-	private static final String EMAIL = "lawyerEmail";
 	private static final String ERR = "errMessage";
 	
 	public LawyerController() {
@@ -41,6 +43,8 @@ public class LawyerController {
 	}
 	@Autowired
 	LawyerService service;
+	@Autowired
+	MessageSource messageSource;
 	
 	@GetMapping("/")
 	public String home(Model model, HttpSession session, @ModelAttribute(ERR) String errMessage) {
@@ -48,7 +52,7 @@ public class LawyerController {
 		
 		if(sessionChecker(session)) return REDIRECTLOGIN;
 		
-		String email = (String) session.getAttribute(EMAIL);
+		String email = (String) session.getAttribute(getEmailFromProperties());
 		model.addAttribute("username",service.getLawyer(email).getUsername());
 		model.addAttribute("allBooking", service.getAllAppointment(email));
 		model.addAttribute("err", errMessage);
@@ -59,11 +63,11 @@ public class LawyerController {
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		// logout lawyer
-		String email = (String) session.getAttribute(EMAIL);
+		String email = (String) session.getAttribute(getEmailFromProperties());
 		
 		if(email != null) {
 			service.logoutUser(email);
-			session.removeAttribute(EMAIL);						// remove session on logout
+			session.removeAttribute(getEmailFromProperties());						// remove session on logout
 		}	
 		
 		return REDIRECTLOGIN;
@@ -110,7 +114,7 @@ public class LawyerController {
 		
 		if(sessionChecker(session)) return REDIRECTLOGIN;
 		
-		String email = (String) session.getAttribute(EMAIL);
+		String email = (String) session.getAttribute(getEmailFromProperties());
 		model.addAttribute("allCaseRecord", service.getAllCase(email));
 		model.addAttribute(ERR, errMessage);
 		
@@ -128,7 +132,7 @@ public class LawyerController {
 			redirectAttributes.addFlashAttribute(ERR, "Enter details correctly");
 		}
 		else {			
-			String email = (String) session.getAttribute(EMAIL);
+			String email = (String) session.getAttribute(getEmailFromProperties());
 			caseRecordDto.setIssuedBy(service.getLawyer(email));
 			
 			try {			
@@ -222,7 +226,7 @@ public class LawyerController {
 		}
 		
 		// setting lawyer from session email
-		String email = (String) session.getAttribute(EMAIL);
+		String email = (String) session.getAttribute(getEmailFromProperties());
 		reportDto.setLawyer(service.getLawyer(email));
 		
 		try {
@@ -238,6 +242,11 @@ public class LawyerController {
 	
 	public boolean sessionChecker(HttpSession session) {
 		// checks if lawyer session is active or not
-		return (String) session.getAttribute(EMAIL) == null;
+		return (String) session.getAttribute(getEmailFromProperties()) == null;
+	}
+	
+	public String getEmailFromProperties() {
+		// returns session key value for admin email
+		return messageSource.getMessage("email.lawyer", null, "lawyerEmail", new Locale("en"));
 	}
 }

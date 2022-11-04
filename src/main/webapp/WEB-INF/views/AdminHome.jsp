@@ -33,7 +33,7 @@
 		<form:input type="number" 	name="mobileNumber"	id="addmobile" 	path="mobileNumber" min="0" required="true"/>
 		<form:errors path="mobileNumber"/><br>
 		
-		<form:input type="hidden" name="role" id="addrole" path="role" value="lawyer"/>
+		<form:input type="hidden" name="role" id="addrole" path="role" value="${lawyerRole }"/>
 		<form:errors path="role"/><br>
 		
 		<label for="experience">Experience(years): </label>

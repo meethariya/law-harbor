@@ -1,11 +1,16 @@
 package com.virtusa.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -35,10 +40,12 @@ public class UserController {
 	private static final String REDIRECTLOGIN = "redirect:login";
 	private static final String REDIRECTHOME = "redirect:home";
 	private static final String MISSINGVALUE = "Enter Valid Details";
-	private static final String EMAIL = "userEmail";
 	
 	@Autowired
 	UserService service;
+
+	@Autowired
+	MessageSource messageSource;
 	
 	public UserController() {
 		log.warn("UserController Constructor called");
@@ -51,8 +58,9 @@ public class UserController {
 	}
 	
 	@GetMapping("/register")
-	public String getRegisterPage(@ModelAttribute("user") UserDto myuser) {
+	public String getRegisterPage(@ModelAttribute("user") UserDto myuser, Model model) {
 		// registration page
+		model.addAttribute("roles",getAllRoles());
 		return "UserRegistration";
 	}
 	
@@ -70,6 +78,7 @@ public class UserController {
 		}
 		catch(UserAlreadyExistException | IncorrectLoginDetailsException e){	
 			model.addAttribute("errMessage", e.getMessage());
+			model.addAttribute("roles",getAllRoles());
 			return "UserRegistration";
 		}
 		
@@ -94,18 +103,21 @@ public class UserController {
 			
 			// login user or throws error UserNotFound or IncorrectLoginDetailException
 			String role = service.loginUser(myUser);
-			if(role.equals("user")) {
-				session.setAttribute(EMAIL, myUser.getEmail());				// set session for user
+			
+			if(role.equals(getValueFromProperties("role.user","user"))) {
+				session.setAttribute(getValueFromProperties(), myUser.getEmail());	// set session for user
 				return	REDIRECTHOME;				
 			}
 			
-			else if(role.equals("lawyer")) {				
-				session.setAttribute("lawyerEmail", myUser.getEmail());		// set session for lawyer
+			else if(role.equals(getValueFromProperties("role.lawyer","lawyer"))) {
+				String email = getValueFromProperties("email.lawyer","lawyerEmail");
+				session.setAttribute(email, myUser.getEmail());						// set session for lawyer
 				return	"redirect:lawyer/";				
 			}
 			
 			else {				
-				session.setAttribute("adminEmail", myUser.getEmail());		// set session for admin
+				String email = getValueFromProperties("email.admin","adminEmail");
+				session.setAttribute(email, myUser.getEmail());						// set session for admin
 				return	"redirect:admin/";				
 			}
 		}
@@ -123,7 +135,7 @@ public class UserController {
 		
 		if(sessionChecker(session)) return REDIRECTLOGIN;
 		
-		String email = (String) session.getAttribute(EMAIL);
+		String email = (String) session.getAttribute(getValueFromProperties());
 		model.addAttribute("userName",service.getUser(email).getUsername());
 		model.addAttribute("allLawyer", service.getAllLawyer());
 		model.addAttribute("bookingStatus", bookingStatus);
@@ -135,11 +147,11 @@ public class UserController {
 	public String logout(HttpSession session) {
 		// logout user
 
-		String email = (String) session.getAttribute(EMAIL);
+		String email = (String) session.getAttribute(getValueFromProperties());
 		
 		if(email != null) {
 			service.logoutUser(email);
-			session.removeAttribute(EMAIL);						// remove session on logout
+			session.removeAttribute(getValueFromProperties());						// remove session on logout
 		}		
 		
 		return REDIRECTLOGIN;
@@ -151,7 +163,7 @@ public class UserController {
 		
 		if(sessionChecker(session)) return REDIRECTLOGIN;
 		
-		String email = (String) session.getAttribute(EMAIL);
+		String email = (String) session.getAttribute(getValueFromProperties());
 		model.addAttribute("allCase", service.getUserCase(email));
 		
 		return "UserCase";
@@ -187,7 +199,8 @@ public class UserController {
 
 		if(sessionChecker(session)) return REDIRECTLOGIN;
 		
-		model.addAttribute("allBooking",service.getAllBooking((String) session.getAttribute(EMAIL)));
+		String email = (String) session.getAttribute(getValueFromProperties());
+		model.addAttribute("allBooking",service.getAllBooking(email));
 		model.addAttribute("removeBookingMessage", message);
 		
 		return "UserBooking";
@@ -213,6 +226,26 @@ public class UserController {
 	
 	public boolean sessionChecker(HttpSession session) {
 		// checks if lawyer session is active or not
-		return (String) session.getAttribute(EMAIL) == null;
+		return (String) session.getAttribute(getValueFromProperties()) == null;
+	}
+	
+	public String getValueFromProperties() {
+		// returns session key value for user email
+		return getValueFromProperties("email.user","userEmail");
+	}
+
+	public String getValueFromProperties(String key, String defaultValue) {
+		// returns properties based on key and default value
+		return messageSource.getMessage(key, null, defaultValue, Locale.ENGLISH);
+	}
+	
+	public List<String> getAllRoles(){
+		// collects all roles from properties file and create hashmap to show in registration
+		List<String> propertiesList = new ArrayList<>();
+		propertiesList.add(getValueFromProperties("role.user","user"));
+		propertiesList.add(getValueFromProperties("role.lawyer","lawyer"));
+		propertiesList.add(getValueFromProperties("role.admin","admin"));
+		
+		return propertiesList;
 	}
 }

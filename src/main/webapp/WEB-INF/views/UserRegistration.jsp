@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="tags"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,9 +32,9 @@
 		
 		<label for="role">Role: </label>
 		<form:select 				name="role"			id="role" 		path="role" required="true" >  
-			<option value = "user" selected> User </option>  
-			<option value = "lawyer"> Lawyer </option>  
-			<!-- <option value = "admin"> Admin </option>  -->  
+			<c:forEach var="role" items="${roles }">			
+				<option value = "${role }" > ${role } </option>  
+			</c:forEach>
 		</form:select>  
 		<form:errors path="role"/><br>
 		

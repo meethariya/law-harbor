@@ -4,12 +4,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.transaction.Transactional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import com.virtusa.dao.UserDao;
@@ -38,6 +40,9 @@ public class UserService {
 	@Autowired
 	UserDao userDao;
 	
+	@Autowired
+	MessageSource messageSource;
+	
 	@Transactional
 	public void saveUser(UserDto user) {
 		/* Verifies if any user exist with same email or mobile number
@@ -56,10 +61,11 @@ public class UserService {
 		}
 		
 		// saving user based on role
-		if(user.getRole().equals("lawyer")){			
+		String role = messageSource.getMessage("role.lawyer", null, "lawyer", Locale.ENGLISH);
+		if(user.getRole().equals(role)){
 			userDao.saveLawyer(userDtoToLawyer(user));
 		}
-		else {			
+		else {
 			userDao.saveUser(userDtoToUser(user));
 		}
 	}
