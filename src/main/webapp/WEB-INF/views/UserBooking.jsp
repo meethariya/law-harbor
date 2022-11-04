@@ -10,18 +10,27 @@
 <body>
 	<h3>User Bookings</h3>
 	<h3>${ removeBookingMessage }</h3>
+	
 	<ul>
 		<c:forEach var="booking" items="${allBooking}">
 			<li>
 				${booking}
+				
+				<!-- If Booking is not confirmed -->
 				<c:choose>
 					<c:when test="${!booking.isBookingStatus() }">
-						<a href="removeBooking/${booking.getBookingId()}"><button>Remove Booking</button></a>
+						<a href="removeBooking/${booking.getBookingId()}">
+							<button>Remove Booking</button>
+						</a>
 					</c:when>
 				</c:choose>
+				
 			</li>
 		</c:forEach>
 	</ul>
-	<br><a href="home">Home</a>
+	<br>
+	
+	<a href="home">Home</a>
+	
 </body>
 </html>

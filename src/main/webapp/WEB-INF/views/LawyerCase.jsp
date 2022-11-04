@@ -13,6 +13,7 @@
 	<h3>Case Records</h3>
 	<h3>${errMessage}</h3>
 	<button onclick="addFormToggler()">Create Case Record</button>
+	
 	<div id="addDiv" style="display: none">
 		<form:form action="caseRecord" method="POST" modelAttribute="case">
 			<label for="userEmail">*User Email: </label>
@@ -35,6 +36,7 @@
 			<form:button value="Submit">Submit</form:button>
 		</form:form>
 	</div>
+	
 	<div id="editDiv" style="display: none">
 		<form:form method="POST" modelAttribute="case" id="editForm">
 			<label for="userEmail">*User Email: </label>
@@ -61,15 +63,19 @@
 	<ul>
 		<c:forEach var="caseRecord" items="${allCaseRecord}">
 			<li>${caseRecord}</li>
+			<!-- If report is not generated for this case -->
 			<c:choose>
 				<c:when test="${caseRecord.getReport()==null }">
+					
 					<button
 						onclick="editFormToggler('${caseRecord.getUser().getEmail()}',
 			 '${caseRecord.getEventDetail()}', '${caseRecord.getActionTaken()}', '${ caseRecord.getCaseRecordId() }')">
 						Edit Case Record</button>
+					
 					<a href="caseRecord/${caseRecord.getCaseRecordId()}">
 						<button>Delete Case Record</button>
 					</a>
+					
 				</c:when>
 			</c:choose>
 		</c:forEach>
@@ -79,10 +85,12 @@
 
 	<script type="text/javascript">
 		function addFormToggler() {
+			<!-- Displays Add Case Form -->
 			divToggler(document.getElementById("addDiv"));
 		}
 		function editFormToggler(email, eventDetail, actionTaken, id) {
-			divToggler(document.getElementById("editDiv"));
+			<!-- Sets values of edit form and Displays it -->
+			var x = divToggler(document.getElementById("editDiv"));
 
 			document.getElementById("editUserEmail").value = email;
 			document.getElementById("hiddenEditEmail").value = email;
@@ -92,6 +100,7 @@
 
 		}
 		function divToggler(x) {
+			<!-- Toggles display property of a div -->
 			if (x.style.display === "none") {
 				x.style.display = "block";
 			} else {

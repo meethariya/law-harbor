@@ -34,7 +34,7 @@ public class UserController {
 	
 	private static final String REDIRECTLOGIN = "redirect:login";
 	private static final String REDIRECTHOME = "redirect:home";
-	private static final String MISSINGVALUE = "Enter Details";
+	private static final String MISSINGVALUE = "Enter Valid Details";
 	private static final String EMAIL = "userEmail";
 	
 	@Autowired
@@ -46,22 +46,25 @@ public class UserController {
 	
 	@GetMapping("/")
 	public String index() {
+		// Index Page
 		return REDIRECTLOGIN;
 	}
 	
 	@GetMapping("/register")
 	public String getRegisterPage(@ModelAttribute("user") UserDto myuser) {
+		// registration page
 		return "UserRegistration";
 	}
 	
 	@PostMapping("/registerForm")
 	public String postRegisterForm(@Valid @ModelAttribute("user") UserDto myUser,
 			Errors error, Model model) {
+		// registration form submission
+		
 		try {			
 			if(error.hasErrors()) {	
 				throw new IncorrectLoginDetailsException(MISSINGVALUE);
 			}
-			
 			// registers users or throws error if user already exist
 			service.saveUser(myUser);
 		}
@@ -69,32 +72,38 @@ public class UserController {
 			model.addAttribute("errMessage", e.getMessage());
 			return "UserRegistration";
 		}
+		
 		return	REDIRECTLOGIN;
 	}
 
 	@GetMapping("/login")
 	public String getLoginPage(@ModelAttribute("user") LoginUserDto myuser) {
+		// login page
 		return "UserLogin";
 	}
 	
 	@PostMapping("/loginForm")
 	public String postLoginForm(@Valid @ModelAttribute("user") LoginUserDto myUser,
 			Errors error, Model model, HttpSession session) {
+		// login form submission
+		
 		try {
 			if(error.hasErrors()) {			
 				throw new IncorrectLoginDetailsException(MISSINGVALUE);
-			}
+			}			
 			
 			// login user or throws error UserNotFound or IncorrectLoginDetailException
 			String role = service.loginUser(myUser);
 			if(role.equals("user")) {
-				session.setAttribute(EMAIL, myUser.getEmail());		// set session for user
+				session.setAttribute(EMAIL, myUser.getEmail());				// set session for user
 				return	REDIRECTHOME;				
 			}
+			
 			else if(role.equals("lawyer")) {				
 				session.setAttribute("lawyerEmail", myUser.getEmail());		// set session for lawyer
 				return	"redirect:lawyer/";				
 			}
+			
 			else {				
 				session.setAttribute("adminEmail", myUser.getEmail());		// set session for admin
 				return	"redirect:admin/";				
@@ -110,42 +119,51 @@ public class UserController {
 	public String getHome(Model model, HttpSession session, 
 			@ModelAttribute("bookingStatus") String bookingStatus,
 			@ModelAttribute("booking") BookingDto bookingDto) {
-		String email = (String) session.getAttribute(EMAIL);
-		if(email == null) {
-			return REDIRECTLOGIN;
-		}
+		// User home page
 		
+		if(sessionChecker(session)) return REDIRECTLOGIN;
+		
+		String email = (String) session.getAttribute(EMAIL);
 		model.addAttribute("userName",service.getUser(email).getUsername());
 		model.addAttribute("allLawyer", service.getAllLawyer());
 		model.addAttribute("bookingStatus", bookingStatus);
+		
 		return "UserHome";
 	}
 	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
+		// logout user
+
 		String email = (String) session.getAttribute(EMAIL);
+		
 		if(email != null) {
 			service.logoutUser(email);
 			session.removeAttribute(EMAIL);						// remove session on logout
 		}		
+		
 		return REDIRECTLOGIN;
 	}
 	
 	@GetMapping("/caseRecord")
 	public String getCases(Model model, HttpSession session) {
-		// Shows all cases by a user
+		// Shows all cases for the user
+		
+		if(sessionChecker(session)) return REDIRECTLOGIN;
+		
 		String email = (String) session.getAttribute(EMAIL);
-		if(email == null) {
-			return REDIRECTLOGIN;
-		}
 		model.addAttribute("allCase", service.getUserCase(email));
+		
 		return "UserCase";
 	}
 	
 	@PostMapping("/bookingForm")
 	public String bookAppointment(@Valid @ModelAttribute("booking") BookingDto booking,
-			Errors error, RedirectAttributes redirectAttribute) {
-		// take appointment for user
+			Errors error, RedirectAttributes redirectAttribute, HttpSession session) {
+		// book appointment of a lawyer
+		
+		if(sessionChecker(session)) return REDIRECTLOGIN;
+		
 		String bookingStatus = "bookingStatus";
 		if(error.hasErrors()) {
 			redirectAttribute.addFlashAttribute(bookingStatus, MISSINGVALUE);
@@ -166,22 +184,35 @@ public class UserController {
 	public String allAppointment(Model model, HttpSession session, 
 			@ModelAttribute("message") String message ) {
 		// returns list of bookings made by user
+
+		if(sessionChecker(session)) return REDIRECTLOGIN;
+		
 		model.addAttribute("allBooking",service.getAllBooking((String) session.getAttribute(EMAIL)));
 		model.addAttribute("removeBookingMessage", message);
+		
 		return "UserBooking";
 	}
 	
 	@GetMapping("/removeBooking/{bookingId}")
 	public String removeBooking(@PathVariable("bookingId") int id,
-			RedirectAttributes redirectAttributes) {
+			RedirectAttributes redirectAttributes, HttpSession session) {
 		// removes booking if it is not confirmed by lawyer
-		try {			
+
+		if(sessionChecker(session)) return REDIRECTLOGIN;
+		
+		try {
 			service.removeBooking(id);
 			redirectAttributes.addFlashAttribute("message", "Appointment cancelled");
 		}
 		catch(NoBookingFoundException | BookingAlreadyConfirmedException e) {			
 			redirectAttributes.addFlashAttribute("message", e.getMessage());
 		}
+		
 		return "redirect:/allBooking";
+	}
+	
+	public boolean sessionChecker(HttpSession session) {
+		// checks if lawyer session is active or not
+		return (String) session.getAttribute(EMAIL) == null;
 	}
 }

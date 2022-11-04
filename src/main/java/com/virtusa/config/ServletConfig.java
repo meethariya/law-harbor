@@ -29,7 +29,7 @@ public class ServletConfig implements WebMvcConfigurer{
 	@Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasename("errormessages");
+        messageSource.setBasenames("errormessages","staticmessages");
         return messageSource;
     }
 }

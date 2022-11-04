@@ -11,6 +11,7 @@
 <body>
 	<h1>Customer Registration Form</h1>
 	<h2>${errMessage}</h2><br>
+	
 	<form:form action="registerForm" method="POST" modelAttribute="user">
 		<label for="email">Email: </label>
 		<form:input type="email" 	name="email"		id="email" 		path="email" required="true" />
@@ -32,7 +33,7 @@
 		<form:select 				name="role"			id="role" 		path="role" required="true" >  
 			<option value = "user" selected> User </option>  
 			<option value = "lawyer"> Lawyer </option>  
-			<!-- <option value = "admin"> Admin </option> -->   
+			<!-- <option value = "admin"> Admin </option>  -->  
 		</form:select>  
 		<form:errors path="role"/><br>
 		

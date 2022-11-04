@@ -40,16 +40,22 @@ public class UserService {
 	
 	@Transactional
 	public void saveUser(UserDto user) {
-		// Verifies if any user exist with same email or mobile number
-		// throws UserAlreadyExistException in that case
-		// registers user otherwise
+		/* Verifies if any user exist with same email or mobile number
+		 * throws UserAlreadyExistException in that case
+		 * registers user otherwise
+		 */
+		
+		// email check
 		if(userDao.getUser(user.getEmail())!=null) {
 			throw new UserAlreadyExistException("User Already Exist with email "+user.getEmail());
 		}
 		
+		// Mobile Number check
 		if(userDao.getUserByNumber(user.getMobileNumber())!=null) {			
 			throw new UserAlreadyExistException("User Already Exist with mobile number "+user.getMobileNumber());
 		}
+		
+		// saving user based on role
 		if(user.getRole().equals("lawyer")){			
 			userDao.saveLawyer(userDtoToLawyer(user));
 		}
@@ -60,17 +66,19 @@ public class UserService {
 	
 	@Transactional
 	public String loginUser(LoginUserDto requestedUser) {
-		// Verifies valid email and password. Throws error in case of incorrect credentials.
-		// sets user's status online.
-		User dbUser = getUser(requestedUser.getEmail());
-		if (dbUser==null) {
-			throw new UserNotFoundException("No user with email "+requestedUser.getEmail());
-		}
+		/* Verifies valid email and password. 
+		 * Throws error in case of incorrect credentials.
+		 * sets user's status online.
+		 */
 		
+		User dbUser = getUser(requestedUser.getEmail());
+		
+		// validating email and password
 		if (!dbUser.getPassword().equals(requestedUser.getPassword())) {
 			throw new IncorrectLoginDetailsException("Incorrect Password");
 		}
 		
+		// changing active status
 		dbUser.setActive(true);
 		userDao.userActiveStatusUpdate(dbUser);
 		return dbUser.getRole();
@@ -79,7 +87,13 @@ public class UserService {
 	@Transactional
 	public User getUser(String email) {
 		// returns User
-		return userDao.getUser(email);
+		User dbUser = userDao.getUser(email);
+		
+		if (dbUser==null) {
+			throw new UserNotFoundException("No user with email "+email);
+		}
+		
+		return dbUser;
 	}
 	
 	@Transactional
@@ -104,35 +118,43 @@ public class UserService {
 
 	@Transactional
 	public void bookAppointment(BookingDto bookingDto) {
+		// Converts dto to entity and saves the booking object
+		// if given slot is already booked, throws exception
+
 		Booking booking = bookingDtoTobooking(bookingDto);
+		
 		if(userDao.existingBooking(booking.getLawyer(), booking.getDate())) {			
 			throw new SlotAlreadyReservedException("Please change your slot");
 		}
+		
 		userDao.bookAppointment(booking);		
 	}
 	public User userDtoToUser(UserDto myUser) {
-		// converts DTO object to model object
+		// converts UserDTO object to User entity object
 		return new User(myUser);
 	}
 	
 	public Lawyer userDtoToLawyer(UserDto myUser) {
-		// converts DTO object to model object
+		// converts UserDTO object to Lawyer entity object
 		return new Lawyer(myUser);
 	}
 	
 	@Transactional
 	public Booking bookingDtoTobooking(BookingDto booking) {
-		// converts DTO object to model object
+		// converts booking DTO object to booking entity object
+		
 		booking.setClient(getUser(booking.getUserEmail()));
 		booking.setLawyer(userDao.getLawyer(booking.getLawyerEmail()));
+		
+		// string date and slot from front-end to date object
 		SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH");
-		log.info(booking.getAppointmentDate());
 		try {
 			Date bookingDateTime = ft.parse(booking.getAppointmentDate()+" "+booking.getAppointmentTime());
 			booking.setDateTime(bookingDateTime);
 		} catch (ParseException e) {
 			log.error(e.getStackTrace());
 		}
+		
 		return new Booking(booking);
 	}
 
@@ -147,13 +169,18 @@ public class UserService {
 	@Transactional
 	public void removeBooking(int id) {
 		// removes booking given id. If no id found throws error.
+		// if booking already confirm then throws error
+		
 		Booking booking = userDao.getBooking(id);
+		
 		if(booking==null) {
 			throw new NoBookingFoundException("No appointment with id "+id);
 		}
+		
 		if(booking.isBookingStatus()) {
 			throw new BookingAlreadyConfirmedException("Booking is already confirmed by lawyer. Please contact Lawyer");
 		}
+		
 		userDao.removeBooking(booking);
 	}
 }

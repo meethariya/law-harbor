@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.virtusa.dto.UserDto;
-import com.virtusa.exception.IncorrectLoginDetailsException;
+import com.virtusa.exception.IncorrectDetailsException;
 import com.virtusa.exception.UserAlreadyExistException;
 import com.virtusa.exception.UserNotFoundException;
 import com.virtusa.service.AdminService;
@@ -40,13 +40,14 @@ public class AdminController {
 	@GetMapping("/")
 	public String home(Model model, HttpSession session,
 			@ModelAttribute("user") UserDto myuser, @ModelAttribute("errMessage") String err) {
-		if(sessionChecker(session)) {
-			return REDIRECTLOGIN;
-		}
+		//	admin home page
+		if(sessionChecker(session)) return REDIRECTLOGIN;
+		
 		String adminEmail = (String) session.getAttribute(EMAIL);
 		model.addAttribute("username",service.getUser(adminEmail).getUsername());
 		model.addAttribute("allLawyer",service.getAllLawyer());
 		model.addAttribute(ERRMESSAGE,err);
+		
 		return "AdminHome";
 	}
 	
@@ -54,9 +55,11 @@ public class AdminController {
 	public String logout(HttpSession session) {
 		// logout admin
 		String email = (String) session.getAttribute(EMAIL);
+		
 		if(email != null) {
 			service.logoutUser(email);
 			session.removeAttribute(EMAIL);						// remove session on logout
+		
 		}		
 		return REDIRECTLOGIN;
 	}
@@ -65,9 +68,9 @@ public class AdminController {
 	public String deleteLawyer(@PathVariable("id")int lawyerId, HttpSession session, 
 			RedirectAttributes redirectAttributes) {
 		// delete lawyer given id
-		if(sessionChecker(session)) {
-			return REDIRECTLOGIN;
-		}
+		
+		if(sessionChecker(session)) return REDIRECTLOGIN;
+		
 		try {			
 			service.deleteLawyer(lawyerId);
 			redirectAttributes.addFlashAttribute(ERRMESSAGE, "Lawyer Deleted Successfully");
@@ -75,6 +78,7 @@ public class AdminController {
 		catch(UserNotFoundException e) {
 			redirectAttributes.addFlashAttribute(ERRMESSAGE, e.getMessage());
 		}
+		
 		return REDIRECTHOME;
 	}
 	
@@ -82,21 +86,21 @@ public class AdminController {
 	public String editLawyer(@Valid @ModelAttribute("user") UserDto lawyer,Errors error, 
 			HttpSession session, RedirectAttributes redirectAttributes) {
 		// updates lawyer information
-		if(sessionChecker(session)) {
-			return REDIRECTLOGIN;
-		}
+		
+		if(sessionChecker(session)) return REDIRECTLOGIN;
+		
 		try {	
 			if(error.hasErrors()) {	
-				throw new IncorrectLoginDetailsException("Enter Details");
+				throw new IncorrectDetailsException("Enter Valid Details");
 			}
-			
 			// updates lawyer information
 			service.updateLawyer(lawyer);
 			redirectAttributes.addFlashAttribute(ERRMESSAGE,"lawyer edited successfully");
 		}
-		catch(IncorrectLoginDetailsException | UserAlreadyExistException e){
+		catch(IncorrectDetailsException | UserAlreadyExistException e){
 			redirectAttributes.addFlashAttribute(ERRMESSAGE, e.getMessage());
 		}
+		
 		return REDIRECTHOME;
 	}
 	
@@ -104,19 +108,19 @@ public class AdminController {
 	public String addLawyer(@Valid @ModelAttribute("user") UserDto lawyer, 
 			Errors error, RedirectAttributes redirectAttributes, HttpSession session) {
 		// adds new lawyer
-		if(sessionChecker(session)) {
-			return REDIRECTLOGIN;
-		}
+		
+		if(sessionChecker(session)) return REDIRECTLOGIN;
+		
 		try {			
 			if(error.hasErrors()) {	
-				throw new IncorrectLoginDetailsException("Enter Details");
+				throw new IncorrectDetailsException("Enter Valid Details");
 			}
 			
 			// registers users or throws error if user already exist
 			service.saveUser(lawyer);
 			redirectAttributes.addFlashAttribute(ERRMESSAGE,"lawyer added successfully");
 		}
-		catch(UserAlreadyExistException | IncorrectLoginDetailsException e){	
+		catch(UserAlreadyExistException | IncorrectDetailsException e){	
 			redirectAttributes.addFlashAttribute(ERRMESSAGE, e.getMessage());
 		}
 		return	REDIRECTHOME;

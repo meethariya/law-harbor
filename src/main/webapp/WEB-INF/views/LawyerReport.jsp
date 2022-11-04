@@ -11,6 +11,7 @@
 </head>
 <body>
 	<h3>${errMessage }</h3>
+	
 	<form:form action="/project/lawyer/report" method="POST" modelAttribute="report">
 		<label for="reportDetail">*Report Detail: </label>
 		<form:textarea name="reportDetail" id="reportDetail"
@@ -30,5 +31,6 @@
 		
 		<form:button value="Submit">Submit</form:button>
 	</form:form>
+	
 </body>
 </html>

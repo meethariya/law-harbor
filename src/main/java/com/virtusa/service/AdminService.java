@@ -35,19 +35,19 @@ private static final Logger log = LogManager.getLogger(AdminService.class);
 	
 	@Transactional
 	public User getUser(String email) {
-		// returns User
+		// returns User from UserService
 		return userService.getUser(email);
 	}
 	
 	@Transactional
 	public List<Lawyer> getAllLawyer(){
-		// returns list of lawyers
+		// returns list of lawyers from UserService
 		return userService.getAllLawyer();
 	}
 
 	@Transactional
 	public void logoutUser(String email) {
-		// logout user
+		// logout user. Logic in UserService
 		userService.logoutUser(email);		
 	}
 
@@ -71,6 +71,8 @@ private static final Logger log = LogManager.getLogger(AdminService.class);
 			throw new UserAlreadyExistException("User Already Exist with mobile number "+lawyerDto.getMobileNumber());
 		}
 		
+		// updating lawyer information using hibernate dirty reading
+		// retrieves lawyer from LawyerService
 		Lawyer dbLawyer = lawyerService.getLawyer(lawyerDto.getEmail());
 		dbLawyer.setExperience(lawyerDto.getExperience());
 		dbLawyer.setExpertise(lawyerDto.getExpertise());

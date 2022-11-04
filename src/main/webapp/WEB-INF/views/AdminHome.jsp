@@ -12,7 +12,9 @@
 <body>
 	<h1>Welcome ${username}</h1>
 	<h2>${errMessage}</h2><br>
+	
 	<button onclick = "addForm()">Add Lawyer</button>
+	
 	<div id="addDiv" style="display: none">
 	<form:form action="addLawyer" method="POST" modelAttribute="user">
 		<label for="email">*Email: </label>
@@ -46,6 +48,7 @@
 		<form:button value="Submit">Submit</form:button>
 	</form:form>
 	</div>
+	
 	<h3>List of Lawyers</h3>
 	<c:forEach var="lawyer" items="${allLawyer}">
 		<p>${lawyer}</p>
@@ -56,6 +59,7 @@
 			<button>Delete Lawyer</button>
 		</a>
 	</c:forEach>
+	
 	<div id="editDiv" style="display: none">
 		<form:form action = "lawyer" method="POST" modelAttribute="user" id="myForm">
 			<label for="email">Email: </label>
@@ -101,7 +105,7 @@
 	<script type="text/javascript">
 	<!-- Enables the edit form and sets lawyer values and sets form url -->
 	function toggleForm(email, username, password, role, mobile, experience, expertise, lawFirmName, id){
-				
+		
 	    document.getElementById("email").value = email;
 	    document.getElementById("displayemail").value = email;
 	    document.getElementById("username").value = username;
@@ -116,15 +120,17 @@
 	  }
 	
 	function addForm(){
+	<!-- Displays Add Lawyer Form -->
 	    divToggler(document.getElementById("addDiv"));
 	}
 	
 	function divToggler(x){
+	<!-- Toggles display property of a div -->
 		if (x.style.display === "none") {
-		      x.style.display = "block";
-		    } else {
-		      x.style.display = "none";
-		    }
+		   x.style.display = "block";
+		} else {
+		   x.style.display = "none";
+		}
 	}
 	</script>
 </body>

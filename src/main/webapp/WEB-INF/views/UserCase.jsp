@@ -9,11 +9,14 @@
 </head>
 <body>
 	<h3>Case Records</h3>
+	
 	<ul>
 		<c:forEach var="caseRecord" items="${allCase}">
 			<li>${caseRecord}</li>
 		</c:forEach>
 	</ul>
-	<br><a href="home">Home</a>
+	<br>
+	
+	<a href="home">Home</a>
 </body>
 </html>
