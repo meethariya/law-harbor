@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
@@ -22,7 +23,8 @@ import com.virtusa.dto.BookingDto;
 public class Booking {
 	@Id
 	@Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "booking_seq")
+	@SequenceGenerator(name = "booking_seq", allocationSize = 1, initialValue = 1)
 	private int bookingId;
 	
 	@ManyToOne

@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.virtusa.dto.UserDto;
@@ -16,7 +17,8 @@ import com.virtusa.dto.UserDto;
 @Table(name = "users")
 public class User {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "user_seq")
+	@SequenceGenerator(name = "user_seq", allocationSize = 1, initialValue = 1000)
 	private int id;
 	
 	@Column(unique = true, updatable = false, nullable = false, length = 30)

@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
@@ -24,7 +25,8 @@ import com.virtusa.dto.ReportDto;
 public class Report {
 	@Id
 	@Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "report_seq")
+	@SequenceGenerator(name = "report_seq", allocationSize = 1, initialValue = 100)
 	private int reportId;
 	
 	@OneToOne(mappedBy = "report")
