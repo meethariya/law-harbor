@@ -1,9 +1,16 @@
 package com.virtusa.config;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Locale;
 import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -18,14 +25,33 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScan(basePackages = {"com.virtusa.dao","com.virtusa.service","com.virtusa.model","com.virtusa.dto"})
 public class HibernateConfig {
 
+	private static final Logger log = LogManager.getLogger(HibernateConfig.class);
+	public HibernateConfig(){
+		log.warn("Hibernate Config initialised");
+	}
+	
+	@Autowired
+	MessageSource messageSource;
+	
 	// Database configuration
 	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource mySource = new DriverManagerDataSource();
-		mySource.setDriverClassName("oracle.jdbc.OracleDriver");
-		mySource.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
-		mySource.setUsername("meet");
-		mySource.setPassword("hariya");
+		
+		// loading dbConfig file in properties
+		Properties prop = new Properties();
+		InputStream inputStream = getClass().getClassLoader().getResourceAsStream("dbConfig.properties");
+		try {
+			prop.load(inputStream);
+		}catch(IOException e) {
+			log.error(e);
+		}
+		
+		mySource.setDriverClassName(prop.getProperty("drivername"));
+		mySource.setUrl(prop.getProperty("url"));
+		mySource.setUsername(prop.getProperty("username"));
+		mySource.setPassword(prop.getProperty("password"));
+		
 		return mySource;
 	}
 	
@@ -51,5 +77,10 @@ public class HibernateConfig {
 		HibernateTransactionManager transactionManager = new HibernateTransactionManager();
 		transactionManager.setSessionFactory(sessionFactory().getObject());
 		return transactionManager;
+	}
+	
+	public String getValueFromProperties(String key, String defaultValue) {
+		// returns properties based on key and default value
+		return messageSource.getMessage(key, null, defaultValue, Locale.ENGLISH);
 	}
 }

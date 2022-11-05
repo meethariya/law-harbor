@@ -1,5 +1,7 @@
 package com.virtusa.config;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -15,6 +17,10 @@ import org.springframework.web.servlet.view.JstlView;
 @ComponentScan(basePackages = {"com.virtusa.controller"})
 public class ServletConfig implements WebMvcConfigurer{
 	
+	private static final Logger log = LogManager.getLogger(ServletConfig.class);
+	public ServletConfig() {
+		log.warn("Servlet Config initialised");
+	}
 	// View Resolver
 	@Bean
 	public InternalResourceViewResolver resolver() {
