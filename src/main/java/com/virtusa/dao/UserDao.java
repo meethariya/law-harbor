@@ -19,7 +19,7 @@ import com.virtusa.model.Lawyer;
 import com.virtusa.model.User;
 
 @Repository
-public class UserDao {
+public class UserDao implements UserDaoInterface{
 	private static final Logger log = LogManager.getLogger(UserDao.class);
 
 	public UserDao() {
@@ -29,16 +29,19 @@ public class UserDao {
 	@Autowired
 	SessionFactory factory;
 
+	@Override
 	public void saveUser(User user) {
 		// Saves User to database
 		factory.getCurrentSession().persist(user);
 	}
 
+	@Override
 	public void saveLawyer(Lawyer user) {
 		// Saves Lawyer to database
 		factory.getCurrentSession().persist(user);
 	}
 
+	@Override
 	public User getUser(String email) {
 		// Returns user matching with email. Returns Null if no such record present
 		Session session = factory.getCurrentSession();
@@ -47,6 +50,7 @@ public class UserDao {
 		return query.uniqueResult();
 	}
 
+	@Override
 	public Lawyer getLawyer(String email) {
 		// Returns user matching with email. Returns Null if no such record present
 		Session session = factory.getCurrentSession();
@@ -56,11 +60,13 @@ public class UserDao {
 		return query.uniqueResult();
 	}
 	
+	@Override
 	public void userActiveStatusUpdate(User user) {
 		// changes user's active attribute to online
 		factory.getCurrentSession().update(user);
 	}
 	
+	@Override
 	public List<Lawyer> getAllLawyer(){
 		// returns list of lawyers
 		Session session = factory.getCurrentSession();
@@ -68,6 +74,7 @@ public class UserDao {
 		return allLawyer.getResultList();
 	}
 	
+	@Override
 	public User getUserByNumber(String mobileNumber) {
 		// Finds user by mobile number
 		Session session = factory.getCurrentSession();
@@ -76,6 +83,7 @@ public class UserDao {
 		return query.uniqueResult();
 	}
 	
+	@Override
 	public List<CaseRecord> getUserCase(User user){
 		// return list of cases registered by given user
 		Session session = factory.getCurrentSession();
@@ -84,6 +92,7 @@ public class UserDao {
 		return query.getResultList();
 	}
 	
+	@Override
 	public boolean existingBooking(Lawyer lawyer, Date bookingDate) {
 		// returns boolean value to check if any appointment is reserved
 		// for given lawyer for given date and time.
@@ -94,11 +103,14 @@ public class UserDao {
 		query.setParameter("bookingDate", bookingDate);
 		return query.uniqueResult()!=null;
 	}
+	
+	@Override
 	public void bookAppointment(Booking booking) {
 		// books an appointment
 		factory.getCurrentSession().save(booking);
 	}
 
+	@Override
 	public List<Booking> getAllBooking(User user) {
 		// returns List of Bookings by given user
 		Session session = factory.getCurrentSession();
@@ -107,11 +119,13 @@ public class UserDao {
 		return query.getResultList();
 	}
 	
+	@Override
 	public Booking getBooking(int id) {
 		// returns booking object provided id
 		return factory.getCurrentSession().get(Booking.class, id);
 	}
 
+	@Override
 	public void removeBooking(Booking booking) {
 		// removes/cancels a booking made by user
 		if(booking==null) return;

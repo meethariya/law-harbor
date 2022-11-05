@@ -30,7 +30,7 @@ import com.virtusa.model.Lawyer;
 import com.virtusa.model.User;
 
 @Service
-public class UserService {
+public class UserService implements UserServiceInterface{
 	private static final Logger log = LogManager.getLogger(UserService.class);
 	
 	public UserService() {
@@ -43,6 +43,7 @@ public class UserService {
 	@Autowired
 	MessageSource messageSource;
 	
+	@Override
 	@Transactional
 	public void saveUser(UserDto user) {
 		/* Verifies if any user exist with same email or mobile number
@@ -70,6 +71,7 @@ public class UserService {
 		}
 	}
 	
+	@Override
 	@Transactional
 	public String loginUser(LoginUserDto requestedUser) {
 		/* Verifies valid email and password. 
@@ -90,6 +92,7 @@ public class UserService {
 		return dbUser.getRole();
 	}
 
+	@Override
 	@Transactional
 	public User getUser(String email) {
 		// returns User
@@ -102,12 +105,14 @@ public class UserService {
 		return dbUser;
 	}
 	
+	@Override
 	@Transactional
 	public List<Lawyer> getAllLawyer(){
 		// returns list of lawyers
 		return userDao.getAllLawyer();
 	}
 	
+	@Override
 	@Transactional
 	public void logoutUser(String email) {
 		// changes active status of user and logout
@@ -116,12 +121,14 @@ public class UserService {
 		userDao.userActiveStatusUpdate(user);
 	}
 	
+	@Override
 	@Transactional
 	public List<CaseRecord> getUserCase(String email){
 		// returns list of cases reported by user
 		return userDao.getUserCase(userDao.getUser(email));
 	}
 
+	@Override
 	@Transactional
 	public void bookAppointment(BookingDto bookingDto) {
 		// Converts dto to entity and saves the booking object
@@ -135,6 +142,7 @@ public class UserService {
 		
 		userDao.bookAppointment(booking);		
 	}
+	
 	public User userDtoToUser(UserDto myUser) {
 		// converts UserDTO object to User entity object
 		return new User(myUser);
@@ -145,6 +153,7 @@ public class UserService {
 		return new Lawyer(myUser);
 	}
 	
+	@Override
 	@Transactional
 	public Booking bookingDtoTobooking(BookingDto booking) {
 		// converts booking DTO object to booking entity object
@@ -164,6 +173,7 @@ public class UserService {
 		return new Booking(booking);
 	}
 
+	@Override
 	@Transactional
 	public List<Booking> getAllBooking(String email) {
 		// Returns all booking by a user
@@ -172,6 +182,7 @@ public class UserService {
 		
 	}
 	
+	@Override
 	@Transactional
 	public void removeBooking(int id) {
 		// removes booking given id. If no id found throws error.

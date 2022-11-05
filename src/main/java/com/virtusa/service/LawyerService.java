@@ -30,7 +30,7 @@ import com.virtusa.model.User;
 
 
 @Service
-public class LawyerService {
+public class LawyerService implements LawyerServiceInterface{
 	private static final Logger log = LogManager.getLogger(LawyerService.class);
 	
 	public LawyerService() {
@@ -46,18 +46,21 @@ public class LawyerService {
 	@Autowired
 	UserService userService;
 
+	@Override
 	@Transactional
 	public Lawyer getLawyer(String email) {
 		// returns lawyer
 		return dao.getLawyer(email);
 	}
 	
+	@Override
 	@Transactional
 	public void logoutUser(String email) {
 		// logout use. Logic in UserService
 		userService.logoutUser(email);
 	}
 	
+	@Override
 	@Transactional
 	public List<Booking> getAllAppointment(String email) {
 		// return list of appointments
@@ -65,6 +68,7 @@ public class LawyerService {
 		return dao.getAllAppointment(lawyer);
 	}
 
+	@Override
 	@Transactional
 	public void approveBooking(int bookingId) {
 		// approve an appointment given its id
@@ -75,6 +79,7 @@ public class LawyerService {
 		dao.approveBooking(booking);
 	}
 
+	@Override
 	@Transactional
 	public void cancelBooking(int bookingId) {
 		// reject an appointment given its id
@@ -85,12 +90,14 @@ public class LawyerService {
 		dao.cancelBooking(booking);
 	}
 	
+	@Override
 	@Transactional
 	public List<CaseRecord> getAllCase(String email){
 		// returns list of case records made by lawyer
 		return dao.getAllCase(getLawyer(email));
 	}
 	
+	@Override
 	@Transactional
 	public User getUser(String email) {
 		// retrieves a user given email. Verifies the role
@@ -103,6 +110,7 @@ public class LawyerService {
 		return user;
 	}
 	
+	@Override
 	@Transactional
 	public void addCaseRecord(CaseRecordDto caseRecordDto) {
 		// Sets CaseRecordDto values required for Entity Object.
@@ -111,6 +119,8 @@ public class LawyerService {
 		caseRecordDto.setDate(new Date());
 		dao.addCaseRecord(new CaseRecord(caseRecordDto));
 	}
+	
+	@Override
 	@Transactional
 	public void deleteCaseRecord(int caseRecordId) {
 		// Deletes caseRecord given its id
@@ -120,6 +130,8 @@ public class LawyerService {
 		}
 		dao.deleteCaseRecord(caseRecord);
 	}
+	
+	@Override
 	@Transactional
 	public void editCaseRecord(CaseRecordDto caseRecordDto, int caseRecordId) {
 		// Edits case record given details and its id
@@ -134,6 +146,7 @@ public class LawyerService {
 		dbCaseRecord.setEventDetail(caseRecordDto.getEventDetail());
 	}
 
+	@Override
 	@Transactional
 	public Booking getBooking(int bookingId) {
 		// returns booking given its id
@@ -144,6 +157,7 @@ public class LawyerService {
 		return booking;
 	}
 
+	@Override
 	@Transactional
 	public List<CaseRecord> getCaseOfUser(User user, Lawyer lawyer) {
 		// returns list of case records made by lawyer for a user.
@@ -154,6 +168,7 @@ public class LawyerService {
 		return caseRecords;
 	}
 	
+	@Override
 	@Transactional
 	public CaseRecord getCaseRecord(int id) {
 		// returns case record given its id
@@ -164,6 +179,7 @@ public class LawyerService {
 		return caseRecord;
 	}
 
+	@Override
 	@Transactional
 	public Set<CaseRecord> stringIdToCaseRecord(String allId){
 		// takes input as string of IDs comma separated and returns set of case records
@@ -179,6 +195,7 @@ public class LawyerService {
 		return allCaseRecord;
 	}
 	
+	@Override
 	@Transactional
 	public void addReport(ReportDto reportDto) {
 		// adds report to database and sets report value for its caserecords and booking
@@ -214,6 +231,7 @@ public class LawyerService {
 		dao.updateBookingReport(booking);
 	}
 	
+	@Override
 	@Transactional
 	public Report getReport(int id) {
 		// returns report given its id

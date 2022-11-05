@@ -17,7 +17,7 @@ import com.virtusa.model.Lawyer;
 import com.virtusa.model.User;
 
 @Service
-public class AdminService {
+public class AdminService implements AdminServiceInterface {
 private static final Logger log = LogManager.getLogger(AdminService.class);
 	
 	public AdminService() {
@@ -33,24 +33,28 @@ private static final Logger log = LogManager.getLogger(AdminService.class);
 	@Autowired
 	LawyerService lawyerService;
 	
+	@Override
 	@Transactional
 	public User getUser(String email) {
 		// returns User from UserService
 		return userService.getUser(email);
 	}
 	
+	@Override
 	@Transactional
 	public List<Lawyer> getAllLawyer(){
 		// returns list of lawyers from UserService
 		return userService.getAllLawyer();
 	}
-
+	
+	@Override
 	@Transactional
 	public void logoutUser(String email) {
 		// logout user. Logic in UserService
 		userService.logoutUser(email);		
 	}
-
+	
+	@Override
 	@Transactional
 	public void deleteLawyer(int lawyerId) {
 		// deletes lawyer
@@ -60,7 +64,8 @@ private static final Logger log = LogManager.getLogger(AdminService.class);
 		}
 		adminDao.deleteLawyer(lawyer);
 	}
-
+	
+	@Override
 	@Transactional
 	public void updateLawyer(UserDto lawyerDto) {
 		// updates Lawyer Info
@@ -80,7 +85,8 @@ private static final Logger log = LogManager.getLogger(AdminService.class);
 		dbLawyer.setMobileNumber(lawyerDto.getMobileNumber());
 		dbLawyer.setUsername(lawyerDto.getUsername());
 	}
-
+	
+	@Override
 	@Transactional
 	public void saveUser(UserDto lawyer) {
 		// adds new lawyer

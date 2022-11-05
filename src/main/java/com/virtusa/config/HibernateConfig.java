@@ -21,7 +21,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@EnableTransactionManagement
+@EnableTransactionManagement(proxyTargetClass = true)
 @ComponentScan(basePackages = {"com.virtusa.dao","com.virtusa.service","com.virtusa.model","com.virtusa.dto"})
 public class HibernateConfig {
 

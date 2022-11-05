@@ -18,7 +18,7 @@ import com.virtusa.model.User;
 
 
 @Repository
-public class LawyerDao {
+public class LawyerDao implements LawyerDaoInterface{
 	private static final Logger log = LogManager.getLogger(LawyerDao.class);
 		
 	public LawyerDao() {
@@ -31,16 +31,19 @@ public class LawyerDao {
 	@Autowired
 	UserDao userDao;
 	
+	@Override
 	public Lawyer getLawyer(String email) {
 		// finds lawyer for given email. Logic in UserDao
 		return userDao.getLawyer(email);
 	}
 
+	@Override
 	public User getUser(String email) {
 		// finds User for given email. Logic in UserDao
 		return userDao.getUser(email);
 	}
 	
+	@Override
 	public List<Booking> getAllAppointment(Lawyer lawyer) {
 		// Gets all appointments of a Lawyer
 		Session session = factory.getCurrentSession();
@@ -49,22 +52,26 @@ public class LawyerDao {
 		return query.getResultList();
 	}
 	
+	@Override
 	public Booking getBooking(int bookingId) {
 		// returns appointment for given id. Logic in UserDao
 		return userDao.getBooking(bookingId);
 	}
 	
+	@Override
 	public void approveBooking(Booking appointment) {
 		// Approve an appointment
 		appointment.setBookingStatus(true);
 		factory.getCurrentSession().update(appointment);
 	}
 
+	@Override
 	public void cancelBooking(Booking booking) {
 		// cancels an appointment
 		userDao.removeBooking(booking);
 	}
 
+	@Override
 	public List<CaseRecord> getAllCase(Lawyer lawyer) {
 		// returns List of case records made by lawyer
 		Session session = factory.getCurrentSession();
@@ -72,22 +79,32 @@ public class LawyerDao {
 		query.setParameter("lawyer", lawyer);
 		return query.getResultList();
 	}
+	
+	@Override
 	public void addCaseRecord(CaseRecord caseRecord) {
 		// adds case record
 		factory.getCurrentSession().save(caseRecord);
 	}
+	
+	@Override
 	public void deleteCaseRecord(CaseRecord caseRecord) {
 		// deletes case record
 		factory.getCurrentSession().delete(caseRecord);
 	}
+	
+	@Override
 	public CaseRecord getCaseRecord(int caseRecordId) {
 		// returns case record given its id
 		return factory.getCurrentSession().get(CaseRecord.class, caseRecordId);
 	}
+	
+	@Override
 	public void updateCaseRecordReport(CaseRecord caseRecord) {
 		// updates case record
 		factory.getCurrentSession().update(caseRecord);
 	}
+	
+	@Override
 	public List<CaseRecord> getCaseOfUser(User user, Lawyer lawyer) {
 		// returns list of case record made by given lawyer for a given user
 		Session session = factory.getCurrentSession();
@@ -97,6 +114,7 @@ public class LawyerDao {
 		return query.getResultList();
 	}
 
+	@Override
 	public Report getReportByBooking(Booking booking) {
 		// returns report for a given booking
 		Session session = factory.getCurrentSession();
@@ -105,16 +123,19 @@ public class LawyerDao {
 		return query.uniqueResult();
 	}
 	
+	@Override
 	public int addReport(Report report) {
 		// adds report and returns its id
 		return (int) factory.getCurrentSession().save(report);
 	}
 
+	@Override
 	public Report getReport(int id) {
 		// returns report given its id
 		return factory.getCurrentSession().get(Report.class, id);
 	}
 	
+	@Override
 	public void updateBookingReport(Booking appointment) {
 		// updates booking
 		factory.getCurrentSession().update(appointment);

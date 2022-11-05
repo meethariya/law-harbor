@@ -10,7 +10,7 @@ import com.virtusa.model.Lawyer;
 import com.virtusa.model.User;
 
 @Repository
-public class AdminDao {
+public class AdminDao implements AdminDaoInterface{
 	private static final Logger log = LogManager.getLogger(AdminDao.class);
 
 	public AdminDao() {
@@ -23,16 +23,19 @@ public class AdminDao {
 	@Autowired
 	UserDao userDao;
 	
+	@Override
 	public void deleteLawyer(Lawyer lawyer) {
 		// Deletes Lawyer
 		factory.getCurrentSession().remove(lawyer);
 	}
 	
+	@Override
 	public User getUserByNumber(String number) {
 		// Gets user by Phone number. Method code written in UserDao
 		return userDao.getUserByNumber(number);
 	}
 	
+	@Override
 	public Lawyer getLawyer(int lawyerId) {
 		// returns lawyer by id
 		return factory.getCurrentSession().get(Lawyer.class, lawyerId);
