@@ -5,43 +5,77 @@
 <html lang="en">
 <head>
 <meta charset="ISO-8859-1">
+<jsp:include page="BootstrapCss.jsp"/>
 <title>User Bookings</title>
 </head>
 <body>
-	<h3>User Bookings</h3>
-	<h3>${ removeBookingMessage }</h3>
+	<jsp:include page="Navbar.jsp"/>
+	<div class = "fluid-container mx-2 my-2">		
+		<div class="alert alert-warning alert-dismissible show w-50 mx-auto" role="alert">
+			${ removeBookingMessage }
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<h3>User Bookings</h3>
+				</div>
+			</div>
+			<div class="row">
+				<c:forEach var="booking" items="${allBooking}">
+					<div class="col col-sm-4">
 
-	<ul>
-		<c:forEach var="booking" items="${allBooking}">
-			<li>${booking}<!-- If Booking is not confirmed --> <c:choose>
-					<c:when test="${!booking.isBookingStatus() }">
-						<a href="removeBooking/${booking.getBookingId()}">
-							<button>Remove Booking</button>
-						</a>
-					</c:when>
-					<c:otherwise>
-						<c:choose>
-							<c:when test="${booking.getReport() != null }">
-								<button
-									onclick="divToggler('${booking.getReport().getReportId() }')">View
-									Report</button>
-								<div id="viewReportDiv${booking.getReport().getReportId() }"
-									style="display: none">
-									<p>${booking.getReport()}</p>
-								</div>
-							</c:when>
-						</c:choose>
-					</c:otherwise>
-				</c:choose>
-			</li>
-		</c:forEach>
-	</ul>
-	<br>
+						<div class="card text-bg-light mx-auto my-2">
 
-	<a href="home">Home</a>
+							<div class="card-body">
+								<h5 class="card-title">Appointment for: ${ booking.getLawyer().getUsername()}</h5>
+								<br>
+								<h6 class="card-subtitle">Slot: ${booking.getDate()}</h6>
+								<p class="card-text">Subject: ${booking.getSubject()}</p>
+								<c:choose>
+									<c:when test="${booking.isBookingStatus() }">							
+										<h5 class="text-success">Booking Status: Confirmed</h5>
+									</c:when>
+									<c:otherwise>
+										<h5 class="text-warning">Booking Status: Not Confirmed</h5>									
+									</c:otherwise>
+								</c:choose>
+							</div>
 
+							<div class="card-footer text-muted">
+								<!-- If Booking is not confirmed -->
+								<c:choose>
+									<c:when test="${!booking.isBookingStatus() }">
+										<a href="removeBooking/${booking.getBookingId()}">
+											<button class="btn btn-danger">Remove Booking</button>
+										</a>
+									</c:when>
+									<c:otherwise>
+										<c:choose>
+											<c:when test="${booking.getReport() != null }">
+												<button class="btn btn-primary" onclick="myDivToggler('${booking.getReport().getReportId() }')">
+													View Report</button>
+												<div id="viewReportDiv${booking.getReport().getReportId() }"
+													style="display: none">
+													<p>Report Date: ${booking.getReport().getDateTime().toString().split(" ")[0]}</p>
+													<p>Report Detail: ${booking.getReport().getReportDetail()}</p>
+												</div>
+											</c:when>
+										</c:choose>
+									</c:otherwise>
+								</c:choose>
+							</div>
+
+						</div>
+
+					</div>
+				</c:forEach>
+			</div>
+		</div>
+	</div>
+	
 	<script type="text/javascript">
-		function divToggler(reportId){
+		function myDivToggler(reportId){
 			<!-- Toggles display property of view report div -->
 			var x = document.getElementById("viewReportDiv"+reportId);
 			if (x.style.display === "none") {
@@ -51,5 +85,7 @@
 			}
 		}
 	</script>
+	<jsp:include page="UserScript.jsp"/>
+	<jsp:include page="BootstrapJs.jsp"/>
 </body>
 </html>

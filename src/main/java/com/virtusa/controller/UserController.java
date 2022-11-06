@@ -40,6 +40,7 @@ public class UserController {
 	private static final String REDIRECTLOGIN = "redirect:login";
 	private static final String REDIRECTHOME = "redirect:home";
 	private static final String MISSINGVALUE = "Enter Valid Details";
+	private static final String ERR = "errMessage";
 	
 	@Autowired
 	UserService service;
@@ -66,7 +67,7 @@ public class UserController {
 	
 	@PostMapping("/registerForm")
 	public String postRegisterForm(@Valid @ModelAttribute("user") UserDto myUser,
-			Errors error, Model model) {
+			Errors error, Model model, RedirectAttributes redirectAttributes) {
 		// registration form submission
 		
 		try {			
@@ -75,9 +76,10 @@ public class UserController {
 			}
 			// registers users or throws error if user already exist
 			service.saveUser(myUser);
+			redirectAttributes.addFlashAttribute(ERR,"Account registerd");
 		}
 		catch(UserAlreadyExistException | IncorrectLoginDetailsException e){	
-			model.addAttribute("errMessage", e.getMessage());
+			model.addAttribute(ERR, e.getMessage());
 			model.addAttribute("roles",getAllRoles());
 			return "UserRegistration";
 		}
@@ -122,7 +124,7 @@ public class UserController {
 			}
 		}
 		catch(IncorrectLoginDetailsException | UserNotFoundException e) {
-			model.addAttribute("errMessage", e.getMessage());
+			model.addAttribute(ERR, e.getMessage());
 			return "UserLogin";
 		}
 	}
@@ -144,7 +146,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/logout")
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session, RedirectAttributes redirectAttributes) {
 		// logout user
 
 		String email = (String) session.getAttribute(getValueFromProperties());
@@ -153,7 +155,7 @@ public class UserController {
 			service.logoutUser(email);
 			session.removeAttribute(getValueFromProperties());						// remove session on logout
 		}		
-		
+		redirectAttributes.addFlashAttribute(ERR,"loggged out");
 		return REDIRECTLOGIN;
 	}
 	
@@ -244,7 +246,6 @@ public class UserController {
 		List<String> propertiesList = new ArrayList<>();
 		propertiesList.add(getValueFromProperties("role.user","user"));
 		propertiesList.add(getValueFromProperties("role.lawyer","lawyer"));
-		propertiesList.add(getValueFromProperties("role.admin","admin"));
 		
 		return propertiesList;
 	}

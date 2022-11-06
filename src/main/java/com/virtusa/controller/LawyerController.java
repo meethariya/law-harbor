@@ -61,7 +61,7 @@ public class LawyerController {
 	}
 	
 	@GetMapping("/logout")
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session, RedirectAttributes redirectAttributes) {
 		// logout lawyer
 		String email = (String) session.getAttribute(getEmailFromProperties());
 		
@@ -69,7 +69,7 @@ public class LawyerController {
 			service.logoutUser(email);
 			session.removeAttribute(getEmailFromProperties());						// remove session on logout
 		}	
-		
+		redirectAttributes.addFlashAttribute(ERR,"loggged out");
 		return REDIRECTLOGIN;
 	}
 	

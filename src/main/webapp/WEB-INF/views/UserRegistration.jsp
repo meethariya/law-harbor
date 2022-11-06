@@ -7,50 +7,62 @@
 <html lang="en">
 <head>
 <meta charset="ISO-8859-1">
+<jsp:include page="BootstrapCss.jsp"/>
 <title>User Registration</title>
 </head>
 <body>
-	<h1>Customer Registration Form</h1>
-	<h2>${errMessage}</h2><br>
-	
-	<form:form action="registerForm" method="POST" modelAttribute="user">
-		<label for="email">Email: </label>
-		<form:input type="email" 	name="email"		id="email" 		path="email" required="true" />
-		<form:errors path="email"/><br>
-		
-		<label for="password">Password: </label>
-		<form:password 				name="password"		id="password" 	path="password" required="true" />
-		<form:errors path="password"/><br>
-		
-		<label for="username">User Name: </label>
-		<form:input 				name="username"		id="username" 	path="username" required="true" />
-		<form:errors path="username"/><br>
-		
-		<label for="mobile">Mobile Number: </label>
-		<form:input type="number" 	name="mobileNumber"	id="mobile" 	path="mobileNumber" min="0" required="true" />
-		<form:errors path="mobileNumber"/><br>
-		
-		<label for="role">Role: </label>
-		<form:select 				name="role"			id="role" 		path="role" required="true" >  
-			<c:forEach var="role" items="${roles }">			
-				<option value = "${role }" > ${role } </option>  
-			</c:forEach>
-		</form:select>  
-		<form:errors path="role"/><br>
-		
-		<!-- Additional lawyer information -->
-		<div id="myDiv" style="display: none">
-			<label for="experience">Experience(years): </label>
-			<form:input type="number" name="experience"	id="experience" path="experience" min="0"/><br>
-			<label for="expertise">Expertise: </label>
-			<form:input  			name="expertise"	id="expertise" path="expertise"/><br>
-			<label for="lawFirmName">Law Firm Name: </label>
-			<form:input 			name="lawFirmName"	id="lawFirmName" path="lawFirmName"/><br>
+	<div class = "fluid-container mx-2 my-2">
+		<div class="alert alert-danger alert-dismissible show w-50 mx-auto" role="alert">
+			${errMessage}
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 		</div>
 		
-		<form:button value="Submit">Submit</form:button>
-	</form:form>
-	
+		<div class="card text-bg-light w-50 mx-auto">
+		  <div class="card-header text-center">
+		    <h1>Registration Form</h1>
+		  </div>
+		  <div class="card-body">
+			<form:form class="form-control" action="registerForm" method="POST" modelAttribute="user">
+				<label class="form-label" for="email">Email: </label>
+				<form:input type="email" class="form-control" 	name="email"		id="email" 		path="email" required="true" maxlength="30"/>
+				<form:errors class="text-danger" path="email"/><br>
+				
+				<label class="form-label" for="password">Password: </label>
+				<form:password class="form-control"				name="password"		id="password" 	path="password" required="true" maxlength="30"/>
+				<form:errors class="text-danger" path="password"/><br>
+				
+				<label class="form-label" for="username">User Name: </label>
+				<form:input class="form-control"				name="username"		id="username" 	path="username" required="true" maxlength="30"/>
+				<form:errors class="text-danger" path="username"/><br>
+				
+				<label class="form-label" for="mobile">Mobile Number: </label>
+				<form:input type="number" class="form-control"	name="mobileNumber"	id="mobile" 	path="mobileNumber" min="0" required="true" />
+				<form:errors class="text-danger" path="mobileNumber"/><br>
+				
+				<label class="form-label" for="role">Role: </label>
+				<form:select class="form-select"				name="role"			id="role" 		path="role" required="true" >  
+					<c:forEach var="role" items="${roles }">			
+						<option value = "${role }" > ${role } </option>  
+					</c:forEach>
+				</form:select>  
+				<form:errors class="text-danger" path="role"/><br>
+				
+				<!-- Additional lawyer information -->
+				<div id="myDiv" style="display: none">
+					<label class="form-label" for="experience">Experience(years): </label>
+					<form:input class="form-control" type="number" name="experience"	id="experience" path="experience" min="0"/>
+					<label class="form-label" for="expertise">Expertise: </label>
+					<form:input class="form-control"			   name="expertise"	id="expertise" path="expertise" maxlength="30"/>
+					<label class="form-label" for="lawFirmName">Law Firm Name: </label>
+					<form:input class="form-control"			   name="lawFirmName"	id="lawFirmName" path="lawFirmName" maxlength="30"/>
+				</div>
+				<br>
+				<form:button class="btn btn-success" value="Submit">Submit</form:button>
+			</form:form>
+		  </div>
+		</div>
+		
+	</div>
 	<script type="text/javascript">
 		<!-- Opens additional lawyer information form on role option "lawyer" -->
 		var myDiv = document.getElementById("myDiv");
@@ -58,5 +70,6 @@
 		  myDiv.style.display = (this.selectedIndex == 1) ? "block" : "none";
 		}
 	</script>
+	<jsp:include page="BootstrapJs.jsp"/>
 </body>
 </html>

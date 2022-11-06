@@ -43,7 +43,7 @@ public class Booking {
 	@Column(name = "status")
 	private boolean bookingStatus;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, length = 30)
 	private String subject;
 	
 	@OneToOne

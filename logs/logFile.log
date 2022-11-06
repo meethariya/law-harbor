@@ -1469,3 +1469,257 @@ Caused by: java.lang.IllegalArgumentException: Property 'driverClassName' must n
 [WARN ] 04-11-2022 23:19 com.virtusa.controller.AdminController:37 AdminController Constructor Called
 [WARN ] 04-11-2022 23:19 com.virtusa.controller.LawyerController:42 LawyerController Constructor Called
 [WARN ] 04-11-2022 23:19 com.virtusa.controller.UserController:51 UserController Constructor called
+[WARN ] 05-11-2022 14:50 com.virtusa.config.WebAppConfig:11 WebAppConfig initialised
+[WARN ] 05-11-2022 14:50 com.virtusa.config.HibernateConfig:30 Hibernate Config initialised
+[WARN ] 05-11-2022 14:50 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 05-11-2022 14:50 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 05-11-2022 14:50 com.virtusa.dao.LawyerDao:25 LawyerDao Constructor Called
+[WARN ] 05-11-2022 14:50 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 05-11-2022 14:50 com.virtusa.service.UserService:37 UserService Constructor called
+[WARN ] 05-11-2022 14:50 web.context.support.AnnotationConfigWebApplicationContext:591 Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'adminService': Unsatisfied dependency expressed through field 'userService'; nested exception is org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bean named 'userService' is expected to be of type 'com.virtusa.service.UserService' but was actually of type 'jdk.proxy3.$Proxy77'
+[ERROR] 05-11-2022 14:50 springframework.web.context.ContextLoader:313 Context initialization failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'adminService': Unsatisfied dependency expressed through field 'userService'; nested exception is org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bean named 'userService' is expected to be of type 'com.virtusa.service.UserService' but was actually of type 'jdk.proxy3.$Proxy77'
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:659) ~[spring-beans-5.3.20.jar:5.3.20]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:639) ~[spring-beans-5.3.20.jar:5.3.20]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119) ~[spring-beans-5.3.20.jar:5.3.20]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399) ~[spring-beans-5.3.20.jar:5.3.20]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431) ~[spring-beans-5.3.20.jar:5.3.20]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619) ~[spring-beans-5.3.20.jar:5.3.20]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.20.jar:5.3.20]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.20.jar:5.3.20]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.20.jar:5.3.20]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.20.jar:5.3.20]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.20.jar:5.3.20]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:953) ~[spring-beans-5.3.20.jar:5.3.20]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:918) ~[spring-context-5.3.20.jar:5.3.20]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[spring-context-5.3.20.jar:5.3.20]
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401) ~[spring-web-5.3.20.jar:5.3.20]
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292) ~[spring-web-5.3.20.jar:5.3.20]
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103) ~[spring-web-5.3.20.jar:5.3.20]
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4766) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5230) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1396) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1386) ~[catalina.jar:9.0.62]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[?:?]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-util.jar:9.0.62]
+	at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145) ~[?:?]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:919) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:835) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1396) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1386) ~[catalina.jar:9.0.62]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[?:?]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-util.jar:9.0.62]
+	at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145) ~[?:?]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:919) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:263) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:432) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:927) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[catalina.jar:9.0.62]
+	at org.apache.catalina.startup.Catalina.start(Catalina.java:772) ~[catalina.jar:9.0.62]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at org.apache.catalina.startup.Bootstrap.start(Bootstrap.java:345) ~[bootstrap.jar:9.0.62]
+	at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:476) ~[bootstrap.jar:9.0.62]
+Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bean named 'userService' is expected to be of type 'com.virtusa.service.UserService' but was actually of type 'jdk.proxy3.$Proxy77'
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1399) ~[spring-beans-5.3.20.jar:5.3.20]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1309) ~[spring-beans-5.3.20.jar:5.3.20]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:656) ~[spring-beans-5.3.20.jar:5.3.20]
+	... 46 more
+[WARN ] 05-11-2022 14:53 com.virtusa.config.WebAppConfig:11 WebAppConfig initialised
+[WARN ] 05-11-2022 14:53 com.virtusa.config.HibernateConfig:30 Hibernate Config initialised
+[WARN ] 05-11-2022 14:53 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 05-11-2022 14:53 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 05-11-2022 14:53 com.virtusa.dao.LawyerDao:25 LawyerDao Constructor Called
+[WARN ] 05-11-2022 14:53 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 05-11-2022 14:53 com.virtusa.service.UserService:37 UserService Constructor called
+[WARN ] 05-11-2022 14:53 com.virtusa.service.LawyerService:37 LawyerService Constructor Called
+[WARN ] 05-11-2022 14:53 com.virtusa.config.ServletConfig:22 Servlet Config initialised
+[WARN ] 05-11-2022 14:53 com.virtusa.controller.AdminController:37 AdminController Constructor Called
+[WARN ] 05-11-2022 14:53 com.virtusa.controller.LawyerController:42 LawyerController Constructor Called
+[WARN ] 05-11-2022 14:53 com.virtusa.controller.UserController:51 UserController Constructor called
+[WARN ] 05-11-2022 15:33 com.virtusa.config.WebAppConfig:11 WebAppConfig initialised
+[WARN ] 05-11-2022 15:33 com.virtusa.config.HibernateConfig:30 Hibernate Config initialised
+[WARN ] 05-11-2022 15:33 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 05-11-2022 15:33 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 05-11-2022 15:33 com.virtusa.dao.LawyerDao:25 LawyerDao Constructor Called
+[WARN ] 05-11-2022 15:33 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 05-11-2022 15:33 com.virtusa.service.UserService:37 UserService Constructor called
+[WARN ] 05-11-2022 15:33 com.virtusa.service.LawyerService:37 LawyerService Constructor Called
+[WARN ] 05-11-2022 15:33 com.virtusa.config.ServletConfig:22 Servlet Config initialised
+[WARN ] 05-11-2022 15:33 com.virtusa.controller.AdminController:37 AdminController Constructor Called
+[WARN ] 05-11-2022 15:33 com.virtusa.controller.LawyerController:42 LawyerController Constructor Called
+[WARN ] 05-11-2022 15:33 com.virtusa.controller.UserController:51 UserController Constructor called
+[WARN ] 05-11-2022 15:52 com.virtusa.config.WebAppConfig:11 WebAppConfig initialised
+[WARN ] 05-11-2022 15:52 com.virtusa.config.HibernateConfig:30 Hibernate Config initialised
+[WARN ] 05-11-2022 15:52 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 05-11-2022 15:53 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 05-11-2022 15:53 com.virtusa.dao.LawyerDao:25 LawyerDao Constructor Called
+[WARN ] 05-11-2022 15:53 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 05-11-2022 15:53 com.virtusa.service.UserService:37 UserService Constructor called
+[WARN ] 05-11-2022 15:53 com.virtusa.service.LawyerService:37 LawyerService Constructor Called
+[WARN ] 05-11-2022 15:53 com.virtusa.config.ServletConfig:22 Servlet Config initialised
+[WARN ] 05-11-2022 15:53 com.virtusa.controller.AdminController:37 AdminController Constructor Called
+[WARN ] 05-11-2022 15:53 com.virtusa.controller.LawyerController:42 LawyerController Constructor Called
+[WARN ] 05-11-2022 15:53 com.virtusa.controller.UserController:51 UserController Constructor called
+[WARN ] 05-11-2022 18:40 com.virtusa.config.WebAppConfig:11 WebAppConfig initialised
+[WARN ] 05-11-2022 18:40 com.virtusa.config.HibernateConfig:30 Hibernate Config initialised
+[WARN ] 05-11-2022 18:40 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 05-11-2022 18:40 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 05-11-2022 18:40 com.virtusa.dao.LawyerDao:25 LawyerDao Constructor Called
+[WARN ] 05-11-2022 18:40 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 05-11-2022 18:40 com.virtusa.service.UserService:37 UserService Constructor called
+[WARN ] 05-11-2022 18:40 com.virtusa.service.LawyerService:37 LawyerService Constructor Called
+[WARN ] 05-11-2022 18:40 com.virtusa.config.ServletConfig:22 Servlet Config initialised
+[WARN ] 05-11-2022 18:40 com.virtusa.controller.AdminController:37 AdminController Constructor Called
+[WARN ] 05-11-2022 18:40 com.virtusa.controller.LawyerController:42 LawyerController Constructor Called
+[WARN ] 05-11-2022 18:40 com.virtusa.controller.UserController:51 UserController Constructor called
+[WARN ] 06-11-2022 11:04 com.virtusa.config.WebAppConfig:11 WebAppConfig initialised
+[WARN ] 06-11-2022 11:04 com.virtusa.config.HibernateConfig:30 Hibernate Config initialised
+[WARN ] 06-11-2022 11:04 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 06-11-2022 11:04 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 06-11-2022 11:04 com.virtusa.dao.LawyerDao:25 LawyerDao Constructor Called
+[WARN ] 06-11-2022 11:04 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 06-11-2022 11:04 com.virtusa.service.UserService:37 UserService Constructor called
+[WARN ] 06-11-2022 11:04 com.virtusa.service.LawyerService:37 LawyerService Constructor Called
+[WARN ] 06-11-2022 11:04 com.virtusa.config.ServletConfig:22 Servlet Config initialised
+[WARN ] 06-11-2022 11:04 com.virtusa.controller.AdminController:37 AdminController Constructor Called
+[WARN ] 06-11-2022 11:04 com.virtusa.controller.LawyerController:42 LawyerController Constructor Called
+[WARN ] 06-11-2022 11:04 com.virtusa.controller.UserController:51 UserController Constructor called
+[WARN ] 06-11-2022 12:43 com.virtusa.config.WebAppConfig:11 WebAppConfig initialised
+[WARN ] 06-11-2022 12:43 com.virtusa.config.HibernateConfig:30 Hibernate Config initialised
+[WARN ] 06-11-2022 12:43 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 06-11-2022 12:43 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 06-11-2022 12:43 com.virtusa.dao.LawyerDao:25 LawyerDao Constructor Called
+[WARN ] 06-11-2022 12:43 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 06-11-2022 12:43 com.virtusa.service.UserService:37 UserService Constructor called
+[WARN ] 06-11-2022 12:43 com.virtusa.service.LawyerService:37 LawyerService Constructor Called
+[WARN ] 06-11-2022 12:43 com.virtusa.config.ServletConfig:22 Servlet Config initialised
+[WARN ] 06-11-2022 12:43 com.virtusa.controller.AdminController:37 AdminController Constructor Called
+[WARN ] 06-11-2022 12:43 com.virtusa.controller.LawyerController:42 LawyerController Constructor Called
+[WARN ] 06-11-2022 12:43 com.virtusa.controller.UserController:51 UserController Constructor called
+[WARN ] 06-11-2022 12:46 com.virtusa.config.WebAppConfig:11 WebAppConfig initialised
+[WARN ] 06-11-2022 12:46 com.virtusa.config.HibernateConfig:30 Hibernate Config initialised
+[WARN ] 06-11-2022 12:46 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 06-11-2022 12:46 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 06-11-2022 12:46 com.virtusa.dao.LawyerDao:25 LawyerDao Constructor Called
+[WARN ] 06-11-2022 12:46 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 06-11-2022 12:46 com.virtusa.service.UserService:37 UserService Constructor called
+[WARN ] 06-11-2022 12:46 com.virtusa.service.LawyerService:37 LawyerService Constructor Called
+[WARN ] 06-11-2022 12:46 com.virtusa.config.ServletConfig:22 Servlet Config initialised
+[WARN ] 06-11-2022 12:46 com.virtusa.controller.AdminController:37 AdminController Constructor Called
+[WARN ] 06-11-2022 12:46 com.virtusa.controller.LawyerController:42 LawyerController Constructor Called
+[WARN ] 06-11-2022 12:46 com.virtusa.controller.UserController:52 UserController Constructor called
+[WARN ] 06-11-2022 19:44 com.virtusa.config.WebAppConfig:11 WebAppConfig initialised
+[WARN ] 06-11-2022 19:44 com.virtusa.config.HibernateConfig:30 Hibernate Config initialised
+[WARN ] 06-11-2022 19:44 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 06-11-2022 19:44 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 06-11-2022 19:44 com.virtusa.dao.LawyerDao:25 LawyerDao Constructor Called
+[WARN ] 06-11-2022 19:44 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 06-11-2022 19:44 com.virtusa.service.UserService:37 UserService Constructor called
+[WARN ] 06-11-2022 19:44 com.virtusa.service.LawyerService:37 LawyerService Constructor Called
+[WARN ] 06-11-2022 19:44 com.virtusa.config.ServletConfig:22 Servlet Config initialised
+[WARN ] 06-11-2022 19:44 com.virtusa.controller.AdminController:37 AdminController Constructor Called
+[WARN ] 06-11-2022 19:44 com.virtusa.controller.LawyerController:42 LawyerController Constructor Called
+[WARN ] 06-11-2022 19:44 com.virtusa.controller.UserController:52 UserController Constructor called
+[WARN ] 06-11-2022 20:58 com.virtusa.config.WebAppConfig:11 WebAppConfig initialised
+[WARN ] 06-11-2022 20:58 com.virtusa.config.HibernateConfig:30 Hibernate Config initialised
+[WARN ] 06-11-2022 20:58 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 06-11-2022 20:58 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 06-11-2022 20:58 com.virtusa.dao.LawyerDao:25 LawyerDao Constructor Called
+[WARN ] 06-11-2022 20:58 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 06-11-2022 20:58 com.virtusa.service.UserService:37 UserService Constructor called
+[WARN ] 06-11-2022 20:58 com.virtusa.service.LawyerService:37 LawyerService Constructor Called
+[WARN ] 06-11-2022 20:58 com.virtusa.config.ServletConfig:22 Servlet Config initialised
+[WARN ] 06-11-2022 20:58 com.virtusa.controller.AdminController:37 AdminController Constructor Called
+[WARN ] 06-11-2022 20:58 com.virtusa.controller.LawyerController:42 LawyerController Constructor Called
+[WARN ] 06-11-2022 20:58 com.virtusa.controller.UserController:52 UserController Constructor called
+[WARN ] 06-11-2022 20:59 com.virtusa.config.WebAppConfig:11 WebAppConfig initialised
+[WARN ] 06-11-2022 20:59 com.virtusa.config.HibernateConfig:30 Hibernate Config initialised
+[WARN ] 06-11-2022 20:59 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 06-11-2022 20:59 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 06-11-2022 20:59 com.virtusa.dao.LawyerDao:25 LawyerDao Constructor Called
+[WARN ] 06-11-2022 20:59 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 06-11-2022 20:59 com.virtusa.service.UserService:37 UserService Constructor called
+[WARN ] 06-11-2022 20:59 com.virtusa.service.LawyerService:37 LawyerService Constructor Called
+[WARN ] 06-11-2022 20:59 com.virtusa.config.ServletConfig:22 Servlet Config initialised
+[WARN ] 06-11-2022 20:59 com.virtusa.controller.AdminController:37 AdminController Constructor Called
+[WARN ] 06-11-2022 20:59 com.virtusa.controller.LawyerController:42 LawyerController Constructor Called
+[WARN ] 06-11-2022 20:59 com.virtusa.controller.UserController:52 UserController Constructor called
+[WARN ] 06-11-2022 21:56 com.virtusa.config.WebAppConfig:11 WebAppConfig initialised
+[WARN ] 06-11-2022 21:56 com.virtusa.config.HibernateConfig:30 Hibernate Config initialised
+[WARN ] 06-11-2022 21:56 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 06-11-2022 21:56 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 06-11-2022 21:56 com.virtusa.dao.LawyerDao:25 LawyerDao Constructor Called
+[WARN ] 06-11-2022 21:56 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 06-11-2022 21:56 com.virtusa.service.UserService:37 UserService Constructor called
+[WARN ] 06-11-2022 21:56 com.virtusa.service.LawyerService:37 LawyerService Constructor Called
+[WARN ] 06-11-2022 21:56 com.virtusa.config.ServletConfig:22 Servlet Config initialised
+[WARN ] 06-11-2022 21:56 com.virtusa.controller.AdminController:37 AdminController Constructor Called
+[WARN ] 06-11-2022 21:56 com.virtusa.controller.LawyerController:42 LawyerController Constructor Called
+[WARN ] 06-11-2022 21:56 com.virtusa.controller.UserController:52 UserController Constructor called
+[WARN ] 06-11-2022 22:46 com.virtusa.config.WebAppConfig:11 WebAppConfig initialised
+[WARN ] 06-11-2022 22:46 com.virtusa.config.HibernateConfig:30 Hibernate Config initialised
+[WARN ] 06-11-2022 22:46 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 06-11-2022 22:46 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 06-11-2022 22:46 com.virtusa.dao.LawyerDao:25 LawyerDao Constructor Called
+[WARN ] 06-11-2022 22:46 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 06-11-2022 22:46 com.virtusa.service.UserService:37 UserService Constructor called
+[WARN ] 06-11-2022 22:46 com.virtusa.service.LawyerService:37 LawyerService Constructor Called
+[WARN ] 06-11-2022 22:46 com.virtusa.config.ServletConfig:22 Servlet Config initialised
+[WARN ] 06-11-2022 22:46 com.virtusa.controller.AdminController:37 AdminController Constructor Called
+[WARN ] 06-11-2022 22:46 com.virtusa.controller.LawyerController:42 LawyerController Constructor Called
+[WARN ] 06-11-2022 22:46 com.virtusa.controller.UserController:52 UserController Constructor called
+[WARN ] 06-11-2022 23:09 com.virtusa.config.WebAppConfig:11 WebAppConfig initialised
+[WARN ] 06-11-2022 23:09 com.virtusa.config.HibernateConfig:30 Hibernate Config initialised
+[WARN ] 06-11-2022 23:09 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 06-11-2022 23:09 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 06-11-2022 23:09 com.virtusa.dao.LawyerDao:25 LawyerDao Constructor Called
+[WARN ] 06-11-2022 23:09 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 06-11-2022 23:09 com.virtusa.service.UserService:37 UserService Constructor called
+[WARN ] 06-11-2022 23:09 com.virtusa.service.LawyerService:37 LawyerService Constructor Called
+[WARN ] 06-11-2022 23:09 com.virtusa.config.ServletConfig:22 Servlet Config initialised
+[WARN ] 06-11-2022 23:09 com.virtusa.controller.AdminController:37 AdminController Constructor Called
+[WARN ] 06-11-2022 23:09 com.virtusa.controller.LawyerController:42 LawyerController Constructor Called
+[WARN ] 06-11-2022 23:09 com.virtusa.controller.UserController:52 UserController Constructor called
+[WARN ] 06-11-2022 23:11 com.virtusa.config.WebAppConfig:11 WebAppConfig initialised
+[WARN ] 06-11-2022 23:11 com.virtusa.config.HibernateConfig:30 Hibernate Config initialised
+[WARN ] 06-11-2022 23:11 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 06-11-2022 23:12 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 06-11-2022 23:12 com.virtusa.dao.LawyerDao:25 LawyerDao Constructor Called
+[WARN ] 06-11-2022 23:12 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 06-11-2022 23:12 com.virtusa.service.UserService:37 UserService Constructor called
+[WARN ] 06-11-2022 23:12 com.virtusa.service.LawyerService:37 LawyerService Constructor Called
+[WARN ] 06-11-2022 23:12 com.virtusa.config.ServletConfig:22 Servlet Config initialised
+[WARN ] 06-11-2022 23:12 com.virtusa.controller.AdminController:37 AdminController Constructor Called
+[WARN ] 06-11-2022 23:12 com.virtusa.controller.LawyerController:42 LawyerController Constructor Called
+[WARN ] 06-11-2022 23:12 com.virtusa.controller.UserController:52 UserController Constructor called
+[WARN ] 06-11-2022 23:19 com.virtusa.config.WebAppConfig:11 WebAppConfig initialised
+[WARN ] 06-11-2022 23:19 com.virtusa.config.HibernateConfig:30 Hibernate Config initialised
+[WARN ] 06-11-2022 23:19 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 06-11-2022 23:19 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 06-11-2022 23:19 com.virtusa.dao.LawyerDao:25 LawyerDao Constructor Called
+[WARN ] 06-11-2022 23:19 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 06-11-2022 23:19 com.virtusa.service.UserService:37 UserService Constructor called
+[WARN ] 06-11-2022 23:19 com.virtusa.service.LawyerService:37 LawyerService Constructor Called
+[WARN ] 06-11-2022 23:19 com.virtusa.config.ServletConfig:22 Servlet Config initialised
+[WARN ] 06-11-2022 23:19 com.virtusa.controller.AdminController:37 AdminController Constructor Called
+[WARN ] 06-11-2022 23:19 com.virtusa.controller.LawyerController:42 LawyerController Constructor Called
+[WARN ] 06-11-2022 23:19 com.virtusa.controller.UserController:52 UserController Constructor called
+[WARN ] 06-11-2022 23:26 com.virtusa.config.WebAppConfig:11 WebAppConfig initialised
+[WARN ] 06-11-2022 23:26 com.virtusa.config.HibernateConfig:30 Hibernate Config initialised
+[WARN ] 06-11-2022 23:26 com.virtusa.dao.AdminDao:17 AdminDao Constructor called
+[WARN ] 06-11-2022 23:26 com.virtusa.dao.UserDao:26 UserDao Constructor called
+[WARN ] 06-11-2022 23:26 com.virtusa.dao.LawyerDao:25 LawyerDao Constructor Called
+[WARN ] 06-11-2022 23:26 com.virtusa.service.AdminService:24 AdminService Constructor called
+[WARN ] 06-11-2022 23:26 com.virtusa.service.UserService:37 UserService Constructor called
+[WARN ] 06-11-2022 23:26 com.virtusa.service.LawyerService:37 LawyerService Constructor Called
+[WARN ] 06-11-2022 23:26 com.virtusa.config.ServletConfig:22 Servlet Config initialised
+[WARN ] 06-11-2022 23:26 com.virtusa.controller.AdminController:37 AdminController Constructor Called
+[WARN ] 06-11-2022 23:26 com.virtusa.controller.LawyerController:42 LawyerController Constructor Called
+[WARN ] 06-11-2022 23:26 com.virtusa.controller.UserController:52 UserController Constructor called

@@ -7,82 +7,127 @@
 <html lang="en">
 <head>
 <meta charset="ISO-8859-1">
+<jsp:include page="BootstrapCss.jsp"/>
 <title>Case Records</title>
 </head>
 <body>
-	<h3>Case Records</h3>
-	<h3>${errMessage}</h3>
-	<button onclick="addFormToggler()">Create Case Record</button>
-	
-	<div id="addDiv" style="display: none">
-		<form:form action="caseRecord" method="POST" modelAttribute="case">
-			<label for="userEmail">*User Email: </label>
-			<form:input type="email" name="userEmail" id="userEmail"
-				path="userEmail" required="true" />
-			<form:errors path="userEmail" />
-			<br>
+	<jsp:include page="Navbar.jsp"/>
 
-			<label for="eventDetail">*Event Detail: </label>
-			<form:textarea name="eventDetail" id="eventDetail" path="eventDetail"
-				required="true" />
-			<form:errors path="eventDetail" />
-			<br>
+	<div class="fluid-container mx-2 my-2">
+		<div class="alert alert-warning alert-dismissible show w-50 mx-auto" role="alert">
+			${errMessage}
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+		<div class="container">
+		
+			<div class="row">
+				<div class="col">
+					<h3>Case Records</h3>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col">
+					<button class="btn btn-primary" onclick="addFormToggler()">Create Case Record</button>
+					<div id="addDiv" style="display: none">
+						<div class="card text-bg-light mx-auto my-2">
+							<div class="card-body">
+								<form:form class="form-control" action="caseRecord" method="POST" modelAttribute="case">
+									<label class="form-label" for="userEmail">*User Email: </label>
+									<form:input type="email" name="userEmail" id="userEmail"
+										path="userEmail" class="form-control" required="true" maxlength="30"/>
+									<form:errors class="text-danger" path="userEmail" />
+									<br>
+				
+									<label class="form-label" for="eventDetail">*Event Detail: </label>
+									<form:textarea name="eventDetail" id="eventDetail"
+										path="eventDetail" class="form-control" required="true" maxlength="255"/>
+									<form:errors class="text-danger" path="eventDetail" />
+									<br>
+				
+									<label class="form-label" for="actionTaken">*Action Taken: </label>
+									<form:textarea name="actionTaken" id="actionTaken"
+										class="form-control" path="actionTaken" required="true" maxlength="255"/>
+									<form:errors class="text-danger" path="actionTaken" />
+									<br>
+									<form:button class="btn btn-success" value="Submit">Submit</form:button>
+								</form:form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col">
+					<div id="editDiv" style="display: none">
+						<form:form class="form-control" method="POST" modelAttribute="case" id="editForm">
+							<label class="form-label" for="userEmail">User Email: </label>
+							<input class="form-control" type="email" name="userEmail" id="editUserEmail" disabled />
+							<form:input type="hidden" id="hiddenEditEmail" path="userEmail" />
+							<form:errors class="text-danger" path="userEmail" />
+							<br>
+		
+							<label class="form-label" for="eventDetail">Event Detail: </label>
+							<form:textarea class="form-control" name="eventDetail" id="editEventDetail"
+								path="eventDetail" required="true" maxlength="255"/>
+							<form:errors class="text-danger" path="eventDetail" />
+							<br>
+		
+							<label class="form-label" for="actionTaken">Action Taken: </label>
+							<form:textarea class="form-control" name="actionTaken" id="editActionTaken"
+								path="actionTaken" required="true" maxlength="255"/>
+							<form:errors class="text-danger" path="actionTaken" />
+							<br>
+							<form:button class="btn btn-success" value="Submit">Submit</form:button>
+						</form:form>
+					</div>
+				</div>
+			</div>
 
-			<label for="actionTaken">*Action Taken: </label>
-			<form:textarea name="actionTaken" id="actionTaken" path="actionTaken"
-				required="true" />
-			<form:errors path="actionTaken" />
-			<br>
-			<form:button value="Submit">Submit</form:button>
-		</form:form>
+			<div class="row">
+			
+				<c:forEach var="caseRecord" items="${allCaseRecord}">
+					<div class="col col-sm-4">	
+					
+					<div class="card text-bg-light mx-auto my-2">
+										
+						<div class="card-body">
+							<h5 class="card-title">UserName: ${caseRecord.getUser().getUsername()}</h5>
+							<h6 class="card-subtitle">Date: ${caseRecord.getDate().toString().split(" ")[0]}</h6>
+							<p class="card-text">Event Details: ${caseRecord.getEventDetail()}</p>
+							<p class="card-text">Action Taken: ${caseRecord.getActionTaken()}</p>
+						</div>
+						
+						<div class="card-footer text-center text-muted">
+							<!-- If report is not generated for this case -->
+							<c:choose>
+								<c:when test="${caseRecord.getReport()==null }">
+		
+									<button class="btn btn-warning"
+										onclick="editFormToggler('${caseRecord.getUser().getEmail()}',
+					 '${caseRecord.getEventDetail()}', '${caseRecord.getActionTaken()}', '${ caseRecord.getCaseRecordId() }')">
+										Edit Case Record</button>
+		
+									<a href="caseRecord/${caseRecord.getCaseRecordId()}" class="btn btn-danger">
+										Delete Case Record
+									</a>
+		
+								</c:when>
+								<c:otherwise>
+									<h6 class="card-subtitle">Used in a Report</h6>
+								</c:otherwise>
+							</c:choose>
+						</div>
+										
+					</div>
+					
+									
+					</div>
+				</c:forEach>
+			</div>			
+		</div>
 	</div>
-	
-	<div id="editDiv" style="display: none">
-		<form:form method="POST" modelAttribute="case" id="editForm">
-			<label for="userEmail">*User Email: </label>
-			<input type="email" name="userEmail" id="editUserEmail" disabled />
-			<form:input type="hidden" id="hiddenEditEmail" path="userEmail" />
-			<form:errors path="userEmail" />
-			<br>
-
-			<label for="eventDetail">*Event Detail: </label>
-			<form:textarea name="eventDetail" id="editEventDetail"
-				path="eventDetail" required="true" />
-			<form:errors path="eventDetail" />
-			<br>
-
-			<label for="actionTaken">*Action Taken: </label>
-			<form:textarea name="actionTaken" id="editActionTaken"
-				path="actionTaken" required="true" />
-			<form:errors path="actionTaken" />
-			<br>
-			<form:button value="Submit">Submit</form:button>
-		</form:form>
-	</div>
-
-	<ul>
-		<c:forEach var="caseRecord" items="${allCaseRecord}">
-			<li>${caseRecord}</li>
-			<!-- If report is not generated for this case -->
-			<c:choose>
-				<c:when test="${caseRecord.getReport()==null }">
-					
-					<button
-						onclick="editFormToggler('${caseRecord.getUser().getEmail()}',
-			 '${caseRecord.getEventDetail()}', '${caseRecord.getActionTaken()}', '${ caseRecord.getCaseRecordId() }')">
-						Edit Case Record</button>
-					
-					<a href="caseRecord/${caseRecord.getCaseRecordId()}">
-						<button>Delete Case Record</button>
-					</a>
-					
-				</c:when>
-			</c:choose>
-		</c:forEach>
-	</ul>
-	<br>
-	<a href="/project/lawyer/">Home</a>
-
 	<script type="text/javascript">
 		function addFormToggler() {
 			<!-- Displays Add Case Form -->
@@ -108,5 +153,7 @@
 			}
 		}
 	</script>
+	<jsp:include page="LawyerScript.jsp"/>
+	<jsp:include page="BootstrapJs.jsp"/>
 </body>
 </html>

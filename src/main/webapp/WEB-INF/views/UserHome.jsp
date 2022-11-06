@@ -7,51 +7,110 @@
 <html lang="en">
 <head>
 <meta charset="ISO-8859-1">
+<jsp:include page="BootstrapCss.jsp"/>
 <title>Home</title>
 </head>
 <body>
-	<h1>Welcome ${userName}</h1>
-	<h3>${ bookingStatus }</h3>
-	<h3>List of Lawyers</h3>
+	<jsp:include page="Navbar.jsp"/>
 	
-	<c:forEach var="lawyer" items="${allLawyer}">
-		<button onclick="toggleForm('${lawyer.getEmail()}')">${lawyer}</button>
-	</c:forEach>
-	<br>
-	
-	<!-- Booking form -->
-	<div id="appointmentForm" style="display: none">
-		<form:form action="bookingForm" method='POST' modelAttribute="booking">
-			
-			<label for="appointmentDate">Date</label> 
-			<form:input type="date" id="appointmentDate" name="appointmentDate" path="appointmentDate" required="true" />
-			<form:errors path="appointmentDate"/>
-			<br>
-			
-			<label for="appointmentTime">Slot Time</label> 
-			<form:select id = "appointmentTime" name= "appointmentTime" path="appointmentTime" required="true" >
-				<%for (int i = 9; i <= 19; i++) {%>
-					<form:option value="<%=i%>"> <%=i %>:00 </form:option>
-				<%}%>
-			</form:select>
-			<form:errors path="appointmentTime"/>
-			<br>
-			
-			<label for="subject">Subject</label> 
-			<form:input type="text" id="subject" name="subject" path="subject" required="true" />
-			<form:errors path="subject"/>
-			<br>
-			
-			<input type="hidden" id = "setLawyer" name="lawyerEmail">
-			<input type="hidden" id = "setClient" name="userEmail" value="${ sessionScope.userEmail }">		
+	<div class = "fluid-container mx-2 my-2">		
+		<div class="alert alert-warning alert-dismissible show w-50 mx-auto" role="alert">
+			${bookingStatus}
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+		<h1>Welcome ${userName}</h1>
+		<div class="container">
+			<div class="row">
+				<div class="col col-sm-8">
+					<div class="container">
+						<div class="row text-center">
+							<div class="col">
+								<h3>List of Lawyers</h3>
+							</div>
+						</div>
+						<div class="row">
+						
+							<c:forEach var="lawyer" items="${allLawyer}">
+								<div class="col col-sm-4">
+									<div class="card text-bg-light mx-auto my-2">
+									
+										<div class="card-header text-center">
+											<h2>${lawyer.getUsername()}</h2>
+										</div>
+										
+										<div class="card-body">
+											<h5>Experience: ${lawyer.getExperience()}</h5>
+											<h5>Expertise: ${lawyer.getExpertise()}</h5>
+											<h5>Law Firm: ${lawyer.getLawFirmName()}</h5>
+											<div class="text-center">
+												<button onclick="toggleForm('${lawyer.getEmail()}')"
+													class="btn btn-primary">Book Appointment</button>
+											</div>
+										</div>
+										
+										<div class="card-footer text-center text-muted">
+											<c:choose>
+												<c:when test="${lawyer.isActive() }">
+													<h4 class="text-success">Online</h4>
+												</c:when>
+												<c:otherwise>
+													<h4 class="text-danger">Offline</h4>
+												</c:otherwise>
+											</c:choose>
+										</div>
+										
+									</div>
+								</div>
+							</c:forEach>
+							
+						</div>
+					</div>
+				</div>
 				
-			<button type="submit">Book</button>
-		</form:form>
+				<div class = "col col-sm-4" id = "appointmentForm" style="display: none">					
+					<!-- Booking form -->
+
+					<div class="card text-bg-light mx-2 my-2">
+						<div class="card-header text-center">
+							<h3>Book Appointment</h3>
+						</div>
+						<div class="card-body">
+							<form:form action="bookingForm" method='POST' modelAttribute="booking">
+								<div class="mb-3">
+									<label for="appointmentDate" class="form-label">Date</label> 
+									<form:input type="date" id="appointmentDate" name="appointmentDate" 
+												class="form-control" path="appointmentDate" required="true" />
+									<form:errors path="appointmentDate" />
+								</div>
+								<div class="mb-3">
+									<label for="appointmentTime" class="form-label">Slot Time</label> 
+									<form:select class="form-select" id="appointmentTime" name="appointmentTime"
+												path="appointmentTime" required="true">
+										<%for (int i = 9; i <= 19; i++) {%>
+											<form:option value="<%=i%>"><%=i%>:00</form:option>
+										<%}%>
+									</form:select>
+									<form:errors path="appointmentTime" />
+								</div>
+								
+								<div class="mb-3">								
+									<label for="subject" class="form-label">Subject</label>
+									<form:input type="text" class="form-control" id="subject" name="subject"
+										path="subject" required="true" maxlength="30"/>
+									<form:errors path="subject" />
+								</div>
+
+								<input type="hidden" id="setLawyer" name="lawyerEmail">
+								<input type="hidden" id="setClient" name="userEmail"
+									value="${ sessionScope.userEmail }">
+								<button type="submit" class="btn btn-success">Book</button>
+							</form:form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-	
-	<a href="caseRecord"> Case Record</a>
-	<a href="allBooking"> All Bookings</a>
-	<a href="logout">Logout</a>
 
 	<script type="text/javascript">
 	<!-- Opens booking form on lawyer click and sets lawyer email-->
@@ -72,5 +131,7 @@
 	    document.getElementById('appointmentDate').setAttribute('min', s);
 	  }
 	</script>
+	<jsp:include page="UserScript.jsp"/>
+	<jsp:include page="BootstrapJs.jsp"/>
 </body>
 </html>

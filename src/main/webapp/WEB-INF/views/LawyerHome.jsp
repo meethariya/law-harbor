@@ -5,45 +5,73 @@
 <html lang="en">
 <head>
 <meta charset="ISO-8859-1">
+<jsp:include page="BootstrapCss.jsp"/>
 <title>Home</title>
 </head>
 <body>
-	<h1>Welcome ${username}</h1>
-	<h2>All Appointments</h2>
-	<h3>${ err }</h3>
-	
-	<c:forEach var="booking" items="${allBooking}">
-		<p>${booking}</p>
-		<!-- If Booking not Confirmed -->
-		<c:choose>
-			<c:when test="${ !booking.isBookingStatus() }">
-				<a href="approveBooking/${booking.getBookingId()}"><button>Approve Appointment</button></a>
-				<a href="cancelBooking/${booking.getBookingId()}"><button>Cancel Appointment</button></a>	
-			</c:when>
-			
-			<c:otherwise>
-				<!-- If Report not generated -->
-				<c:choose>
-					<c:when test="${booking.getReport() == null }">				
-						<a href="report/${booking.getBookingId()}"><button>Generate Report</button></a>
-					</c:when>
-					
-					<c:otherwise>
-						<button onclick="divToggler('${booking.getReport().getReportId() }')">View Report</button>	
-						<div id="viewReportDiv${booking.getReport().getReportId() }" style="display: none">
-							<p>${booking.getReport()}</p>
-						</div>			
-					</c:otherwise>
-				</c:choose>
-			</c:otherwise>
-		
-		</c:choose>
-	</c:forEach>
-	<br>
+	<jsp:include page="Navbar.jsp"/>
+	<div class = "fluid-container mx-2 my-2">
+		<div class="alert alert-warning alert-dismissible show w-50 mx-auto" role="alert">
+			${err}
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+		<h1>Welcome ${username}</h1>
+		<div class="container">
+			<div class="row text-center">
+				<div class="col">
+					<h2>All Appointments</h2>
+				</div>
+			</div>
+			<div class="row">
+				<c:forEach var="booking" items="${allBooking}">
+					<div class="col col-sm-4">
+						<div class="card text-bg-light mx-auto my-2">
+							<div class="card-body">
+								<h5 class="card-title">Appointment by: ${booking.getClient().getUsername()}</h5>
+								<h6 class="card-subtitle">Slot: ${booking.getDate()}</h6>
+								<p class="card-text">Subject: ${booking.getSubject()}</p>
+							</div>
 
-	<a href="caseRecord">Case Record</a>
-	<a href="logout">Logout</a>
-	
+							<div class="card-footer text-center text-muted">
+								<c:choose>
+									<c:when test="${ !booking.isBookingStatus() }">
+										<div class="btn-group" role="group" aria-label="Basic example">
+											<a href="approveBooking/${booking.getBookingId()}" class="btn btn-success">
+												Approve
+											</a>
+											<a href="cancelBooking/${booking.getBookingId()}" class="btn btn-danger">
+												  Reject 
+											</a>
+										</div>
+									</c:when>
+									<c:otherwise>
+										<!-- If Report not generated -->
+										<c:choose>
+											<c:when test="${booking.getReport() == null }">
+												<a href="report/${booking.getBookingId()}">
+													<button class="btn btn-warning">Generate Report</button>
+												</a>
+											</c:when>
+											<c:otherwise>
+												<button class="btn btn-info" onclick="divToggler('${booking.getReport().getReportId() }')">
+													View Report
+												</button>
+												<div id="viewReportDiv${booking.getReport().getReportId() }" style="display: none">
+													<p>Report Date: ${booking.getReport().getDateTime().toString().split(" ")[0]}</p>
+													<p>Report Detail: ${booking.getReport().getReportDetail()}</p>
+												</div>
+											</c:otherwise>
+										</c:choose>
+									</c:otherwise>
+								</c:choose>
+							</div>
+
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+		</div>
+	</div>
 	<script type="text/javascript">
 		function divToggler(reportId){
 			<!-- Toggles display property of view report div -->
@@ -55,5 +83,7 @@
 			}
 		}
 	</script>
+	<jsp:include page="LawyerScript.jsp"/>
+	<jsp:include page="BootstrapJs.jsp"/>
 </body>
 </html>

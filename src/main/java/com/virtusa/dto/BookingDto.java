@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.validator.constraints.Length;
 
 import com.virtusa.model.Lawyer;
 import com.virtusa.model.User;
@@ -19,6 +20,7 @@ public class BookingDto {
 	private String appointmentTime;
 	private Date dateTime;
 	@NotEmpty
+	@Length(max = 30)
 	private String subject;
 	public BookingDto() {
 		super();

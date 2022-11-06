@@ -57,7 +57,7 @@ public class AdminController {
 	}
 	
 	@GetMapping("/logout")
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session, RedirectAttributes redirectAttributes) {
 		// logout admin
 		String email = (String) session.getAttribute(getEmailFromProperties());
 		
@@ -65,7 +65,8 @@ public class AdminController {
 			service.logoutUser(email);
 			session.removeAttribute(getEmailFromProperties());						// remove session on logout
 		
-		}		
+		}
+		redirectAttributes.addFlashAttribute(ERRMESSAGE,"loggged out");
 		return REDIRECTLOGIN;
 	}
 	
