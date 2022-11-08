@@ -1,10 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <jsp:include page="BootstrapCss.jsp"/>
 <title>Case Records</title>
 </head>
@@ -42,7 +44,7 @@
 		</div>
 		<br>
 	</div>
-	<jsp:include page="UserScript.jsp"/>
+	<script src="<c:url value="/resources/js/userscript.js"/>"></script>
 	<jsp:include page="BootstrapJs.jsp"/>
 </body>
 </html>

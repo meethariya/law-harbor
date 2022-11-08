@@ -133,7 +133,7 @@ public class UserController {
 	
 	@GetMapping("/home")
 	public String getHome(Model model, HttpSession session, 
-			@ModelAttribute("bookingStatus") String bookingStatus,
+			@ModelAttribute(ERR) String bookingStatus,
 			@ModelAttribute("booking") BookingDto bookingDto) {
 		// User home page
 		
@@ -142,7 +142,7 @@ public class UserController {
 		String email = (String) session.getAttribute(getValueFromProperties());
 		model.addAttribute("userName",service.getUser(email).getUsername());
 		model.addAttribute("allLawyer", service.getAllLawyer());		
-		model.addAttribute("bookingStatus", bookingStatus);
+		model.addAttribute(ERR, bookingStatus);
 		
 		return "UserHome";
 	}
@@ -179,18 +179,17 @@ public class UserController {
 		// book appointment of a lawyer
 		
 		if(sessionChecker(session)) return REDIRECTLOGIN;
-		
-		String bookingStatus = "bookingStatus";
+
 		if(error.hasErrors()) {
-			redirectAttribute.addFlashAttribute(bookingStatus, MISSINGVALUE);
+			redirectAttribute.addFlashAttribute(ERR, MISSINGVALUE);
 		}
 		else {
 			try {
 				service.bookAppointment(booking);
-				redirectAttribute.addFlashAttribute(bookingStatus, "Slot reserved");
+				redirectAttribute.addFlashAttribute(ERR, "Slot reserved");
 			}
 			catch(SlotAlreadyReservedException e) {
-				redirectAttribute.addFlashAttribute(bookingStatus, "Slot already exists");			
+				redirectAttribute.addFlashAttribute(ERR, "Slot already exists");			
 			}
 		}
 		return REDIRECTHOME;

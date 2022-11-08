@@ -1,10 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <jsp:include page="BootstrapCss.jsp"/>
 <title>Home</title>
 </head>
@@ -72,18 +74,8 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
-		function divToggler(reportId){
-			<!-- Toggles display property of view report div -->
-			var x = document.getElementById("viewReportDiv"+reportId);
-			if (x.style.display === "none") {
-				x.style.display = "block";
-			} else {
-				x.style.display = "none";
-			}
-		}
-	</script>
-	<jsp:include page="LawyerScript.jsp"/>
+	<script src="<c:url value="/resources/js/lawyerhome.js"/>"></script>
+	<script src="<c:url value="/resources/js/lawyerscript.js"/>"></script>
 	<jsp:include page="BootstrapJs.jsp"/>
 </body>
 </html>

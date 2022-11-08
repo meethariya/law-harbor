@@ -1,12 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="tags"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <jsp:include page="BootstrapCss.jsp"/>
 <title>Create Report</title>
 </head>
@@ -54,14 +56,8 @@
 		</div>
 		
 	</div>
-	<script type="text/javascript">
-		var d = new Date();
-	    var s = d.getFullYear() + '-' + 
-	    ('0' + (d.getMonth()+1)).slice(-2) + '-' +
-	    ('0' + d.getDate()).slice(-2);
-	    document.getElementById("currentTime").innerHTML=d;
-	</script>
-	<jsp:include page="LawyerScript.jsp"/>
+	<script src="<c:url value="/resources/js/lawyerreport.js"/>"></script>
+	<script src="<c:url value="/resources/js/lawyerscript.js"/>"></script>
 	<jsp:include page="BootstrapJs.jsp"/>
 </body>
 </html>

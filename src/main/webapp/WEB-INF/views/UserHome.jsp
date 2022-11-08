@@ -1,12 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="tags"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <jsp:include page="BootstrapCss.jsp"/>
 <title>Home</title>
 </head>
@@ -15,7 +17,7 @@
 	
 	<div class = "fluid-container mx-2 my-2">		
 		<div class="alert alert-warning alert-dismissible show w-50 mx-auto" role="alert">
-			${bookingStatus}
+			${errMessage}
 			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 		</div>
 		<h1>Welcome ${userName}</h1>
@@ -130,26 +132,9 @@
 		</div>
 	</div>
 
-	<script type="text/javascript">
-	<!-- Opens booking form on lawyer click and sets lawyer email-->
-	function toggleForm(email){
-	    var x = document.getElementById("appointmentForm");
-	    document.getElementById("setLawyer").value = email;
-	    if (x.style.display === "none") {
-	      x.style.display = "block";
-	    } else {
-	      x.style.display = "none";
-	    }
-	    <!-- Set Min date as today -->
-	    var d = new Date();
-	    var s = d.getFullYear() + '-' + 
-        ('0' + (d.getMonth()+1)).slice(-2) + '-' +
-        ('0' + d.getDate()).slice(-2);
-	    
-	    document.getElementById('appointmentDate').setAttribute('min', s);
-	  }
-	</script>
-	<jsp:include page="UserScript.jsp"/>
+	
+	<script src="<c:url value="/resources/js/userhome.js"/>"></script>
+	<script src="<c:url value="/resources/js/userscript.js"/>"></script>
 	<jsp:include page="BootstrapJs.jsp"/>
 </body>
 </html>

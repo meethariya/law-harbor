@@ -1,12 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="tags"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <jsp:include page="BootstrapCss.jsp"/>
 <title>Case Records</title>
 </head>
@@ -128,32 +130,8 @@
 			</div>			
 		</div>
 	</div>
-	<script type="text/javascript">
-		function addFormToggler() {
-			<!-- Displays Add Case Form -->
-			divToggler(document.getElementById("addDiv"));
-		}
-		function editFormToggler(email, eventDetail, actionTaken, id) {
-			<!-- Sets values of edit form and Displays it -->
-			var x = divToggler(document.getElementById("editDiv"));
-
-			document.getElementById("editUserEmail").value = email;
-			document.getElementById("hiddenEditEmail").value = email;
-			document.getElementById("editEventDetail").value = eventDetail;
-			document.getElementById("editActionTaken").value = actionTaken;
-			document.getElementById("editForm").action = "caseRecord/" + id;
-
-		}
-		function divToggler(x) {
-			<!-- Toggles display property of a div -->
-			if (x.style.display === "none") {
-				x.style.display = "block";
-			} else {
-				x.style.display = "none";
-			}
-		}
-	</script>
-	<jsp:include page="LawyerScript.jsp"/>
+	<script src="<c:url value="/resources/js/lawyercase.js"/>"></script>
+	<script src="<c:url value="/resources/js/lawyerscript.js"/>"></script>
 	<jsp:include page="BootstrapJs.jsp"/>
 </body>
 </html>

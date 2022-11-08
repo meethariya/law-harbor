@@ -1,12 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="tags"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <jsp:include page="BootstrapCss.jsp"/>
 <title>Home</title>
 </head>
@@ -160,42 +162,7 @@
 		</div>
 
 	</div>
-	<script type="text/javascript">
-	<!-- Enables the edit form and sets lawyer values and sets form url -->
-	function toggleForm(email, username, password, role, mobile, experience, expertise, lawFirmName, id){
-		
-	    document.getElementById("email").value = email;
-	    document.getElementById("displayemail").value = email;
-	    document.getElementById("username").value = username;
-	    document.getElementById("password").value = password;
-	    document.getElementById("role").value = role;
-	    document.getElementById("mobile").value = mobile;
-	    document.getElementById("experience").value = experience;
-	    document.getElementById("expertise").value = expertise;
-	    document.getElementById("lawFirmName").value = lawFirmName;
-
-	    divToggler(document.getElementById("editDiv"));
-	  }
-	
-	function addForm(){
-	<!-- Displays Add Lawyer Form -->
-	    divToggler(document.getElementById("addDiv"));
-	}
-	
-	function divToggler(x){
-	<!-- Toggles display property of a div -->
-		if (x.style.display === "none") {
-		   x.style.display = "block";
-		} else {
-		   x.style.display = "none";
-		}
-	}
-	
-	document.getElementById("logoutTag").setAttribute("href","/project/admin/logout");
-	document.getElementById("bookingTag").style.display = "none";
-	document.getElementById("homeTag").style.display = "none";
-	document.getElementById("caseRecordTag").style.display = "none";
-	</script>
+	<script src="<c:url value = "/resources/js/adminscript.js"/>"></script>
 	<jsp:include page="BootstrapJs.jsp"/>
 </body>
 </html>
