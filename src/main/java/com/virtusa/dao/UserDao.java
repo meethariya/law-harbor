@@ -18,6 +18,7 @@ import com.virtusa.model.CaseRecord;
 import com.virtusa.model.Lawyer;
 import com.virtusa.model.User;
 
+
 @Repository
 public class UserDao implements UserDaoInterface{
 	private static final Logger log = LogManager.getLogger(UserDao.class);
@@ -130,6 +131,21 @@ public class UserDao implements UserDaoInterface{
 		// removes/cancels a booking made by user
 		if(booking==null) return;
 		factory.getCurrentSession().remove(booking);
+	}
+
+	@Override
+	public List<String> getAllExpertise() {
+		// returns all unique expertise list from lawyers table
+		Session session = factory.getCurrentSession();
+		Query<String> query = session.createQuery("select distinct(expertise) from Lawyer",String.class);
+		return query.getResultList();
+	}
+
+	public List<Lawyer> getLawyerByExpertise(List<String> matchingExpertise) {
+		Session session = factory.getCurrentSession();
+		Query<Lawyer> query = session.createQuery("from Lawyer where expertise in :allExpertise", Lawyer.class);
+		query.setParameter("allExpertise", matchingExpertise);
+		return query.getResultList();
 	}
 }
 

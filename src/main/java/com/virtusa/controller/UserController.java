@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.virtusa.dto.BookingDto;
@@ -30,6 +31,7 @@ import com.virtusa.exception.NoBookingFoundException;
 import com.virtusa.exception.SlotAlreadyReservedException;
 import com.virtusa.exception.UserAlreadyExistException;
 import com.virtusa.exception.UserNotFoundException;
+import com.virtusa.model.Lawyer;
 import com.virtusa.service.UserService;
 
 @Controller
@@ -139,7 +141,7 @@ public class UserController {
 		
 		String email = (String) session.getAttribute(getValueFromProperties());
 		model.addAttribute("userName",service.getUser(email).getUsername());
-		model.addAttribute("allLawyer", service.getAllLawyer());
+		model.addAttribute("allLawyer", service.getAllLawyer());		
 		model.addAttribute("bookingStatus", bookingStatus);
 		
 		return "UserHome";
@@ -224,6 +226,35 @@ public class UserController {
 		}
 		
 		return "redirect:/allBooking";
+	}
+	
+	@PostMapping("/searchByExpertise")
+	public String getLawyerByExpertise(@RequestParam("searchField") String searchField,
+			@ModelAttribute("booking") BookingDto bookingDto, RedirectAttributes redirectAttributes ,
+			Model model, HttpSession session) {
+		// search all lawyers by expertise
+		
+		if(sessionChecker(session)) return REDIRECTLOGIN;
+		
+		// if search value is empty
+		if(searchField.isEmpty()) {
+			redirectAttributes.addFlashAttribute(ERR, "Enter Search value");
+			return REDIRECTHOME;
+		}
+		
+		String email = (String) session.getAttribute(getValueFromProperties());
+		List<Lawyer> searchedLawyer = service.getLawyerByExpertise(searchField);
+
+		// if resulting list is empty
+		if(searchedLawyer.isEmpty()) {
+			redirectAttributes.addFlashAttribute(ERR, "No lawyers with expertise "+ searchField);
+			return REDIRECTHOME;
+		}
+
+		model.addAttribute("userName",service.getUser(email).getUsername());
+		model.addAttribute("allLawyer", searchedLawyer);
+		
+		return "UserHome";
 	}
 	
 	public boolean sessionChecker(HttpSession session) {

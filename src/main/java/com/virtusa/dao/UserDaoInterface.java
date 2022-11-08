@@ -35,5 +35,7 @@ public interface UserDaoInterface {
 	public Booking getBooking(int id);
 
 	public void removeBooking(Booking booking);
+	
+	public List<String> getAllExpertise();
 
 }

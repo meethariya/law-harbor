@@ -20,7 +20,7 @@
         </li>
       </ul>
       <span class="navbar-text">
-          <a class="btn btn-danger" id="logoutTag">Logout</a>
+          <a class="btn btn-danger text-light" id="logoutTag">Logout</a>
       </span>
     </div>
   </div>

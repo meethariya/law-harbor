@@ -2,6 +2,9 @@ package com.virtusa.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -199,5 +202,63 @@ public class UserService implements UserServiceInterface{
 		}
 		
 		userDao.removeBooking(booking);
+	}
+
+	@Override
+	@Transactional
+	public List<Lawyer> getLawyerByExpertise(String searchField) {
+		// returns list of lawyers with similar expertise
+		List<String> allExpertise = userDao.getAllExpertise();		
+		List<String> matchingExpertise = expertiseMatcher(allExpertise, searchField);
+		return userDao.getLawyerByExpertise(matchingExpertise);
+	}
+	
+	private List<String> expertiseMatcher(List<String> allExpertise, String target){
+		// takes input as list of expertise. Matches all with target string
+		// all matching using edit distance will be add to another list and will be returned
+		
+		List<String> output = new ArrayList<>();	// output list
+
+		if(allExpertise.isEmpty()) return output;	
+		
+		// max edit distance
+		int z = Integer.parseInt(messageSource.getMessage("editDistance", null, "3", Locale.ENGLISH));
+		
+		// matches all expertise retrieved from database
+		for(String dbExpertise : allExpertise) {
+			if(stringMatcher(dbExpertise, target, z)) output.add(dbExpertise);
+		}
+		
+		return output;
+	}
+	
+	private boolean stringMatcher(String dbExpertise, String target, int z) {
+		// Uses DP edit distance string matching
+		// returns true if text is acceptable else false
+		
+		if(dbExpertise==null || target==null) return false;
+		
+		int n = target.length();					// target String length
+		int m = dbExpertise.length();				// text String length
+
+		// Setting initial array
+		int[][] dp = new int[n+1][m+1];
+		for(int i=0; i<=n; i++) dp[i][0] = i;
+		for(int j=0; j<=m; j++) dp[0][j] = j;
+		
+		for(int i=1; i<=n; i++) {
+			for(int j=1; j<=m; j++) {
+				if(target.charAt(i-1) == dbExpertise.charAt(j-1)) {
+					dp[i][j]=dp[i-1][j-1];				// if char matches copy upper left int
+				}
+				else {
+					// else find min of upper, left and upper left int and add 1 to it 
+					Integer[] num = { dp[i-1][j], dp[i][j-1], dp[i-1][j-1] };
+					dp[i][j] = Collections.min(Arrays.asList(num))+1;
+				}
+			}
+		}
+		// if edit distance is <= static distance it matches
+		return dp[n][m] <= z;
 	}
 }

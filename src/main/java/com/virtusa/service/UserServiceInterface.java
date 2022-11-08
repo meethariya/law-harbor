@@ -32,4 +32,6 @@ public interface UserServiceInterface {
 
 	public void removeBooking(int id);
 
+	public List<Lawyer> getLawyerByExpertise(String searchField);
+
 }

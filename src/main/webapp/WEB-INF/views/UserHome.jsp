@@ -25,6 +25,24 @@
 					<div class="container">
 						<div class="row text-center">
 							<div class="col">
+								<div class="container">
+									<form class="row g-3" action="searchByExpertise" method="POST">
+										<div class="col-auto">
+											<h3 class="form-label">Search By Expertise</h3>
+										</div>
+										<div class="col-auto">
+											<label for="searchField" class="visually-hidden">Expertise</label>
+											<input class="form-control" name="searchField" id="searchField" placeholder="Expertise" required>
+										</div>
+										<div class="col-auto">
+											<button type="submit" class="btn btn-success mb-3">Search</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="row text-center">
+							<div class="col">
 								<h3>List of Lawyers</h3>
 							</div>
 						</div>
