@@ -34,6 +34,8 @@ import com.virtusa.model.User;
 
 @Service
 public class UserService implements UserServiceInterface{
+	// user service class for logic related to user and general login/registration requests
+	
 	private static final Logger log = LogManager.getLogger(UserService.class);
 	
 	public UserService() {

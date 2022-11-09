@@ -11,6 +11,9 @@ import com.virtusa.model.Lawyer;
 import com.virtusa.model.User;
 
 public class CaseRecordDto {
+	// DTO class for case record model
+	// performs validations
+	
 	private User user;
 	@Email
 	@NotEmpty

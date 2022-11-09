@@ -5,7 +5,9 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class WebAppConfig extends AbstractAnnotationConfigDispatcherServletInitializer{
-
+	// entry point of application
+	// generally replacement of web.xml
+	
 	private static final Logger log = LogManager.getLogger(WebAppConfig.class);
 	public WebAppConfig() {
 		log.warn("WebAppConfig initialised");

@@ -19,6 +19,7 @@ import com.virtusa.model.User;
 
 @Repository
 public class LawyerDao implements LawyerDaoInterface{
+	// DAO class for lawyer transactions
 	private static final Logger log = LogManager.getLogger(LawyerDao.class);
 		
 	public LawyerDao() {

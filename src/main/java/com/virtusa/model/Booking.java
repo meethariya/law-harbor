@@ -21,6 +21,12 @@ import com.virtusa.dto.BookingDto;
 @Entity
 @Table(name = "appointment")
 public class Booking {
+	/* booking model to save appointment details
+	 * User		1-*		Booking
+	 * Lawyer	1-*		Booking
+	 * Report	1-1		Booking
+	 */
+	
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "booking_seq")

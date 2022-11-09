@@ -11,6 +11,8 @@ import com.virtusa.model.User;
 
 @Repository
 public class AdminDao implements AdminDaoInterface{
+	// DAO class for admin transactions
+	
 	private static final Logger log = LogManager.getLogger(AdminDao.class);
 
 	public AdminDao() {

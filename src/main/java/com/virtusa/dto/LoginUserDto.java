@@ -6,6 +6,8 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 public class LoginUserDto {
+	// DTO class for login user/admin/lawyer
+	// performs validations
 	
 	@NotEmpty
 	@Email

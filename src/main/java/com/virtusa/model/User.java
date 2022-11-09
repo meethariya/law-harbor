@@ -16,6 +16,11 @@ import com.virtusa.dto.UserDto;
 @Inheritance(strategy=InheritanceType.JOINED)
 @Table(name = "users")
 public class User {
+	/* User model to save User/Lawyer/admin
+	 * Separated by role
+	 * inherits lawyer to have additional lawyer information
+	 */
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "user_seq")
 	@SequenceGenerator(name = "user_seq", allocationSize = 1, initialValue = 1000)

@@ -10,6 +10,9 @@ import com.virtusa.model.Lawyer;
 import com.virtusa.model.User;
 
 public class BookingDto {
+	// DTO class for booking model
+	// performs validations
+	
 	private String userEmail;
 	private User client;
 	private String lawyerEmail;

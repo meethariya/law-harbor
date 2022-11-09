@@ -18,7 +18,8 @@ import com.virtusa.model.User;
 
 @Service
 public class AdminService implements AdminServiceInterface {
-private static final Logger log = LogManager.getLogger(AdminService.class);
+	// admin service class for logic related to admin requests
+	private static final Logger log = LogManager.getLogger(AdminService.class);
 	
 	public AdminService() {
 		log.warn("AdminService Constructor called");

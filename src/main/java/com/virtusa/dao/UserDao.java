@@ -21,6 +21,8 @@ import com.virtusa.model.User;
 
 @Repository
 public class UserDao implements UserDaoInterface{
+	// DAO class for user and general login/registration transactions
+	
 	private static final Logger log = LogManager.getLogger(UserDao.class);
 
 	public UserDao() {
@@ -142,6 +144,7 @@ public class UserDao implements UserDaoInterface{
 	}
 
 	public List<Lawyer> getLawyerByExpertise(List<String> matchingExpertise) {
+		// returns all lawyers whose expertise is in list of strings
 		Session session = factory.getCurrentSession();
 		Query<Lawyer> query = session.createQuery("from Lawyer where expertise in :allExpertise", Lawyer.class);
 		query.setParameter("allExpertise", matchingExpertise);

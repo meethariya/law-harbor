@@ -19,7 +19,7 @@ import com.virtusa.dto.CaseRecordDto;
 import com.virtusa.dto.ReportDto;
 import com.virtusa.exception.CaseRecordNotFoundException;
 import com.virtusa.exception.NoBookingFoundException;
-import com.virtusa.exception.ReportALreadyExistException;
+import com.virtusa.exception.ReportAlreadyExistException;
 import com.virtusa.exception.ReportNotFoundException;
 import com.virtusa.exception.UserNotFoundException;
 import com.virtusa.model.Booking;
@@ -31,6 +31,8 @@ import com.virtusa.model.User;
 
 @Service
 public class LawyerService implements LawyerServiceInterface{
+	// lawyer service class for logic related to lawyer requests
+	
 	private static final Logger log = LogManager.getLogger(LawyerService.class);
 	
 	public LawyerService() {
@@ -210,7 +212,7 @@ public class LawyerService implements LawyerServiceInterface{
 
 		// if booking is not found throws error
 		if(dao.getReportByBooking(report.getAppointment())!=null) {
-			throw new ReportALreadyExistException("Report for this appointment already exist");
+			throw new ReportAlreadyExistException("Report for this appointment already exist");
 		}
 
 		// adding report

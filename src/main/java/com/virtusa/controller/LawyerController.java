@@ -23,7 +23,7 @@ import com.virtusa.dto.CaseRecordDto;
 import com.virtusa.dto.ReportDto;
 import com.virtusa.exception.CaseRecordNotFoundException;
 import com.virtusa.exception.NoBookingFoundException;
-import com.virtusa.exception.ReportALreadyExistException;
+import com.virtusa.exception.ReportAlreadyExistException;
 import com.virtusa.exception.UserNotFoundException;
 import com.virtusa.model.Booking;
 import com.virtusa.model.Lawyer;
@@ -33,6 +33,8 @@ import com.virtusa.service.LawyerService;
 @Controller
 @RequestMapping("/lawyer")
 public class LawyerController {
+	// handles all lawyer requests
+	
 	private static final Logger log = LogManager.getLogger(LawyerController.class);
 	private static final String REDIRECTLOGIN = "redirect:/login";
 	private static final String REDIRECTHOME = "redirect:/lawyer/";
@@ -233,7 +235,7 @@ public class LawyerController {
 			service.addReport(reportDto);
 			redirectAttributes.addFlashAttribute(ERR, "Report generated Successfully");
 		}
-		catch(ReportALreadyExistException e){
+		catch(ReportAlreadyExistException e){
 			redirectAttributes.addFlashAttribute(ERR, e.getMessage());
 		}
 		

@@ -37,6 +37,9 @@ import com.virtusa.service.UserService;
 @Controller
 @RequestMapping("/")
 public class UserController {
+	// handles all user requests
+	// handles general login and registration requests
+	
 	private static final Logger log = LogManager.getLogger(UserController.class);
 	
 	private static final String REDIRECTLOGIN = "redirect:login";

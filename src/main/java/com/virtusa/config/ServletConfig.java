@@ -17,6 +17,8 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.virtusa.controller"})
 public class ServletConfig implements WebMvcConfigurer{
+	// sets server settings for the app
+	// generally replacement for dispatcher-servlet.xml
 	
 	private static final Logger log = LogManager.getLogger(ServletConfig.class);
 	public ServletConfig() {
@@ -40,6 +42,7 @@ public class ServletConfig implements WebMvcConfigurer{
         return messageSource;
     }
 	
+	// static resource handler
 	@Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");	

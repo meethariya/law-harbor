@@ -24,7 +24,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement(proxyTargetClass = true)
 @ComponentScan(basePackages = {"com.virtusa.dao","com.virtusa.service","com.virtusa.model","com.virtusa.dto"})
 public class HibernateConfig {
-
+	// Configure core properties of app.
+	// sets hibernate configuration and transaction manager
+	
 	private static final Logger log = LogManager.getLogger(HibernateConfig.class);
 	public HibernateConfig(){
 		log.warn("Hibernate Config initialised");

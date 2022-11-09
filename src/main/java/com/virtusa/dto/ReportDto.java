@@ -13,6 +13,9 @@ import com.virtusa.model.CaseRecord;
 import com.virtusa.model.Lawyer;
 
 public class ReportDto {
+	// DTO class for report model
+	// performs validations
+	
 	private Booking appointment;
 	private int bookingId;
 	@NotNull

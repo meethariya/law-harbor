@@ -11,6 +11,9 @@ import com.virtusa.dto.UserDto;
 @Table(name = "lawyer")
 @PrimaryKeyJoinColumn(name="id")
 public class Lawyer extends User{
+	/* Lawyer model inherited by User model
+	 * Strategy is joined, so separated tables joined by user id
+	 */
 	
 	private int experience;
 	

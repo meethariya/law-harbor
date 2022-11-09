@@ -28,6 +28,8 @@ import com.virtusa.service.AdminService;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+	// handles all admin requests
+	
 	private static final Logger log = LogManager.getLogger(AdminController.class);
 	private static final String REDIRECTLOGIN = "redirect:/login";
 	private static final String REDIRECTHOME = "redirect:/admin/";
