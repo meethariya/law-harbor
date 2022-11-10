@@ -1,6 +1,8 @@
-function toggleForm(email) {
+function toggleForm(email, charge) {
 	var x = document.getElementById("appointmentForm");
 	document.getElementById("setLawyer").value = email;
+	document.getElementById("setLawyerCharge").value = charge;
+	
 	if (x.style.display === "none") {
 		x.style.display = "block";
 	} else {

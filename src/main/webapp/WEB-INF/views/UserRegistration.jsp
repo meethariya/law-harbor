@@ -3,7 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="tags"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ page import = "java.util.ResourceBundle" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,10 +14,14 @@
 </head>
 <body>
 	<div class = "fluid-container mx-2 my-2">
-		<div class="alert alert-danger alert-dismissible show w-50 mx-auto" role="alert">
-			${errMessage}
-			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-		</div>
+		<c:choose>	
+			<c:when test="${errMessage!=null && errMessage.length()!=0}">
+				<div class="alert alert-warning alert-dismissible show w-50 mx-auto" role="alert">
+					${errMessage}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			</c:when>
+		</c:choose>
 		
 		<div class="card text-bg-light w-50 mx-auto">
 		  <div class="card-header text-center">
@@ -31,6 +35,9 @@
 				
 				<label class="form-label" for="password">Password: </label>
 				<form:password class="form-control"				name="password"		id="password" 	path="password" required="true" maxlength="30"/>
+				<div id="passwordHelpBlock" class="form-text">
+				  Your password must be 8-20 characters long, contain upper case and lower case letters, numbers and special character.
+				</div>
 				<form:errors class="text-danger" path="password"/><br>
 				
 				<label class="form-label" for="username">User Name: </label>
@@ -54,9 +61,13 @@
 					<label class="form-label" for="experience">Experience(years): </label>
 					<form:input class="form-control" type="number" name="experience"	id="experience" path="experience" min="0"/>
 					<label class="form-label" for="expertise">Expertise: </label>
-					<form:input class="form-control"			   name="expertise"	id="expertise" path="expertise" maxlength="30"/>
+					<form:input class="form-control"			   name="expertise"		id="expertise" 	path="expertise" maxlength="30"/>
 					<label class="form-label" for="lawFirmName">Law Firm Name: </label>
 					<form:input class="form-control"			   name="lawFirmName"	id="lawFirmName" path="lawFirmName" maxlength="30"/>
+    				<% ResourceBundle resource = ResourceBundle.getBundle("staticmessages");
+				       String charge=resource.getString("defaultCharge"); %>
+					<label class="form-label" for="charge">Charge per Appointment: </label>
+					<form:input class="form-control" type="number" name="charge"		id="charge" 	path="charge" step=".01" value="<%= charge %>"/>
 				</div>
 				<br>
 				<form:button class="btn btn-success" value="Submit">Submit</form:button>

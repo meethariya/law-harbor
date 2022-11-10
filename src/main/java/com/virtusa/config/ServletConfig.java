@@ -1,5 +1,7 @@
 package com.virtusa.config;
 
+import java.util.Properties;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.MessageSource;
@@ -10,6 +12,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
@@ -47,4 +50,19 @@ public class ServletConfig implements WebMvcConfigurer{
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");	
     }
+	
+	@Bean
+	public SimpleMappingExceptionResolver simpleMappingExceptionResolver() {
+
+		SimpleMappingExceptionResolver resolver = new AppExceptionHandler();
+		
+		Properties exceptionMappings = new Properties();
+        exceptionMappings.put(Exception.class.getName(), "Error");
+        
+        resolver.setExceptionMappings(exceptionMappings);
+        resolver.addStatusCode("Error", 500);
+        
+		return resolver;
+	}
+	
 }

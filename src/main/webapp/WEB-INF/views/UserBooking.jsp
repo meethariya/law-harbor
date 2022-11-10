@@ -13,10 +13,15 @@
 <body>
 	<jsp:include page="Navbar.jsp"/>
 	<div class = "fluid-container mx-2 my-2">		
-		<div class="alert alert-warning alert-dismissible show w-50 mx-auto" role="alert">
-			${ removeBookingMessage }
-			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-		</div>
+		<c:choose>	
+			<c:when test="${removeBookingMessage!=null && removeBookingMessage.length()!=0}">
+				<div class="alert alert-warning alert-dismissible show w-50 mx-auto" role="alert">
+					${removeBookingMessage}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			</c:when>
+		</c:choose>
+		
 		<div class="container">
 			<div class="row">
 				<div class="col">

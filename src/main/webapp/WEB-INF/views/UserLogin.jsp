@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="tags"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,11 +14,14 @@
 </head>
 <body>
 	<div class="fluid-container mx-2 my-2">
-		<div class="alert alert-danger alert-dismissible show w-50 mx-auto" role="alert">
-			${errMessage}
-			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-		</div>
-		
+		<c:choose>	
+			<c:when test="${errMessage!=null && errMessage.length()!=0}">
+				<div class="alert alert-danger alert-dismissible show w-50 mx-auto" role="alert">
+					${errMessage}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			</c:when>
+		</c:choose>
 		<div class="card text-bg-light w-50 mx-auto">
 		  <div class="card-header text-center">
 		    <h1>Login</h1>

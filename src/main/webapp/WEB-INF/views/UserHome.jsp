@@ -11,16 +11,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <jsp:include page="BootstrapCss.jsp"/>
 <title>Home</title>
+
+<style type="text/css">
+	.status-circle {
+	  width: 15px;
+	  height: 15px;
+	  border-radius: 50%;
+	  background-color: grey;
+	  border: 2px solid white;
+	  bottom: 0;
+	  right: 0;
+	  position: absolute;
+	}
+	.icon-container {
+	  position: relative;
+	}
+</style>
+
 </head>
 <body>
 	<jsp:include page="Navbar.jsp"/>
 	
 	<div class = "fluid-container mx-2 my-2">		
-		<div class="alert alert-warning alert-dismissible show w-50 mx-auto" role="alert">
-			${errMessage}
-			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-		</div>
-		<h1>Welcome ${userName}</h1>
+		<c:choose>	
+			<c:when test="${errMessage!=null && errMessage.length()!=0}">
+				<div class="alert alert-warning alert-dismissible show w-50 mx-auto" role="alert">
+					${errMessage}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			</c:when>
+		</c:choose>
+		<h1>Welcome ${userName}</h1><br>
 		<div class="container">
 			<div class="row">
 				<div class="col col-sm-8">
@@ -30,7 +51,7 @@
 								<div class="container">
 									<form class="row g-3" action="searchByExpertise" method="POST">
 										<div class="col-auto">
-											<h3 class="form-label">Search By Expertise</h3>
+											<label for="searchField" class="form-label">Search By Expertise</label>
 										</div>
 										<div class="col-auto">
 											<label for="searchField" class="visually-hidden">Expertise</label>
@@ -54,31 +75,28 @@
 								<div class="col col-sm-4">
 									<div class="card text-bg-light mx-auto my-2">
 									
-										<div class="card-header text-center">
+										<div class="card-header text-center icon-container">
 											<h2>${lawyer.getUsername()}</h2>
-										</div>
-										
-										<div class="card-body">
-											<h5>Experience: ${lawyer.getExperience()}</h5>
-											<h5>Expertise: ${lawyer.getExpertise()}</h5>
-											<h5>Law Firm: ${lawyer.getLawFirmName()}</h5>
-											<div class="text-center">
-												<button onclick="toggleForm('${lawyer.getEmail()}')"
-													class="btn btn-primary">Book Appointment</button>
-											</div>
-										</div>
-										
-										<div class="card-footer text-center text-muted">
 											<c:choose>
-												<c:when test="${lawyer.isActive() }">
-													<h4 class="text-success">Online</h4>
+												<c:when test="${lawyer.isActive()}">											
+													<div class='status-circle' style="background-color: green"></div>
 												</c:when>
 												<c:otherwise>
-													<h4 class="text-danger">Offline</h4>
+													<div class='status-circle' style="background-color: red"></div>
 												</c:otherwise>
 											</c:choose>
 										</div>
 										
+										<div class="card-body">
+											<p>Experience: ${lawyer.getExperience()}</p>
+											<p>Expertise: ${lawyer.getExpertise()}</p>
+											<p>Law Firm: ${lawyer.getLawFirmName()}</p>
+											<p>Charge(Rs): ${lawyer.getCharge()}</p>
+											<div class="text-center">
+												<button onclick="toggleForm('${lawyer.getEmail()}', '${lawyer.getCharge()}')"
+													class="btn btn-primary">Book Appointment</button>
+											</div>
+										</div>
 									</div>
 								</div>
 							</c:forEach>
@@ -118,6 +136,11 @@
 									<form:input type="text" class="form-control" id="subject" name="subject"
 										path="subject" required="true" maxlength="30"/>
 									<form:errors path="subject" />
+								</div>
+
+								<div class="mb-3">								
+									<label for="setLawyerCharge" class="form-label">Charge(Rs): </label>
+									<input type="number" class="form-control-plaintext" id="setLawyerCharge" readonly>
 								</div>
 
 								<input type="hidden" id="setLawyer" name="lawyerEmail">

@@ -22,6 +22,8 @@ public class Lawyer extends User{
 	
 	@Column(name="law_firm_name", length = 30)
 	private String lawFirmName;
+	
+	private float charge;
 
 	public Lawyer() {
 		super();
@@ -39,6 +41,7 @@ public class Lawyer extends User{
 		this.experience = user.getExperience();
 		this.expertise = user.getExpertise();
 		this.lawFirmName = user.getLawFirmName();
+		this.charge = user.getCharge();
 	}
 	
 	public int getExperience() {
@@ -65,12 +68,21 @@ public class Lawyer extends User{
 		this.lawFirmName = lawFirmName;
 	}
 
+	public float getCharge() {
+		return charge;
+	}
+
+	public void setCharge(float charge) {
+		this.charge = charge;
+	}
+
 	@Override
 	public String toString() {
 		return "Lawyer [experience=" + experience + ", expertise=" + expertise + ", lawFirmName=" + lawFirmName
-				+ ", getId()=" + getId() + ", getEmail()=" + getEmail() + ", getPassword()=" + getPassword()
-				+ ", getUsername()=" + getUsername() + ", getMobileNumber()=" + getMobileNumber() + ", isActive()="
-				+ isActive() + "]";
+				+ ", charge=" + charge + ", getId()=" + getId() + ", getEmail()=" + getEmail() + ", getPassword()="
+				+ getPassword() + ", getUsername()=" + getUsername() + ", getMobileNumber()=" + getMobileNumber()
+				+ ", isActive()=" + isActive() + ", getRole()=" + getRole() + ", toString()=" + super.toString()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
 	}
 
 	

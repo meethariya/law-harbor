@@ -2,6 +2,7 @@ package com.virtusa.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -15,7 +16,7 @@ public class UserDto {
 	private String email;
 	
 	@NotEmpty
-	@Length(min = 8, max = 30)
+	@Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,30}$")
 	private String password;
 	
 	@NotEmpty
@@ -34,6 +35,8 @@ public class UserDto {
 	private String expertise;
 	
 	private String lawFirmName;
+	
+	private float charge;
 	
 	public UserDto() {
 		super();
@@ -101,6 +104,14 @@ public class UserDto {
 
 	public void setLawFirmName(String lawFirmName) {
 		this.lawFirmName = lawFirmName;
+	}
+
+	public float getCharge() {
+		return charge;
+	}
+
+	public void setCharge(float charge) {
+		this.charge = charge;
 	}
 
 	@Override
