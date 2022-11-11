@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,13 +51,14 @@
 						<div class="row text-center">
 							<div class="col">
 								<div class="container">
-									<form class="row g-3" action="searchByExpertise" method="POST">
+									<form class="row g-3" action="/project/user/searchByExpertise" method="POST">
 										<div class="col-auto">
 											<label for="searchField" class="form-label">Search By Expertise</label>
 										</div>
 										<div class="col-auto">
 											<label for="searchField" class="visually-hidden">Expertise</label>
 											<input class="form-control" name="searchField" id="searchField" placeholder="Expertise" required>
+											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 										</div>
 										<div class="col-auto">
 											<button type="submit" class="btn btn-success mb-3">Search</button>
@@ -75,16 +78,18 @@
 								<div class="col col-sm-4">
 									<div class="card text-bg-light mx-auto my-2">
 									
-										<div class="card-header text-center icon-container">
-											<h2>${lawyer.getUsername()}</h2>
-											<c:choose>
-												<c:when test="${lawyer.isActive()}">											
-													<div class='status-circle' style="background-color: green"></div>
-												</c:when>
-												<c:otherwise>
-													<div class='status-circle' style="background-color: red"></div>
-												</c:otherwise>
-											</c:choose>
+										<div class="card-header text-center">
+											<h2 class="icon-container">
+												${lawyer.getUsername()}
+												<c:choose>
+													<c:when test="${lawyer.isActive()}">
+														<div class='status-circle' style="background-color: green"></div>
+													</c:when>
+													<c:otherwise>
+														<div class='status-circle' style="background-color: red"></div>
+													</c:otherwise>
+												</c:choose>
+											</h2>
 										</div>
 										
 										<div class="card-body">
@@ -113,7 +118,7 @@
 							<h3>Book Appointment</h3>
 						</div>
 						<div class="card-body">
-							<form:form action="bookingForm" method='POST' modelAttribute="booking">
+							<form:form action="/project/user/bookingForm" method='POST' modelAttribute="booking">
 								<div class="mb-3">
 									<label for="appointmentDate" class="form-label">Date</label> 
 									<form:input type="date" id="appointmentDate" name="appointmentDate" 
@@ -145,7 +150,7 @@
 
 								<input type="hidden" id="setLawyer" name="lawyerEmail">
 								<input type="hidden" id="setClient" name="userEmail"
-									value="${ sessionScope.userEmail }">
+									value="<sec:authentication property='principal.username' />">
 								<button type="submit" class="btn btn-success">Book</button>
 							</form:form>
 						</div>

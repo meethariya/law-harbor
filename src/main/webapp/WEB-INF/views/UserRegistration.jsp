@@ -4,6 +4,11 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="tags"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import = "java.util.ResourceBundle" %>
+<% ResourceBundle resource = ResourceBundle.getBundle("staticmessages");
+   String charge=resource.getString("defaultCharge");
+   String lawyerRole = resource.getString("role.lawyer");
+   String adminRole = resource.getString("role.admin");
+   String userRole = resource.getString("role.user");%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +33,7 @@
 		    <h1>Registration Form</h1>
 		  </div>
 		  <div class="card-body">
-			<form:form class="form-control" action="registerForm" method="POST" modelAttribute="user">
+			<form:form class="form-control" action="register" method="POST" modelAttribute="user">
 				<label class="form-label" for="email">Email: </label>
 				<form:input type="email" class="form-control" 	name="email"		id="email" 		path="email" required="true" maxlength="30"/>
 				<form:errors class="text-danger" path="email"/><br>
@@ -49,10 +54,10 @@
 				<form:errors class="text-danger" path="mobileNumber"/><br>
 				
 				<label class="form-label" for="role">Role: </label>
-				<form:select class="form-select"				name="role"			id="role" 		path="role" required="true" >  
-					<c:forEach var="role" items="${roles }">			
-						<option value = "${role }" > ${role } </option>  
-					</c:forEach>
+				<form:select class="form-select"				name="role"			id="role" 		path="role" required="true" >  			
+					<option value = "<%= userRole %>" > <%= userRole.split("_")[1] %> </option>  
+					<option value = "<%= lawyerRole %>" > <%= lawyerRole.split("_")[1] %> </option>  
+					<option value = "<%= adminRole %>" > <%= adminRole.split("_")[1] %> </option>  
 				</form:select>  
 				<form:errors class="text-danger" path="role"/><br>
 				
@@ -64,12 +69,11 @@
 					<form:input class="form-control"			   name="expertise"		id="expertise" 	path="expertise" maxlength="30"/>
 					<label class="form-label" for="lawFirmName">Law Firm Name: </label>
 					<form:input class="form-control"			   name="lawFirmName"	id="lawFirmName" path="lawFirmName" maxlength="30"/>
-    				<% ResourceBundle resource = ResourceBundle.getBundle("staticmessages");
-				       String charge=resource.getString("defaultCharge"); %>
 					<label class="form-label" for="charge">Charge per Appointment: </label>
 					<form:input class="form-control" type="number" name="charge"		id="charge" 	path="charge" step=".01" value="<%= charge %>"/>
 				</div>
 				<br>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				<form:button class="btn btn-success" value="Submit">Submit</form:button>
 			</form:form>
 		  </div>

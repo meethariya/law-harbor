@@ -25,9 +25,9 @@ public interface LawyerServiceInterface {
 
 	public List<CaseRecord> getAllCase(String email);
 
-	public User getUser(String email);
+	public User getUser(String email, String role);
 
-	public void addCaseRecord(CaseRecordDto caseRecordDto);
+	public void addCaseRecord(CaseRecordDto caseRecordDto, String role);
 
 	public void deleteCaseRecord(int caseRecordId);
 

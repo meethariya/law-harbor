@@ -89,8 +89,8 @@ public class AdminService implements AdminServiceInterface {
 	
 	@Override
 	@Transactional
-	public void saveUser(UserDto lawyer) {
+	public void saveUser(UserDto lawyer, String role) {
 		// adds new lawyer
-		userService.saveUser(lawyer);
+		userService.saveUser(lawyer, role);
 	}
 }

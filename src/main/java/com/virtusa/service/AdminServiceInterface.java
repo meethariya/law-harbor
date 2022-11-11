@@ -18,6 +18,6 @@ public interface AdminServiceInterface {
 
 	public void updateLawyer(UserDto lawyerDto);
 
-	public void saveUser(UserDto lawyer);
+	public void saveUser(UserDto lawyer, String role);
 	
 }

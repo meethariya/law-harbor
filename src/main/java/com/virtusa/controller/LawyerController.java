@@ -2,13 +2,13 @@ package com.virtusa.controller;
 
 import java.util.Locale;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -36,7 +36,6 @@ public class LawyerController {
 	// handles all lawyer requests
 	
 	private static final Logger log = LogManager.getLogger(LawyerController.class);
-	private static final String REDIRECTLOGIN = "redirect:/login";
 	private static final String REDIRECTHOME = "redirect:/lawyer/";
 	private static final String ERR = "errMessage";
 	
@@ -49,38 +48,20 @@ public class LawyerController {
 	MessageSource messageSource;
 	
 	@GetMapping("/")
-	public String home(Model model, HttpSession session, @ModelAttribute(ERR) String errMessage) {
+	public String home(Model model, Authentication authentication, @ModelAttribute(ERR) String errMessage) {
 		// Lawyer home
 		
-		if(sessionChecker(session)) return REDIRECTLOGIN;
-		
-		String email = (String) session.getAttribute(getEmailFromProperties());
+		String email = authentication.getName();
 		model.addAttribute("username",service.getLawyer(email).getUsername());
 		model.addAttribute("allBooking", service.getAllAppointment(email));
 		model.addAttribute("err", errMessage);
 		
 		return "LawyerHome";
 	}
-	
-	@GetMapping("/logout")
-	public String logout(HttpSession session, RedirectAttributes redirectAttributes) {
-		// logout lawyer
-		String email = (String) session.getAttribute(getEmailFromProperties());
 		
-		if(email != null) {
-			service.logoutUser(email);
-			session.removeAttribute(getEmailFromProperties());						// remove session on logout
-		}	
-		redirectAttributes.addFlashAttribute(ERR,"loggged out");
-		return REDIRECTLOGIN;
-	}
-	
 	@GetMapping("/approveBooking/{bookingId}")
-	public String approveBooking(@PathVariable("bookingId") int id, RedirectAttributes redirectAttribute, 
-			HttpSession session) {
+	public String approveBooking(@PathVariable("bookingId") int id, RedirectAttributes redirectAttribute) {
 		// approve an appointment
-		
-		if(sessionChecker(session)) return REDIRECTLOGIN;
 		
 		try {			
 			service.approveBooking(id);
@@ -94,10 +75,8 @@ public class LawyerController {
 
 	@GetMapping("/cancelBooking/{bookingId}")
 	public String cancelBooking(@PathVariable("bookingId") int id,
-			RedirectAttributes redirectAttribute, HttpSession session) {
+			RedirectAttributes redirectAttribute) {
 		// cancel an appointment
-		
-		if(sessionChecker(session)) return REDIRECTLOGIN;
 		
 		try {			
 			service.cancelBooking(id);
@@ -111,12 +90,10 @@ public class LawyerController {
 	
 	@GetMapping("/caseRecord")
 	public String getCaseRecord(@ModelAttribute("case")CaseRecordDto caseRecordDto,
-			@ModelAttribute(ERR)String errMessage, Model model, HttpSession session) {
+			@ModelAttribute(ERR)String errMessage, Model model, Authentication authentication) {
 		// get list of all case records by the lawyer
 		
-		if(sessionChecker(session)) return REDIRECTLOGIN;
-		
-		String email = (String) session.getAttribute(getEmailFromProperties());
+		String email = authentication.getName();
 		model.addAttribute("allCaseRecord", service.getAllCase(email));
 		model.addAttribute(ERR, errMessage);
 		
@@ -125,20 +102,19 @@ public class LawyerController {
 	
 	@PostMapping("/caseRecord")
 	public String addCaseRecord(@Valid @ModelAttribute("case")CaseRecordDto caseRecordDto, 
-			Errors error, HttpSession session, RedirectAttributes redirectAttributes) {
+			Errors error, Authentication authentication, RedirectAttributes redirectAttributes) {
 		// add a case record
-
-		if(sessionChecker(session)) return REDIRECTLOGIN;
 		
 		if(error.hasErrors()) {			
 			redirectAttributes.addFlashAttribute(ERR, "Enter details correctly");
 		}
 		else {			
-			String email = (String) session.getAttribute(getEmailFromProperties());
+			String email = authentication.getName();
 			caseRecordDto.setIssuedBy(service.getLawyer(email));
 			
-			try {			
-				service.addCaseRecord(caseRecordDto);
+			try {
+				String role = messageSource.getMessage("role.user", null, "user", new Locale("en"));
+				service.addCaseRecord(caseRecordDto, role);
 				redirectAttributes.addFlashAttribute(ERR, "Case Record created successfully");
 			}
 			catch(UserNotFoundException e) {
@@ -151,10 +127,8 @@ public class LawyerController {
 	
 	@GetMapping("/caseRecord/{caseRecordId}")
 	public String deleteCaseRecord(@PathVariable("caseRecordId") int caseRecordId,
-			RedirectAttributes redirectAttributes, HttpSession session) {
+			RedirectAttributes redirectAttributes) {
 		// deletes a case record
-		
-		if(sessionChecker(session)) return REDIRECTLOGIN;
 		
 		try {
 			service.deleteCaseRecord(caseRecordId);
@@ -169,10 +143,8 @@ public class LawyerController {
 	@PostMapping("caseRecord/{caseRecordId}")
 	public String editCaseRecord(@PathVariable("caseRecordId") int caseRecordId,
 			@Valid @ModelAttribute("case")CaseRecordDto caseRecordDto, Errors error,
-			RedirectAttributes redirectAttributes, HttpSession session) {
+			RedirectAttributes redirectAttributes) {
 		// edit case record
-		
-		if(sessionChecker(session)) return REDIRECTLOGIN;
 		
 		if(error.hasErrors()) {	
 			redirectAttributes.addFlashAttribute(ERR, "Enter details correctly");			
@@ -193,10 +165,8 @@ public class LawyerController {
 	@GetMapping("report/{bookingId}")
 	public String reportPage(@PathVariable("bookingId") int bookingId,
 			@ModelAttribute("report") ReportDto report, 
-			Model model, RedirectAttributes redirectAttributes, HttpSession session) {
+			Model model, RedirectAttributes redirectAttributes) {
 		// Create Report page
-		
-		if(sessionChecker(session)) return REDIRECTLOGIN;
 		
 		model.addAttribute("bookingId", bookingId);
 		
@@ -217,10 +187,8 @@ public class LawyerController {
 	
 	@PostMapping("report")
 	public String addReport(@Valid @ModelAttribute("report") ReportDto reportDto,
-			Errors error, RedirectAttributes redirectAttributes, HttpSession session) {
+			Errors error, RedirectAttributes redirectAttributes, Authentication authentication) {
 		// save report
-		
-		if(sessionChecker(session)) return REDIRECTLOGIN;
 		
 		if(error.hasErrors()) {			
 			redirectAttributes.addFlashAttribute(ERR, "Select Minimum one case record");
@@ -228,7 +196,7 @@ public class LawyerController {
 		}
 		
 		// setting lawyer from session email
-		String email = (String) session.getAttribute(getEmailFromProperties());
+		String email = authentication.getName();
 		reportDto.setLawyer(service.getLawyer(email));
 		
 		try {
@@ -240,11 +208,6 @@ public class LawyerController {
 		}
 		
 		return REDIRECTHOME;
-	}
-	
-	public boolean sessionChecker(HttpSession session) {
-		// checks if lawyer session is active or not
-		return (String) session.getAttribute(getEmailFromProperties()) == null;
 	}
 	
 	public String getEmailFromProperties() {

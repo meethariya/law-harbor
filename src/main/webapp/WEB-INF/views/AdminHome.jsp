@@ -3,12 +3,32 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="tags"%>
-
+<%@ page import = "java.util.ResourceBundle" %>
+<% ResourceBundle resource = ResourceBundle.getBundle("staticmessages");
+   String charge=resource.getString("defaultCharge");
+   String roleLawyer=resource.getString("role.lawyer"); %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style type="text/css">
+	.status-circle {
+	  width: 15px;
+	  height: 15px;
+	  border-radius: 50%;
+	  background-color: grey;
+	  border: 2px solid white;
+	  bottom: 0;
+	  right: 0;
+	  position: absolute;
+	}
+	.icon-container {
+	  position: relative;
+	}
+</style>
+
 <jsp:include page="BootstrapCss.jsp"/>
 <title>Home</title>
 </head>
@@ -53,8 +73,8 @@
 									<form:input type="number" class="form-control" 	name="mobileNumber"	id="addmobile" 	path="mobileNumber" min="0" required="true"/>
 									<form:errors class="text-danger" path="mobileNumber"/><br>
 									
-									<form:input type="hidden" name="role" id="addrole" path="role" value="${lawyerRole }"/>
-									<form:errors class="text-danger" path="role"/><br>
+									<form:input type="hidden" name="role" id="addrole" path="role" value="<%= roleLawyer %>"/>
+									<form:errors class="text-danger" path="role"/>
 									
 									<label class="form-label" for="experience">Experience(years): </label>
 									<form:input type="number" class="form-control"  name="experience"	id="addexperience" path="experience" min="0"/><br>
@@ -65,6 +85,10 @@
 									<label class="form-label" for="lawFirmName">Law Firm Name: </label>
 									<form:input class="form-control"				name="lawFirmName"	id="addlawFirmName" path="lawFirmName" maxlength="30"/><br>
 									
+									<label class="form-label" for="charge">Charge per Appointment: </label>
+									<form:input class="form-control" type="number" name="charge"		id="addcharge" 	path="charge" step=".01" value="<%= charge %>" min="0" /><br>
+									
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 									<form:button class="btn btn-success" value="Submit">Submit</form:button>
 								</form:form>
 							</div>
@@ -116,7 +140,10 @@
 									<form:input class="form-control" name="lawFirmName" id="lawFirmName"
 										path="lawFirmName" maxlength="30"/>
 									<br>
-		
+									<label class="form-label" for="charge">Charge per Appointment: </label>
+									<form:input class="form-control" type="number" name="charge"		id="editcharge" 	path="charge" step=".01" value="<%= charge %>" min="0" /><br>
+									<br>
+									
 									<form:button class="btn btn-success" value="Submit" >Submit</form:button>
 								</form:form>
 							</div>
@@ -124,41 +151,45 @@
 					</div>
 				</div>
 			</div>
-		<div class="row">			
-			<h3>List of Lawyers</h3>
+			<div class="row text-center">
+				<div class="col">
+					<h3>List of Lawyers</h3>
+				</div>
+			</div>
+			<div class="row">			
 			<c:forEach var="lawyer" items="${allLawyer}">
 				<div class="col col-sm-4">
 
 						<div class="card text-bg-light mx-auto my-2">
 
 							<div class="card-header text-center">
-								<h2>${lawyer.getUsername()}</h2>
+								<h2 class="icon-container">
+									${lawyer.getUsername()}
+									<c:choose>
+										<c:when test="${lawyer.isActive()}">											
+											<div class='status-circle' style="background-color: green"></div>
+										</c:when>
+										<c:otherwise>
+											<div class='status-circle' style="background-color: red"></div>
+										</c:otherwise>
+									</c:choose>
+								</h2>
 							</div>
 
 							<div class="card-body">
-								<h5>Email: ${lawyer.getEmail()}</h5>
-								<h5>Mobile Number: ${lawyer.getMobileNumber()}</h5>
-								<h5>Experience: ${lawyer.getExperience()}</h5>
-								<h5>Expertise: ${lawyer.getExpertise()}</h5>
-								<h5>Law Firm: ${lawyer.getLawFirmName()}</h5>
+								<p>Email: ${lawyer.getEmail()}</p>
+								<p>Mobile Number: ${lawyer.getMobileNumber()}</p>
+								<p>Experience: ${lawyer.getExperience()}</p>
+								<p>Expertise: ${lawyer.getExpertise()}</p>
+								<p>Law Firm: ${lawyer.getLawFirmName()}</p>
 								<button onclick="toggleForm('${lawyer.getEmail()}', '${lawyer.getUsername()}', '${lawyer.getPassword()}',
 								 '${lawyer.getRole()}', '${lawyer.getMobileNumber()}', '${lawyer.getExperience()}', 
-								 '${lawyer.getExpertise()}', '${lawyer.getLawFirmName()}', '${lawyer.getId()}')" class="btn btn-warning">
+								 '${lawyer.getExpertise()}', '${lawyer.getLawFirmName()}', '${lawyer.getId()}', '${lawyer.getCharge()}')" class="btn btn-warning">
 								 	Edit lawyer
 								 </button>
 								<a href="lawyer/${lawyer.getId()}" class="btn btn-danger">Delete Lawyer</a>
 							</div>
 
-							<div class="card-footer text-center text-muted">
-								<c:choose>
-									<c:when test="${lawyer.isActive() }">
-										<h4 class="text-success">Online</h4>
-									</c:when>
-									<c:otherwise>
-										<h4 class="text-danger">Offline</h4>
-									</c:otherwise>
-								</c:choose>
-							</div>
 						</div>
 				</div>
 			</c:forEach>

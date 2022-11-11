@@ -3,7 +3,6 @@ package com.virtusa.service;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -11,7 +10,6 @@ import javax.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import com.virtusa.dao.LawyerDao;
@@ -41,10 +39,7 @@ public class LawyerService implements LawyerServiceInterface{
 	
 	@Autowired
 	LawyerDao dao;
-	
-	@Autowired
-	MessageSource messageSource;
-	
+		
 	@Autowired
 	UserService userService;
 
@@ -101,11 +96,10 @@ public class LawyerService implements LawyerServiceInterface{
 	
 	@Override
 	@Transactional
-	public User getUser(String email) {
+	public User getUser(String email, String role) {
 		// retrieves a user given email. Verifies the role
 		// any role other than `user` will throw Exception
 		User user = dao.getUser(email);
-		String role = messageSource.getMessage("role.user", null, "user", new Locale("en"));
 		if(user==null || !user.getRole().equals(role)) {
 			throw new UserNotFoundException("No user with email "+email);
 		}
@@ -114,10 +108,10 @@ public class LawyerService implements LawyerServiceInterface{
 	
 	@Override
 	@Transactional
-	public void addCaseRecord(CaseRecordDto caseRecordDto) {
+	public void addCaseRecord(CaseRecordDto caseRecordDto, String role) {
 		// Sets CaseRecordDto values required for Entity Object.
 		// Converts to Case Record Entity and saves it
-		caseRecordDto.setUser(getUser(caseRecordDto.getUserEmail())); // throws UserNotFoundException
+		caseRecordDto.setUser(getUser(caseRecordDto.getUserEmail(), role)); // throws UserNotFoundException
 		caseRecordDto.setDate(new Date());
 		dao.addCaseRecord(new CaseRecord(caseRecordDto));
 	}

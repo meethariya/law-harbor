@@ -7,22 +7,18 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import javax.transaction.Transactional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import com.virtusa.dao.UserDao;
 import com.virtusa.dto.BookingDto;
-import com.virtusa.dto.LoginUserDto;
 import com.virtusa.dto.UserDto;
 import com.virtusa.exception.BookingAlreadyConfirmedException;
-import com.virtusa.exception.IncorrectLoginDetailsException;
 import com.virtusa.exception.NoBookingFoundException;
 import com.virtusa.exception.SlotAlreadyReservedException;
 import com.virtusa.exception.UserAlreadyExistException;
@@ -45,12 +41,9 @@ public class UserService implements UserServiceInterface{
 	@Autowired
 	UserDao userDao;
 	
-	@Autowired
-	MessageSource messageSource;
-	
 	@Override
 	@Transactional
-	public void saveUser(UserDto user) {
+	public void saveUser(UserDto user, String role) {
 		/* Verifies if any user exist with same email or mobile number
 		 * throws UserAlreadyExistException in that case
 		 * registers user otherwise
@@ -67,7 +60,6 @@ public class UserService implements UserServiceInterface{
 		}
 		
 		// saving user based on role
-		String role = messageSource.getMessage("role.lawyer", null, "lawyer", Locale.ENGLISH);
 		if(user.getRole().equals(role)){
 			userDao.saveLawyer(userDtoToLawyer(user));
 		}
@@ -78,18 +70,13 @@ public class UserService implements UserServiceInterface{
 	
 	@Override
 	@Transactional
-	public String loginUser(LoginUserDto requestedUser) {
+	public String loginUser(String email) {
 		/* Verifies valid email and password. 
 		 * Throws error in case of incorrect credentials.
 		 * sets user's status online.
 		 */
 		
-		User dbUser = getUser(requestedUser.getEmail());
-		
-		// validating email and password
-		if (!dbUser.getPassword().equals(requestedUser.getPassword())) {
-			throw new IncorrectLoginDetailsException("Incorrect Password");
-		}
+		User dbUser = getUser(email);
 		
 		// changing active status
 		dbUser.setActive(true);
@@ -208,23 +195,20 @@ public class UserService implements UserServiceInterface{
 
 	@Override
 	@Transactional
-	public List<Lawyer> getLawyerByExpertise(String searchField) {
+	public List<Lawyer> getLawyerByExpertise(String searchField, int z) {
 		// returns list of lawyers with similar expertise
 		List<String> allExpertise = userDao.getAllExpertise();		
-		List<String> matchingExpertise = expertiseMatcher(allExpertise, searchField);
+		List<String> matchingExpertise = expertiseMatcher(allExpertise, searchField, z);
 		return userDao.getLawyerByExpertise(matchingExpertise);
 	}
 	
-	private List<String> expertiseMatcher(List<String> allExpertise, String target){
+	private List<String> expertiseMatcher(List<String> allExpertise, String target, int z){
 		// takes input as list of expertise. Matches all with target string
 		// all matching using edit distance will be add to another list and will be returned
 		
 		List<String> output = new ArrayList<>();	// output list
 
 		if(allExpertise.isEmpty()) return output;	
-		
-		// max edit distance
-		int z = Integer.parseInt(messageSource.getMessage("editDistance", null, "3", Locale.ENGLISH));
 		
 		// matches all expertise retrieved from database
 		for(String dbExpertise : allExpertise) {

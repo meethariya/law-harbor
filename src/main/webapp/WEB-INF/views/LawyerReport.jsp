@@ -53,7 +53,7 @@
 				</c:forEach>			
 				<form:errors path="tempCaseRecord" />
 				<br>
-				
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				<form:button class="btn btn-success" value="Submit">Submit</form:button>
 			</form:form>
 		  </div>

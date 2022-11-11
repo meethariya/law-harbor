@@ -29,7 +29,7 @@ public class User {
 	@Column(unique = true, updatable = false, nullable = false, length = 30)
 	private String email;
 	
-	@Column(nullable = false, length = 30)
+	@Column(nullable = false, length = 255)
 	private String password;
 	
 	@Column(nullable = false, length = 30)
@@ -40,8 +40,10 @@ public class User {
 	
 	private boolean active;
 	
-	@Column(nullable = false, length = 10)
+	@Column(nullable = false, length = 15)
 	private String role;
+
+	private boolean enabled = true;
 	
 	public User() {
 		super();
@@ -105,6 +107,12 @@ public class User {
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	public boolean isEnabled() {
+		return enabled;
+	}
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 	@Override
 	public String toString() {

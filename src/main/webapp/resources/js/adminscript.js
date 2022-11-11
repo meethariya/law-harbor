@@ -1,4 +1,4 @@
-function toggleForm(email, username, password, role, mobile, experience, expertise, lawFirmName, id) {
+function toggleForm(email, username, password, role, mobile, experience, expertise, lawFirmName, id, charge) {
 	//Enables the edit form and sets lawyer values and sets form url
 
 	document.getElementById("email").value = email;
@@ -10,6 +10,7 @@ function toggleForm(email, username, password, role, mobile, experience, experti
 	document.getElementById("experience").value = experience;
 	document.getElementById("expertise").value = expertise;
 	document.getElementById("lawFirmName").value = lawFirmName;
+	document.getElementById("editcharge").value = charge;
 
 	divToggler(document.getElementById("editDiv"));
 }
@@ -28,7 +29,6 @@ function divToggler(x) {
 	}
 }
 
-document.getElementById("logoutTag").setAttribute("href", "/project/admin/logout");
 document.getElementById("bookingTag").style.display = "none";
 document.getElementById("homeTag").style.display = "none";
 document.getElementById("caseRecordTag").style.display = "none";

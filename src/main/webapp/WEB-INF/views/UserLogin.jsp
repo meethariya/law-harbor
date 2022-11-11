@@ -15,8 +15,24 @@
 <body>
 	<div class="fluid-container mx-2 my-2">
 		<c:choose>	
-			<c:when test="${errMessage!=null && errMessage.length()!=0}">
+			<c:when test="${param.error != null}">
 				<div class="alert alert-danger alert-dismissible show w-50 mx-auto" role="alert">
+					Invalid Credentials
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			</c:when>
+		</c:choose>
+		<c:choose>	
+			<c:when test="${param.logout != null}">
+				<div class="alert alert-danger alert-dismissible show w-50 mx-auto" role="alert">
+					Logged Out
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			</c:when>
+		</c:choose>
+		<c:choose>	
+			<c:when test="${errMessage!=null && errMessage.length()!=0}">
+				<div class="alert alert-warning alert-dismissible show w-50 mx-auto" role="alert">
 					${errMessage}
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>
@@ -42,7 +58,7 @@
 					<label for="password">Password </label>
 					<form:errors class="text-danger" path="password" />
 				</div>
-	
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				<div class="mb-3">
 					<a href="register" class="link-info">Not yet registered? SignUp</a><br>
 				</div>

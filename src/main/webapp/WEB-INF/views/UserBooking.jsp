@@ -53,7 +53,7 @@
 								<!-- If Booking is not confirmed -->
 								<c:choose>
 									<c:when test="${!booking.isBookingStatus() }">
-										<a href="removeBooking/${booking.getBookingId()}">
+										<a href="/project/user/removeBooking/${booking.getBookingId()}">
 											<button class="btn btn-danger">Remove Booking</button>
 										</a>
 									</c:when>

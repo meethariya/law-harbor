@@ -3,7 +3,6 @@ package com.virtusa.service;
 import java.util.List;
 
 import com.virtusa.dto.BookingDto;
-import com.virtusa.dto.LoginUserDto;
 import com.virtusa.dto.UserDto;
 import com.virtusa.model.Booking;
 import com.virtusa.model.CaseRecord;
@@ -12,9 +11,9 @@ import com.virtusa.model.User;
 
 public interface UserServiceInterface {
 
-	public void saveUser(UserDto user);
+	public void saveUser(UserDto user, String role);
 
-	public String loginUser(LoginUserDto requestedUser);
+	public String loginUser(String email);
 
 	public User getUser(String email);
 
@@ -32,6 +31,6 @@ public interface UserServiceInterface {
 
 	public void removeBooking(int id);
 
-	public List<Lawyer> getLawyerByExpertise(String searchField);
+	public List<Lawyer> getLawyerByExpertise(String searchField, int z);
 
 }
