@@ -1,5 +1,6 @@
 package com.virtusa.controller;
 
+import java.util.List;
 import java.util.Locale;
 
 import javax.validation.Valid;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.virtusa.dto.CaseRecordDto;
@@ -26,6 +28,7 @@ import com.virtusa.exception.NoBookingFoundException;
 import com.virtusa.exception.ReportAlreadyExistException;
 import com.virtusa.exception.UserNotFoundException;
 import com.virtusa.model.Booking;
+import com.virtusa.model.CaseRecord;
 import com.virtusa.model.Lawyer;
 import com.virtusa.model.User;
 import com.virtusa.service.LawyerService;
@@ -37,7 +40,10 @@ public class LawyerController {
 	
 	private static final Logger log = LogManager.getLogger(LawyerController.class);
 	private static final String REDIRECTHOME = "redirect:/lawyer/";
+	private static final String REDIRECTCASERECORD = "redirect:/lawyer/caseRecord";
 	private static final String ERR = "errMessage";
+	private static final String LAWYERHOMEPAGE = "LawyerHome";
+	private static final String LAWYERCASEPAGE = "LawyerCase";
 	
 	public LawyerController() {
 		log.warn("LawyerController Constructor Called");
@@ -52,11 +58,10 @@ public class LawyerController {
 		// Lawyer home
 		
 		String email = authentication.getName();
-		model.addAttribute("username",service.getLawyer(email).getUsername());
-		model.addAttribute("allBooking", service.getAllAppointment(email));
-		model.addAttribute("err", errMessage);
+		homeLoader(model,service.getAllAppointment(email), service.getLawyer(email).getUsername());
+		model.addAttribute(ERR, errMessage);
 		
-		return "LawyerHome";
+		return LAWYERHOMEPAGE;
 	}
 		
 	@GetMapping("/approveBooking/{bookingId}")
@@ -94,10 +99,10 @@ public class LawyerController {
 		// get list of all case records by the lawyer
 		
 		String email = authentication.getName();
-		model.addAttribute("allCaseRecord", service.getAllCase(email));
+		caseLoader(model, service.getAllCase(email));
 		model.addAttribute(ERR, errMessage);
 		
-		return "LawyerCase";
+		return LAWYERCASEPAGE;
 	}
 	
 	@PostMapping("/caseRecord")
@@ -137,7 +142,7 @@ public class LawyerController {
 		catch(CaseRecordNotFoundException e) {
 			redirectAttributes.addFlashAttribute(ERR, e.getMessage());
 		}
-		return "redirect:/lawyer/caseRecord";
+		return REDIRECTCASERECORD;
 	}
 	
 	@PostMapping("caseRecord/{caseRecordId}")
@@ -158,7 +163,7 @@ public class LawyerController {
 				redirectAttributes.addFlashAttribute(ERR, e.getMessage());			
 			}
 		}
-		return "redirect:/lawyer/caseRecord";
+		return REDIRECTCASERECORD;
 	}
 	
 	
@@ -210,8 +215,80 @@ public class LawyerController {
 		return REDIRECTHOME;
 	}
 	
+	@GetMapping("/booking/{year}")
+	public String bookingByYear(@PathVariable("year")String year, Authentication authentication,
+			Model model, RedirectAttributes redirectAttributes) {
+		// returns list of bookings in given year
+		String email = authentication.getName();
+		try {
+			homeLoader(model,service.getBookingByYear(email, year), service.getLawyer(email).getUsername());
+		}
+		catch(NoBookingFoundException e) {
+			redirectAttributes.addFlashAttribute(ERR,e.getMessage());
+			return REDIRECTHOME;
+		}
+		return LAWYERHOMEPAGE;
+	}
+	
+	@GetMapping("/caseRecordByYear/{year}")
+	public String caseRecordByYear(@PathVariable("year")String year, Authentication authentication,
+			@ModelAttribute("case")CaseRecordDto caseRecordDto, 
+			Model model, RedirectAttributes redirectAttributes) {
+		// returns list of case record in given year
+		String email = authentication.getName();
+		try{
+			caseLoader(model, service.getCaseRecordByYear(email, year));			
+		}
+		catch(CaseRecordNotFoundException e) {
+			redirectAttributes.addFlashAttribute(ERR,e.getMessage());
+			return REDIRECTCASERECORD;
+		}
+		return LAWYERCASEPAGE;
+	}
+
+	@PostMapping("/searchByUsername")
+	public String bookingByUsername(@RequestParam("username") String username, Authentication authentication,
+			Model model, RedirectAttributes redirectAttributes) {
+		// returns list of case record in given year
+		String email = authentication.getName();
+		int z = Integer.parseInt(messageSource.getMessage("editDistance", null, "3", Locale.ENGLISH));
+		try{
+			homeLoader(model,service.getBookingByUsername(email, username, z), service.getLawyer(email).getUsername());
+		}
+		catch(NoBookingFoundException e) {
+			redirectAttributes.addFlashAttribute(ERR,e.getMessage());
+			return REDIRECTHOME;
+		}
+		return LAWYERHOMEPAGE;
+	}
+
+	@PostMapping("/caseRecordByUsername")
+	public String caseRecordByUsername(@RequestParam("username") String username, Authentication authentication,
+			Model model, RedirectAttributes redirectAttributes, @ModelAttribute("case")CaseRecordDto caseRecordDto) {
+		// returns list of case record in given year
+		String email = authentication.getName();
+		int z = Integer.parseInt(messageSource.getMessage("editDistance", null, "3", Locale.ENGLISH));
+		try{
+			caseLoader(model, service.getCaseRecordByUsername(email, username, z));
+		}
+		catch(CaseRecordNotFoundException e) {
+			redirectAttributes.addFlashAttribute(ERR,e.getMessage());
+			return REDIRECTCASERECORD;
+		}
+		return LAWYERCASEPAGE;
+	}
+	
 	public String getEmailFromProperties() {
 		// returns session key value for admin email
-		return messageSource.getMessage("email.lawyer", null, "lawyerEmail", new Locale("en"));
+		return messageSource.getMessage("email.lawyer", null, "lawyerEmail", Locale.ENGLISH);
+	}
+	
+	public void homeLoader(Model model, List<Booking> allBooking, String username) {
+		model.addAttribute("allBooking",allBooking);			
+		model.addAttribute("username",username);
+	}
+	
+	public void caseLoader(Model model, List<CaseRecord> allCase) {
+		model.addAttribute("allCaseRecord",allCase);	
 	}
 }

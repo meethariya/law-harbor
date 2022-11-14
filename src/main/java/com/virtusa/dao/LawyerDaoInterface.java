@@ -42,4 +42,20 @@ public interface LawyerDaoInterface {
 
 	public void updateBookingReport(Booking appointment);
 
+	public List<Booking> getBookingEarlier(Lawyer lawyer, int bookingYear);
+
+	public List<Booking> getBookingByYear(Lawyer lawyer, int bookingYear);
+
+	public List<CaseRecord> getAllCaseRecordEarlier(Lawyer lawyer, int caseRecordYear);
+
+	public List<CaseRecord> getAllCaseRecordByYear(Lawyer lawyer, int caseRecordYear);
+
+	public List<String> getUniqueUsernameForBooking(Lawyer lawyer);
+
+	public List<Booking> getBookingByListOfUsername(Lawyer lawyer, List<String> usernames);
+
+	public List<String> getUniqueUsernameForCaseRecord(Lawyer lawyer);
+
+	public List<CaseRecord> getCaseRecordByListOfUsername(Lawyer lawyer, List<String> usernames);
+
 }

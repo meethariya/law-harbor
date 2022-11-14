@@ -45,4 +45,12 @@ public interface LawyerServiceInterface {
 
 	public Report getReport(int id);
 
+	public List<Booking> getBookingByYear(String email, String year);
+
+	public List<CaseRecord> getCaseRecordByYear(String email, String year);
+
+	public List<Booking> getBookingByUsername(String email, String username, int z);
+
+	public List<CaseRecord> getCaseRecordByUsername(String email, String username, int z);
+
 }

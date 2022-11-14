@@ -1,3 +1,4 @@
+<%@page import="java.time.LocalDate"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -14,9 +15,9 @@
 	<jsp:include page="Navbar.jsp"/>
 	<div class = "fluid-container mx-2 my-2">
 		<c:choose>	
-			<c:when test="${err!=null && err.length()!=0}">
+			<c:when test="${errMessage!=null && errMessage.length()!=0}">
 				<div class="alert alert-warning alert-dismissible show w-50 mx-auto" role="alert">
-					${err}
+					${errMessage}
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>
 			</c:when>
@@ -26,6 +27,34 @@
 			<div class="row text-center">
 				<div class="col">
 					<h2>All Appointments</h2>
+				</div>
+			</div>
+			<div class="row border border-primary rounded-3">
+				<div class="col col-sm-1 my-2">
+				</div>
+				<div class="col col-sm-3 my-2">
+					<div class="btn-group">
+					  <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+					    Get by year
+					  </button>
+					  <ul class="dropdown-menu">
+					  	<%for (int i = LocalDate.now().getYear(); i > LocalDate.now().getYear()-3; i--) {%>
+						    <li><a class="dropdown-item" href="/project/lawyer/booking/<%=i%>"><%=i%></a></li>
+						<%}%>
+					    <li><hr class="dropdown-divider"></li>
+					    <li><a class="dropdown-item" href="/project/lawyer/booking/earlier">Earlier</a></li>
+					  </ul>
+					</div>
+				</div>
+				<div class="col col-sm-3 my-2">
+					<form action="/project/lawyer/searchByUsername" method="POST">
+						<div class="input-group">
+						  <input type="text" class="form-control" placeholder="User name" required
+						  	aria-label="username" aria-describedby="search" max="30" name="username">
+						  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						  <button class="btn btn-outline-success" type="submit" id="search" value="Submit">Search</button>
+						</div>
+					</form>
 				</div>
 			</div>
 			<div class="row">
@@ -42,10 +71,10 @@
 								<c:choose>
 									<c:when test="${ !booking.isBookingStatus() }">
 										<div class="btn-group" role="group" aria-label="Basic example">
-											<a href="approveBooking/${booking.getBookingId()}" class="btn btn-success">
+											<a href="/project/lawyer/approveBooking/${booking.getBookingId()}" class="btn btn-success">
 												Approve
 											</a>
-											<a href="cancelBooking/${booking.getBookingId()}" class="btn btn-danger">
+											<a href="/project/lawyer/cancelBooking/${booking.getBookingId()}" class="btn btn-danger">
 												  Reject 
 											</a>
 										</div>
@@ -54,7 +83,7 @@
 										<!-- If Report not generated -->
 										<c:choose>
 											<c:when test="${booking.getReport() == null }">
-												<a href="report/${booking.getBookingId()}">
+												<a href="/project/lawyer/report/${booking.getBookingId()}">
 													<button class="btn btn-warning">Generate Report</button>
 												</a>
 											</c:when>

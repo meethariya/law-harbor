@@ -10,7 +10,7 @@ function editFormToggler(email, eventDetail, actionTaken, id) {
 	document.getElementById("hiddenEditEmail").value = email;
 	document.getElementById("editEventDetail").value = eventDetail;
 	document.getElementById("editActionTaken").value = actionTaken;
-	document.getElementById("editForm").action = "caseRecord/" + id;
+	document.getElementById("editForm").action = "/project/lawyer/caseRecord/" + id;
 
 }
 function divToggler(x) {

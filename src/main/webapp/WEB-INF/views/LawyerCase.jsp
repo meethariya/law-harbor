@@ -1,3 +1,4 @@
+<%@page import="java.time.LocalDate"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -25,19 +26,47 @@
 		</c:choose>
 		<div class="container">
 		
-			<div class="row">
+			<div class="row text-center">
 				<div class="col">
 					<h3>Case Records</h3>
 				</div>
 			</div>
-			
+			<div class="row border border-primary rounded-3 my-2">
+				<div class="col col-sm-1 my-2">
+				</div>
+				<div class="col col-sm-3 my-2">
+					<!-- Example single danger button -->
+					<div class="btn-group">
+					  <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+					    Get by year
+					  </button>
+					  <ul class="dropdown-menu">
+					  	<%for (int i = LocalDate.now().getYear(); i > LocalDate.now().getYear()-3; i--) {%>
+						    <li><a class="dropdown-item" href="/project/lawyer/caseRecordByYear/<%=i%>"><%=i%></a></li>
+						<%}%>
+					    <li><hr class="dropdown-divider"></li>
+					    <li><a class="dropdown-item" href="/project/lawyer/caseRecordByYear/earlier">Earlier</a></li>
+					  </ul>
+					</div>
+				</div>
+				<div class="col col-sm-3 my-2">
+					<form action="/project/lawyer/caseRecordByUsername" method="POST">
+						<div class="input-group">
+						  <input type="text" class="form-control" placeholder="User name" required
+						  	aria-label="username" aria-describedby="search" max="30" name="username">
+						  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						  <button class="btn btn-outline-success" type="submit" id="search" value="Submit">Search</button>
+						</div>
+					</form>
+				</div>
+			</div>
 			<div class="row">
 				<div class="col">
 					<button class="btn btn-primary" onclick="addFormToggler()">Create Case Record</button>
 					<div id="addDiv" style="display: none">
 						<div class="card text-bg-light mx-auto my-2">
 							<div class="card-body">
-								<form:form class="form-control" action="caseRecord" method="POST" modelAttribute="case">
+								<form:form class="form-control" action="/project/lawyer/caseRecord" method="POST" modelAttribute="case">
 									<label class="form-label" for="userEmail">*User Email: </label>
 									<form:input type="email" name="userEmail" id="userEmail"
 										path="userEmail" class="form-control" required="true" maxlength="30"/>
@@ -115,7 +144,7 @@
 					 '${caseRecord.getEventDetail()}', '${caseRecord.getActionTaken()}', '${ caseRecord.getCaseRecordId() }')">
 										Edit Case Record</button>
 		
-									<a href="caseRecord/${caseRecord.getCaseRecordId()}" class="btn btn-danger">
+									<a href="/project/lawyer/caseRecord/${caseRecord.getCaseRecordId()}" class="btn btn-danger">
 										Delete Case Record
 									</a>
 		

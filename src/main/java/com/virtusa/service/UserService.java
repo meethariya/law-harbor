@@ -2,6 +2,7 @@ package com.virtusa.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,6 +20,7 @@ import com.virtusa.dao.UserDao;
 import com.virtusa.dto.BookingDto;
 import com.virtusa.dto.UserDto;
 import com.virtusa.exception.BookingAlreadyConfirmedException;
+import com.virtusa.exception.CaseRecordNotFoundException;
 import com.virtusa.exception.NoBookingFoundException;
 import com.virtusa.exception.SlotAlreadyReservedException;
 import com.virtusa.exception.UserAlreadyExistException;
@@ -201,31 +203,104 @@ public class UserService implements UserServiceInterface{
 		List<String> matchingExpertise = expertiseMatcher(allExpertise, searchField, z);
 		return userDao.getLawyerByExpertise(matchingExpertise);
 	}
+
+	@Override
+	@Transactional
+	public List<Booking> getBookingByYear(String email, String year) {
+		// checks year and returns all booking for it
+		// if year is `earlier` or other string returns all bookings before 3 years
+
+		User user = getUser(email);
+		int bookingYear;
+		List<Booking> output;
+		try {			
+			bookingYear = Integer.parseInt(year);
+			output = userDao.getAllBookingByYear(user,bookingYear);
+		} catch(NumberFormatException e) {			
+			bookingYear = LocalDate.now().getYear()-3;
+			output = userDao.getAllBookingEarlier(user, bookingYear);
+		}
+		if(output.isEmpty()) {
+			throw new NoBookingFoundException("No booking found in "+year);
+		}
+		return output;
+	}
 	
-	private List<String> expertiseMatcher(List<String> allExpertise, String target, int z){
-		// takes input as list of expertise. Matches all with target string
+	@Override
+	@Transactional
+	public List<CaseRecord> getCaseRecordByYear(String email, String year) {
+		// checks year and returns list of caseRecords for it
+		// if year is `earlier` or other string returns all caseRecords before three year
+		
+		User user = getUser(email);
+		int caseRecordYear;
+		List<CaseRecord> output;
+		try {			
+			caseRecordYear = Integer.parseInt(year);
+			output = userDao.getAllCaseRecordByYear(user,caseRecordYear);
+		} catch(NumberFormatException e) {			
+			caseRecordYear = LocalDate.now().getYear()-3;
+			output = userDao.getAllCaseRecordEarlier(user, caseRecordYear);
+		}
+		if(output.isEmpty()) {
+			throw new CaseRecordNotFoundException("No case records in "+year);
+		}
+		return output;
+	}
+
+	@Override
+	@Transactional
+	public List<Lawyer> getLawyerByName(String searchField, int z) {
+		// returns list of lawyers with similar expertise
+		List<String> allName = userDao.getAllLawyerName();		
+		List<String> matchingName = expertiseMatcher(allName, searchField, z);
+		return userDao.getLawyerByName(matchingName);
+	}
+	
+	@Override
+	@Transactional
+	public List<Booking> getBookingByLawyerName(String searchField, String email, int z) {
+		// returns list of booking for given user and similar lawyer names
+		User user = getUser(email);
+		List<String> allName = userDao.getAllLawyerName();	
+		List<String> matchingName = expertiseMatcher(allName, searchField, z);
+		return userDao.getBookingByLawyerName(user, matchingName);
+	}
+	
+	@Override
+	@Transactional
+	public List<CaseRecord> getCaseRecordByLawyerName(String searchField, String email, int z) {
+		// returns list of case record for given user and similar lawyer names
+		User user = getUser(email);
+		List<String> allName = userDao.getAllLawyerName();	
+		List<String> matchingName = expertiseMatcher(allName, searchField, z);
+		return userDao.getCaseRecordByLawyerName(user, matchingName);
+	}
+	
+	public List<String> expertiseMatcher(List<String> allString, String target, int z){
+		// takes input as list of Strings. Matches all with target string
 		// all matching using edit distance will be add to another list and will be returned
 		
 		List<String> output = new ArrayList<>();	// output list
 
-		if(allExpertise.isEmpty()) return output;	
+		if(allString.isEmpty()) return output;	
 		
 		// matches all expertise retrieved from database
-		for(String dbExpertise : allExpertise) {
+		for(String dbExpertise : allString) {
 			if(stringMatcher(dbExpertise, target, z)) output.add(dbExpertise);
 		}
 		
 		return output;
 	}
 	
-	private boolean stringMatcher(String dbExpertise, String target, int z) {
+	private boolean stringMatcher(String dbStrings, String target, int z) {
 		// Uses DP edit distance string matching
 		// returns true if text is acceptable else false
 		
-		if(dbExpertise==null || target==null) return false;
+		if(dbStrings==null || target==null) return false;
 		
 		int n = target.length();					// target String length
-		int m = dbExpertise.length();				// text String length
+		int m = dbStrings.length();				// text String length
 
 		// Setting initial array
 		int[][] dp = new int[n+1][m+1];
@@ -234,7 +309,7 @@ public class UserService implements UserServiceInterface{
 		
 		for(int i=1; i<=n; i++) {
 			for(int j=1; j<=m; j++) {
-				if(target.charAt(i-1) == dbExpertise.charAt(j-1)) {
+				if(target.charAt(i-1) == dbStrings.charAt(j-1)) {
 					dp[i][j]=dp[i-1][j-1];				// if char matches copy upper left int
 				}
 				else {

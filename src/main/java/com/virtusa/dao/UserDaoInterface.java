@@ -38,4 +38,22 @@ public interface UserDaoInterface {
 	
 	public List<String> getAllExpertise();
 
+	public List<Lawyer> getLawyerByExpertise(List<String> matchingExpertise);
+
+	public List<Booking> getAllBookingEarlier(User user, int bookingYear);
+
+	public List<Booking> getAllBookingByYear(User user, int bookingYear);
+
+	public List<CaseRecord> getAllCaseRecordByYear(User user, int caseRecordYear);
+
+	public List<CaseRecord> getAllCaseRecordEarlier(User user, int caseRecordYear);
+
+	public List<String> getAllLawyerName();
+
+	public List<Lawyer> getLawyerByName(List<String> matchingName);
+
+	public List<Booking> getBookingByLawyerName(User user, List<String> matchingName);
+
+	public List<CaseRecord> getCaseRecordByLawyerName(User user, List<String> matchingName);
+
 }

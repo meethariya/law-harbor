@@ -48,23 +48,26 @@
 			<div class="row">
 				<div class="col col-sm-8">
 					<div class="container">
-						<div class="row text-center">
-							<div class="col">
-								<div class="container">
-									<form class="row g-3" action="/project/user/searchByExpertise" method="POST">
-										<div class="col-auto">
-											<label for="searchField" class="form-label">Search By Expertise</label>
-										</div>
-										<div class="col-auto">
-											<label for="searchField" class="visually-hidden">Expertise</label>
-											<input class="form-control" name="searchField" id="searchField" placeholder="Expertise" required>
-											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-										</div>
-										<div class="col-auto">
-											<button type="submit" class="btn btn-success mb-3">Search</button>
-										</div>
-									</form>
-								</div>
+						<div class="row text-center border border-primary rounded-3 my-2">
+							<div class="col col-sm-4">
+								<form action="/project/user/searchByExpertise" method="POST">
+									<div class="input-group my-2">
+									  <input class="form-control" placeholder="Expertise" aria-label="Expertise" aria-describedby="search"
+									  	name="searchField" id="searchField" required max="30">
+									  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+									  <button class="btn btn-outline-success" type="submit" id="search">Search</button>
+									</div>
+								</form>								
+							</div>
+							<div class="col col-sm-4">
+								<form action="/project/user/searchByLawyername" method="POST">
+									<div class="input-group my-2">
+									  <input class="form-control" placeholder="Lawyer name" aria-label="Lawyer name" aria-describedby="search"
+									  	name="searchField" id="searchField" required max="30">
+									  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+									  <button class="btn btn-outline-success" type="submit" id="search">Search</button>
+									</div>
+								</form>	
 							</div>
 						</div>
 						<div class="row text-center">

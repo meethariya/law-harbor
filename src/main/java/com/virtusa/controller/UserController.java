@@ -23,8 +23,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.virtusa.dto.BookingDto;
 import com.virtusa.exception.BookingAlreadyConfirmedException;
+import com.virtusa.exception.CaseRecordNotFoundException;
 import com.virtusa.exception.NoBookingFoundException;
 import com.virtusa.exception.SlotAlreadyReservedException;
+import com.virtusa.model.Booking;
+import com.virtusa.model.CaseRecord;
 import com.virtusa.model.Lawyer;
 import com.virtusa.service.UserService;
 
@@ -36,6 +39,13 @@ public class UserController {
 	private static final Logger log = LogManager.getLogger(UserController.class);
 	
 	private static final String REDIRECTHOME = "redirect:/user/home";
+	private static final String REDIRECTBOOKING = "redirect:/user/allBooking";
+	private static final String REDIRECTCASE = "redirect:/user/caseRecord";
+
+	private static final String HOMEPAGE = "UserHome";
+	private static final String CASEPAGE = "UserCase";
+	private static final String BOOKINGPAGE = "UserBooking";
+	
 	private static final String MISSINGVALUE = "Enter Valid Details";
 	private static final String ERR = "errMessage";
 	
@@ -56,22 +66,21 @@ public class UserController {
 		// User home page
 		
 		String email = authentication.getName();
-		model.addAttribute("userName",service.getUser(email).getUsername());
-		model.addAttribute("allLawyer", service.getAllLawyer());		
+		homeLoader(model, service.getUser(email).getUsername(), service.getAllLawyer());
 		model.addAttribute(ERR, bookingStatus);
 		
-		log.info("in home loading Home page");
-		return "UserHome";
+		return HOMEPAGE;
 	}
 	
 	@GetMapping("/caseRecord")
-	public String getCases(Model model, Authentication authentication) {
+	public String getCases(Model model, Authentication authentication,
+			@ModelAttribute(ERR) String message ) {
 		// Shows all cases for the user
 		
 		String email = authentication.getName();
-		model.addAttribute("allCase", service.getUserCase(email));
-		
-		return "UserCase";
+		caseLoader(model, service.getUserCase(email));
+		model.addAttribute(ERR, message);		
+		return CASEPAGE;
 	}
 	
 	@PostMapping("/bookingForm")
@@ -96,14 +105,14 @@ public class UserController {
 	
 	@GetMapping("/allBooking")
 	public String allAppointment(Model model, Authentication authentication, 
-			@ModelAttribute("message") String message ) {
+			@ModelAttribute(ERR) String message ) {
 		// returns list of bookings made by user
 		
 		String email = authentication.getName();
-		model.addAttribute("allBooking",service.getAllBooking(email));
-		model.addAttribute("removeBookingMessage", message);
+		bookingLoader(model, service.getAllBooking(email));
+		model.addAttribute(ERR, message);
 		
-		return "UserBooking";
+		return BOOKINGPAGE;
 	}
 	
 	@GetMapping("/removeBooking/{bookingId}")
@@ -113,13 +122,13 @@ public class UserController {
 		
 		try {
 			service.removeBooking(id);
-			redirectAttributes.addFlashAttribute("message", "Appointment cancelled");
+			redirectAttributes.addFlashAttribute(ERR, "Appointment cancelled");
 		}
 		catch(NoBookingFoundException | BookingAlreadyConfirmedException e) {			
-			redirectAttributes.addFlashAttribute("message", e.getMessage());
+			redirectAttributes.addFlashAttribute(ERR, e.getMessage());
 		}
 		
-		return "redirect:/user/allBooking";
+		return REDIRECTBOOKING;
 	}
 	
 	@PostMapping("/searchByExpertise")
@@ -130,13 +139,13 @@ public class UserController {
 		
 		// if search value is empty
 		if(searchField.isEmpty()) {
-			redirectAttributes.addFlashAttribute(ERR, "Enter Search value");
+			redirectAttributes.addFlashAttribute(ERR, MISSINGVALUE);
 			return REDIRECTHOME;
 		}
 		
 		String email = authentication.getName();
 		// max edit distance
-		int z = Integer.parseInt(messageSource.getMessage("editDistance", null, "3", Locale.ENGLISH));
+		int z = Integer.parseInt(getEditDistance());
 		List<Lawyer> searchedLawyer = service.getLawyerByExpertise(searchField, z);
 
 		// if resulting list is empty
@@ -144,11 +153,133 @@ public class UserController {
 			redirectAttributes.addFlashAttribute(ERR, "No lawyers with expertise "+ searchField);
 			return REDIRECTHOME;
 		}
+		homeLoader(model, service.getUser(email).getUsername(), searchedLawyer);
+		return HOMEPAGE;
+	}
+	
+	@GetMapping("/allbooking/{year}")
+	public String bookingByYear(@PathVariable("year")String year, Authentication authentication,
+			Model model, RedirectAttributes redirectAttributes) {
+		// returns list of bookings in given year
+		String email = authentication.getName();
+		try {
+			bookingLoader(model, service.getBookingByYear(email, year));
+		}
+		catch(NoBookingFoundException e) {
+			redirectAttributes.addFlashAttribute(ERR,e.getMessage());
+			return REDIRECTBOOKING;
+		}
+		return BOOKINGPAGE;
+	}
 
-		model.addAttribute("userName",service.getUser(email).getUsername());
-		model.addAttribute("allLawyer", searchedLawyer);
+	@GetMapping("/caseRecord/{year}")
+	public String caseRecordByYear(@PathVariable("year")String year, Authentication authentication,
+			Model model, RedirectAttributes redirectAttributes) {
+		// returns list of case record in given year
+		String email = authentication.getName();
+		try{
+			caseLoader(model, service.getCaseRecordByYear(email, year));
+		}
+		catch(CaseRecordNotFoundException e) {
+			redirectAttributes.addFlashAttribute(ERR,e.getMessage());
+			return REDIRECTCASE;
+		}
+		return CASEPAGE;
+	}
+	
+	@PostMapping("/searchByLawyername")
+	public String getLawyerByName(@RequestParam("searchField") String searchField, Model model,
+			RedirectAttributes redirectAttributes, Authentication authentication,
+			@ModelAttribute("booking") BookingDto bookingDto) {
+		// search all lawyers by name
+
+		// if search value is empty
+		if(searchField.isEmpty()) {
+			redirectAttributes.addFlashAttribute(ERR, MISSINGVALUE);
+			return REDIRECTHOME;
+		}
 		
-		return "UserHome";
+		String email = authentication.getName();
+		// max edit distance
+		int z = Integer.parseInt(getEditDistance());
+		List<Lawyer> searchedLawyer = service.getLawyerByName(searchField, z);
+
+		// if resulting list is empty
+		if(searchedLawyer.isEmpty()) {
+			redirectAttributes.addFlashAttribute(ERR, "No lawyers with name "+ searchField);
+			return REDIRECTHOME;
+		}
+
+		homeLoader(model, service.getUser(email).getUsername(), searchedLawyer);
+		return HOMEPAGE;
+	}
+
+	@PostMapping("/bookingByLawyername")
+	public String getBookingByLawyerName(@RequestParam("searchField") String searchField, Model model,
+			RedirectAttributes redirectAttributes, Authentication authentication) {
+		// search all booking by lawyer name
+		
+		// if search value is empty
+		if(searchField.isEmpty()) {
+			redirectAttributes.addFlashAttribute(ERR, MISSINGVALUE);
+			return REDIRECTBOOKING;
+		}
+		
+		String email = authentication.getName();
+		// max edit distance
+		int z = Integer.parseInt(getEditDistance());
+		List<Booking> searchedBooking = service.getBookingByLawyerName(searchField, email, z);
+		
+		// if resulting list is empty
+		if(searchedBooking.isEmpty()) {
+			redirectAttributes.addFlashAttribute(ERR, "No appointment with lawyername "+ searchField);
+			return REDIRECTBOOKING;
+		}
+		bookingLoader(model, searchedBooking);
+		
+		return BOOKINGPAGE;
+	}
+	
+	@PostMapping("/caseRecordByLawyername")
+	public String getCaseRecordByLawyerName(@RequestParam("searchField") String searchField, Model model,
+			RedirectAttributes redirectAttributes, Authentication authentication) {
+		// search all booking by lawyer name
+		
+		// if search value is empty
+		if(searchField.isEmpty()) {
+			redirectAttributes.addFlashAttribute(ERR, MISSINGVALUE);
+			return REDIRECTCASE;
+		}
+		
+		String email = authentication.getName();
+		// max edit distance
+		int z = Integer.parseInt(getEditDistance());
+		List<CaseRecord> searchedCase = service.getCaseRecordByLawyerName(searchField, email, z);
+		
+		// if resulting list is empty
+		if(searchedCase.isEmpty()) {
+			redirectAttributes.addFlashAttribute(ERR, "No case record with lawyername "+ searchField);
+			return REDIRECTCASE;
+		}
+		caseLoader(model, searchedCase);
+		
+		return CASEPAGE;
+	}
+	
+	public void homeLoader(Model model, String username, List<Lawyer> allLawyer) {
+		// loads model attributes for home page
+		model.addAttribute("userName", username);
+		model.addAttribute("allLawyer", allLawyer);
+	}
+
+	public void bookingLoader(Model model, List<Booking> allBooking) {
+		// loads model attributes for booking page
+		model.addAttribute("allBooking", allBooking);
+	}
+	
+	public void caseLoader(Model model, List<CaseRecord> allCase) {
+		// loads model attributes for case page
+		model.addAttribute("allCase", allCase);
 	}
 	
 	public String getValueFromProperties() {
@@ -156,8 +287,14 @@ public class UserController {
 		return getValueFromProperties("email.user","userEmail");
 	}
 
+	public String getEditDistance() {
+		// returns session key value for user email
+		return getValueFromProperties("editDistance","3");
+	}
+
 	public String getValueFromProperties(String key, String defaultValue) {
 		// returns properties based on key and default value
 		return messageSource.getMessage(key, null, defaultValue, Locale.ENGLISH);
 	}
+
 }

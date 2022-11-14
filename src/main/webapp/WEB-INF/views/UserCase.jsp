@@ -1,3 +1,4 @@
+<%@page import="java.time.LocalDate"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -13,10 +14,45 @@
 <body>
 	<jsp:include page="Navbar.jsp"/>
 	<div class = "fluid-container mx-2 my-2">
+		<c:choose>	
+			<c:when test="${errMessage!=null && errMessage.length()!=0}">
+				<div class="alert alert-warning alert-dismissible show w-50 mx-auto" role="alert">
+					${errMessage}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			</c:when>
+		</c:choose>
 		<div class = "container">
 			<div class="row text-center">
 				<div class = "col">	
 					<h3>Case Records</h3>
+				</div>
+			</div>
+			<div class="row border border-primary rounded-3 my-2">
+				<div class="col col-sm-3">
+					<!-- Example single danger button -->
+					<div class="btn-group my-2">
+					  <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+					    Get by year
+					  </button>
+					  <ul class="dropdown-menu">
+					  	<%for (int i = LocalDate.now().getYear(); i > LocalDate.now().getYear()-3; i--) {%>
+						    <li><a class="dropdown-item" href="/project/user/caseRecord/<%=i%>"><%=i%></a></li>
+						<%}%>
+					    <li><hr class="dropdown-divider"></li>
+					    <li><a class="dropdown-item" href="/project/user/caseRecord/earlier">Earlier</a></li>
+					  </ul>
+					</div>
+				</div>
+				<div class="col col-sm-4">
+					<form action="/project/user/caseRecordByLawyername" method="POST">
+						<div class="input-group my-2">
+						  <input class="form-control" placeholder="Lawyer name" aria-label="Lawyer name" aria-describedby="search"
+						  	name="searchField" id="searchField" required max="30">
+						  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						  <button class="btn btn-outline-success" type="submit" id="search">Search</button>
+						</div>
+					</form>	
 				</div>
 			</div>
 			<div class="row">

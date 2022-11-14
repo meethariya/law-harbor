@@ -1,5 +1,6 @@
 package com.virtusa.service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -237,5 +238,77 @@ public class LawyerService implements LawyerServiceInterface{
 		}
 		
 		return report;
+	}
+
+	@Override
+	@Transactional
+	public List<Booking> getBookingByYear(String email, String year) {
+		// checks year and returns all booking for it
+		// if year is `earlier` or other string returns all bookings before 3 years
+
+		Lawyer lawyer = getLawyer(email);
+		int bookingYear;
+		List<Booking> output;
+		try {			
+			bookingYear = Integer.parseInt(year);
+			output = dao.getBookingByYear(lawyer,bookingYear);
+		} catch(NumberFormatException e) {			
+			bookingYear = LocalDate.now().getYear()-3;
+			output = dao.getBookingEarlier(lawyer, bookingYear);
+		}
+		if(output.isEmpty()) {
+			throw new NoBookingFoundException("No booking found in "+year);
+		}
+		return output;
+	}
+	
+	@Override
+	@Transactional
+	public List<CaseRecord> getCaseRecordByYear(String email, String year) {
+		// checks year and returns list of caseRecords for it
+		// if year is `earlier` or other string returns all caseRecords before three year
+		
+		Lawyer lawyer = getLawyer(email);
+		int caseRecordYear;
+		List<CaseRecord> output;
+		try {			
+			caseRecordYear = Integer.parseInt(year);
+			output = dao.getAllCaseRecordByYear(lawyer,caseRecordYear);
+		} catch(NumberFormatException e) {			
+			caseRecordYear = LocalDate.now().getYear()-3;
+			output = dao.getAllCaseRecordEarlier(lawyer, caseRecordYear);
+		}
+		if(output.isEmpty()) {
+			throw new CaseRecordNotFoundException("No case records in "+year);
+		}
+		return output;
+	}
+
+	@Override
+	@Transactional
+	public List<Booking> getBookingByUsername(String email, String username, int z) {
+		// returns list of booking for given lawyer email and matchinf username for user
+		Lawyer lawyer = getLawyer(email);
+		List<String> allUsername = dao.getUniqueUsernameForBooking(lawyer);
+		List<String> matchingUsername = userService.expertiseMatcher(allUsername, username, z);
+		List<Booking> output = dao.getBookingByListOfUsername(lawyer, matchingUsername);
+		if (output.isEmpty()) {
+			throw new NoBookingFoundException("No booking found for users with name: "+username);
+		}
+		return output;
+	}
+
+	@Override
+	@Transactional
+	public List<CaseRecord> getCaseRecordByUsername(String email, String username, int z) {
+		// returns list of case record for given lawyer email and matchinf username for user
+		Lawyer lawyer = getLawyer(email);
+		List<String> allUsername = dao.getUniqueUsernameForCaseRecord(lawyer);
+		List<String> matchingUsername = userService.expertiseMatcher(allUsername, username, z);
+		List<CaseRecord> output = dao.getCaseRecordByListOfUsername(lawyer, matchingUsername);
+		if (output.isEmpty()) {
+			throw new CaseRecordNotFoundException("No Case Record found for users with name: "+username);
+		}
+		return output;
 	}
 }

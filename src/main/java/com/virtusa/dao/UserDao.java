@@ -143,11 +143,89 @@ public class UserDao implements UserDaoInterface{
 		return query.getResultList();
 	}
 
+	@Override
 	public List<Lawyer> getLawyerByExpertise(List<String> matchingExpertise) {
 		// returns all lawyers whose expertise is in list of strings
 		Session session = factory.getCurrentSession();
 		Query<Lawyer> query = session.createQuery("from Lawyer where expertise in :allExpertise", Lawyer.class);
 		query.setParameter("allExpertise", matchingExpertise);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<Booking> getAllBookingEarlier(User user, int bookingYear) {
+		// returns list of bookings by user before provided year
+		Session session = factory.getCurrentSession();
+		Query<Booking> query = session.createQuery("from Booking where client = :user and EXTRACT(YEAR FROM date_time) < :bookingYear", Booking.class);
+		query.setParameter("user", user);
+		query.setParameter("bookingYear", bookingYear);
+		return query.getResultList();
+	}
+	
+	@Override
+	public List<Booking> getAllBookingByYear(User user, int bookingYear) {
+		// returns list of bookings by user in provided year
+		Session session = factory.getCurrentSession();
+		Query<Booking> query = session.createQuery("from Booking where client = :user and EXTRACT(YEAR FROM date_time) = :bookingYear", Booking.class);
+		query.setParameter("user", user);
+		query.setParameter("bookingYear", bookingYear);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<CaseRecord> getAllCaseRecordEarlier(User user, int caseRecordYear) {
+		// returns list of CaseRecords by user before provided year
+		Session session = factory.getCurrentSession();
+		Query<CaseRecord> query = session.createQuery("from CaseRecord where user = :user and EXTRACT(YEAR FROM date_time) < :caseRecordYear", CaseRecord.class);
+		query.setParameter("user", user);
+		query.setParameter("caseRecordYear", caseRecordYear);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<CaseRecord> getAllCaseRecordByYear(User user, int caseRecordYear) {
+		// returns list of CaseRecords by user in provided year
+		Session session = factory.getCurrentSession();
+		Query<CaseRecord> query = session.createQuery("from CaseRecord where user = :user and EXTRACT(YEAR FROM date_time) = :caseRecordYear", CaseRecord.class);
+		query.setParameter("user", user);
+		query.setParameter("caseRecordYear", caseRecordYear);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<String> getAllLawyerName() {
+		// returns all unique name list from lawyers table
+		Session session = factory.getCurrentSession();
+		Query<String> query = session.createQuery("select distinct(username) from Lawyer",String.class);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<Lawyer> getLawyerByName(List<String> matchingName) {
+		// returns all lawyers whose expertise is in list of strings
+		Session session = factory.getCurrentSession();
+		Query<Lawyer> query = session.createQuery("from Lawyer where username in :allLawyerName", Lawyer.class);
+		query.setParameter("allLawyerName", matchingName);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<Booking> getBookingByLawyerName(User user, List<String> matchingName) {
+		// returns list of booking for given user and list of lawyer names
+		Session session = factory.getCurrentSession();
+		Query<Booking> query = session.createQuery("from Booking where client = :user and lawyer in (from Lawyer where username in :allLawyername)",Booking.class);
+		query.setParameter("user", user);
+		query.setParameter("allLawyername",matchingName);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<CaseRecord> getCaseRecordByLawyerName(User user, List<String> matchingName) {
+		// returns list of case record for given user and list of lawyer names
+		Session session = factory.getCurrentSession();
+		Query<CaseRecord> query = session.createQuery("from CaseRecord where user = :user and issuedBy in (from Lawyer where username in :allLawyername)",CaseRecord.class);
+		query.setParameter("user", user);
+		query.setParameter("allLawyername",matchingName);
 		return query.getResultList();
 	}
 }

@@ -33,4 +33,14 @@ public interface UserServiceInterface {
 
 	public List<Lawyer> getLawyerByExpertise(String searchField, int z);
 
+	public List<Booking> getBookingByYear(String email, String year);
+
+	public List<CaseRecord> getCaseRecordByYear(String email, String year);
+
+	public List<Lawyer> getLawyerByName(String searchField, int z);
+
+	public List<Booking> getBookingByLawyerName(String searchField, String email, int z);
+
+	public List<CaseRecord> getCaseRecordByLawyerName(String searchField, String email, int z);
+
 }

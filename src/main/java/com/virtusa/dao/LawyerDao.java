@@ -21,7 +21,9 @@ import com.virtusa.model.User;
 public class LawyerDao implements LawyerDaoInterface{
 	// DAO class for lawyer transactions
 	private static final Logger log = LogManager.getLogger(LawyerDao.class);
-		
+	
+	private static final String LAWYER = "lawyer";
+	
 	public LawyerDao() {
 		log.warn("LawyerDao Constructor Called");
 	}
@@ -49,7 +51,7 @@ public class LawyerDao implements LawyerDaoInterface{
 		// Gets all appointments of a Lawyer
 		Session session = factory.getCurrentSession();
 		Query<Booking> query = session.createQuery("from Booking where lawyer = :lawyer", Booking.class);
-		query.setParameter("lawyer", lawyer);
+		query.setParameter(LAWYER, lawyer);
 		return query.getResultList();
 	}
 	
@@ -77,7 +79,7 @@ public class LawyerDao implements LawyerDaoInterface{
 		// returns List of case records made by lawyer
 		Session session = factory.getCurrentSession();
 		Query<CaseRecord> query = session.createQuery("from CaseRecord where issuedBy = :lawyer", CaseRecord.class);
-		query.setParameter("lawyer", lawyer);
+		query.setParameter(LAWYER, lawyer);
 		return query.getResultList();
 	}
 	
@@ -109,8 +111,8 @@ public class LawyerDao implements LawyerDaoInterface{
 	public List<CaseRecord> getCaseOfUser(User user, Lawyer lawyer) {
 		// returns list of case record made by given lawyer for a given user
 		Session session = factory.getCurrentSession();
-		Query<CaseRecord> query = session.createQuery("from CaseRecord where issuedBy = :issuedByLawyer and user = :user and report is null", CaseRecord.class);
-		query.setParameter("issuedByLawyer", lawyer);
+		Query<CaseRecord> query = session.createQuery("from CaseRecord where issuedBy = :lawyer and user = :user and report is null", CaseRecord.class);
+		query.setParameter(LAWYER, lawyer);
 		query.setParameter("user", user);
 		return query.getResultList();
 	}
@@ -140,5 +142,83 @@ public class LawyerDao implements LawyerDaoInterface{
 	public void updateBookingReport(Booking appointment) {
 		// updates booking
 		factory.getCurrentSession().update(appointment);
+	}
+
+	@Override
+	public List<Booking> getBookingEarlier(Lawyer lawyer, int bookingYear) {
+		// returns list of bookings of lawyer before provided year
+		Session session = factory.getCurrentSession();
+		Query<Booking> query = session.createQuery("from Booking where lawyer = :lawyer and EXTRACT(YEAR FROM date_time) < :bookingYear", Booking.class);
+		query.setParameter(LAWYER, lawyer);
+		query.setParameter("bookingYear", bookingYear);
+		return query.getResultList();
+	}
+	
+	@Override
+	public List<Booking> getBookingByYear(Lawyer lawyer, int bookingYear) {
+		// returns list of bookings of lawyer in provided year
+		Session session = factory.getCurrentSession();
+		Query<Booking> query = session.createQuery("from Booking where lawyer = :lawyer and EXTRACT(YEAR FROM date_time) = :bookingYear", Booking.class);
+		query.setParameter(LAWYER, lawyer);
+		query.setParameter("bookingYear", bookingYear);
+		return query.getResultList();
+	}
+	
+	@Override
+	public List<CaseRecord> getAllCaseRecordEarlier(Lawyer lawyer, int caseRecordYear) {
+		// returns list of CaseRecords by user before provided year
+		Session session = factory.getCurrentSession();
+		Query<CaseRecord> query = session.createQuery("from CaseRecord where issuedBy = :lawyer and EXTRACT(YEAR FROM date_time) < :caseRecordYear", CaseRecord.class);
+		query.setParameter(LAWYER, lawyer);
+		query.setParameter("caseRecordYear", caseRecordYear);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<CaseRecord> getAllCaseRecordByYear(Lawyer lawyer, int caseRecordYear) {
+		// returns list of CaseRecords by user in provided year
+		Session session = factory.getCurrentSession();
+		Query<CaseRecord> query = session.createQuery("from CaseRecord where issuedBy = :lawyer and EXTRACT(YEAR FROM date_time) = :caseRecordYear", CaseRecord.class);
+		query.setParameter(LAWYER, lawyer);
+		query.setParameter("caseRecordYear", caseRecordYear);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<String> getUniqueUsernameForBooking(Lawyer lawyer) {
+		// returns list of names of users who booked appointment for given lawyer
+		Session session = factory.getCurrentSession();
+		Query<String> query = session.createQuery("select username from User where id in (select distinct(client) from Booking where lawyer = :lawyer)", String.class);
+		query.setParameter(LAWYER, lawyer);
+		return query.getResultList();
+	}
+	
+	@Override
+	public List<Booking> getBookingByListOfUsername(Lawyer lawyer, List<String> usernames){
+		// returns list of booking for a lawyer and given list of user names
+		Session session = factory.getCurrentSession();
+		Query<Booking> query = session.createQuery("from Booking where lawyer = :lawyer and client in (from User where username in :usernames)", Booking.class);
+		query.setParameter(LAWYER, lawyer);
+		query.setParameter("usernames", usernames);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<String> getUniqueUsernameForCaseRecord(Lawyer lawyer) {
+		// returns list of user name who booked appointment for given lawyer
+		Session session = factory.getCurrentSession();
+		Query<String> query = session.createQuery("select username from User where id in (select distinct(user) from CaseRecord where issuedBy = :lawyer)", String.class);
+		query.setParameter(LAWYER, lawyer);
+		return query.getResultList();
+	}
+	
+	@Override
+	public List<CaseRecord> getCaseRecordByListOfUsername(Lawyer lawyer, List<String> usernames) {
+		// returns list of case records for a lawyer and given list of user names
+		Session session = factory.getCurrentSession();
+		Query<CaseRecord> query = session.createQuery("from CaseRecord where issuedBy = :lawyer and user in (from User where username in :usernames)", CaseRecord.class);
+		query.setParameter(LAWYER, lawyer);
+		query.setParameter("usernames", usernames);
+		return query.getResultList();
 	}
 }

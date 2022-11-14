@@ -114,7 +114,6 @@ public class GeneralController {
 		// logout user
 		
 		String email = authentication.getName();
-		log.info("Logging out");
 		if(email != null) {
 			service.logoutUser(email);			// change active status of user
 		}

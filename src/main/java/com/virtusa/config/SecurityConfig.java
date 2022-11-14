@@ -1,13 +1,10 @@
 package com.virtusa.config;
 
-import java.util.Locale;
-
 import javax.sql.DataSource;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -29,16 +26,18 @@ public class SecurityConfig extends AbstractSecurityWebApplicationInitializer{
 	
 	@Autowired
 	DataSource dataSource;
-	
+
 	@Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, MessageSource messageSource) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeRequests() // request handling
-             .antMatchers("/lawyer/*").hasRole(messageSource.getMessage("role.lawyer", null, "lawyer", Locale.ENGLISH))
-             .antMatchers("/admin/*").hasRole(messageSource.getMessage("role.admin", null, "admin", Locale.ENGLISH))
-             .antMatchers("/user/*").hasRole(messageSource.getMessage("role.user", null, "user", Locale.ENGLISH))
+             .antMatchers("/lawyer/*").hasRole("lawyer")
+             .antMatchers("/admin/*").hasRole("admin")
+             .antMatchers("/user/*").hasRole("user")
              .antMatchers("/register").permitAll()
              .antMatchers("/logoutUser").permitAll()
+             .antMatchers("/postLogin").authenticated()
+             .antMatchers("/").authenticated()
              .and()             
             .httpBasic()  // basic http configuration
              .and()
