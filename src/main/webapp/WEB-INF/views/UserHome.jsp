@@ -138,7 +138,17 @@
 									</form:select>
 									<form:errors path="appointmentTime" />
 								</div>
-								
+								<div class="mb-3">
+									<label for="topic" class="form-label">Topic</label> 
+									<form:select id="topic" name="topic" class="form-select" path="topic">
+										<form:option value="General" selected="true">General</form:option>
+										<form:option value="Administrative">Administrative</form:option>
+										<form:option value="Crime">Crime</form:option>
+										<form:option value="Constitutional">Constitutional</form:option>
+										<form:option value="Business">Business</form:option>
+									</form:select>
+									<form:errors path="topic" />
+								</div>
 								<div class="mb-3">								
 									<label for="subject" class="form-label">Subject</label>
 									<form:input type="text" class="form-control" id="subject" name="subject"

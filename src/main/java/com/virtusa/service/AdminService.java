@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.virtusa.dao.AdminDao;
+import com.virtusa.dto.EditLawyerDto;
 import com.virtusa.dto.UserDto;
 import com.virtusa.exception.UserAlreadyExistException;
 import com.virtusa.exception.UserNotFoundException;
@@ -68,23 +69,24 @@ public class AdminService implements AdminServiceInterface {
 	
 	@Override
 	@Transactional
-	public void updateLawyer(UserDto lawyerDto) {
+	public void updateLawyer(EditLawyerDto lawyer) {
 		// updates Lawyer Info
 		
 		// if another user with same number exist then throws error
-		User user = adminDao.getUserByNumber(lawyerDto.getMobileNumber());
-		if(user!=null && !user.getEmail().equals(lawyerDto.getEmail())) {			
-			throw new UserAlreadyExistException("User Already Exist with mobile number "+lawyerDto.getMobileNumber());
+		User user = adminDao.getUserByNumber(lawyer.getMobileNumber());
+		if(user!=null && !user.getEmail().equals(lawyer.getEmail())) {			
+			throw new UserAlreadyExistException("User Already Exist with mobile number "+lawyer.getMobileNumber());
 		}
 		
 		// updating lawyer information using hibernate dirty reading
 		// retrieves lawyer from LawyerService
-		Lawyer dbLawyer = lawyerService.getLawyer(lawyerDto.getEmail());
-		dbLawyer.setExperience(lawyerDto.getExperience());
-		dbLawyer.setExpertise(lawyerDto.getExpertise());
-		dbLawyer.setLawFirmName(lawyerDto.getLawFirmName());
-		dbLawyer.setMobileNumber(lawyerDto.getMobileNumber());
-		dbLawyer.setUsername(lawyerDto.getUsername());
+		Lawyer dbLawyer = lawyerService.getLawyer(lawyer.getEmail());
+		dbLawyer.setExperience(lawyer.getExperience());
+		dbLawyer.setExpertise(lawyer.getExpertise());
+		dbLawyer.setLawFirmName(lawyer.getLawFirmName());
+		dbLawyer.setMobileNumber(lawyer.getMobileNumber());
+		dbLawyer.setUsername(lawyer.getUsername());
+		dbLawyer.setCharge(lawyer.getCharge());
 	}
 	
 	@Override

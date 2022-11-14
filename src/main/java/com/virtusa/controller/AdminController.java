@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.virtusa.dto.EditLawyerDto;
 import com.virtusa.dto.UserDto;
 import com.virtusa.exception.IncorrectDetailsException;
 import com.virtusa.exception.UserAlreadyExistException;
@@ -74,12 +75,13 @@ public class AdminController {
 	}
 	
 	@PostMapping("/lawyer")
-	public String editLawyer(@Valid @ModelAttribute("user") UserDto lawyer, Errors error, 
+	public String editLawyer(@Valid @ModelAttribute("user") EditLawyerDto lawyer, Errors error, 
 			Authentication authentication,RedirectAttributes redirectAttributes, Model model) {
 		// updates lawyer information
 		
 		try {	
-			if(error.hasErrors()) {	
+			if(error.hasErrors()) {
+				log.info(error.getAllErrors());
 				throw new IncorrectDetailsException("Enter Valid Details");
 			}
 			// updates lawyer information

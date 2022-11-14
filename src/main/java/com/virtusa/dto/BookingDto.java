@@ -25,6 +25,9 @@ public class BookingDto {
 	@NotEmpty
 	@Length(max = 30)
 	private String subject;
+	@NotEmpty
+	@Length(max = 30)
+	private String topic;
 	public BookingDto() {
 		super();
 	}
@@ -75,6 +78,12 @@ public class BookingDto {
 	}
 	public void setSubject(String subject) {
 		this.subject = subject;
+	}
+	public String getTopic() {
+		return topic;
+	}
+	public void setTopic(String topic) {
+		this.topic = topic;
 	}
 	
 }

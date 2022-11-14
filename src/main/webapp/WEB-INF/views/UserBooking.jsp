@@ -67,6 +67,7 @@
 								<h5 class="card-title">Appointment for: ${ booking.getLawyer().getUsername()}</h5>
 								<br>
 								<h6 class="card-subtitle">Slot: ${booking.getDate()}</h6>
+								<p class="card-text">Topic: ${booking.getTopic()}</p>
 								<p class="card-text">Subject: ${booking.getSubject()}</p>
 								<c:choose>
 									<c:when test="${booking.isBookingStatus() }">							

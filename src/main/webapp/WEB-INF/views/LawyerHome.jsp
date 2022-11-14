@@ -64,6 +64,7 @@
 							<div class="card-body">
 								<h5 class="card-title">Appointment by: ${booking.getClient().getUsername()}</h5>
 								<h6 class="card-subtitle">Slot: ${booking.getDate()}</h6>
+								<p class="card-text">Topic: ${booking.getTopic()}</p>
 								<p class="card-text">Subject: ${booking.getSubject()}</p>
 							</div>
 

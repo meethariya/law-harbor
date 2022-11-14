@@ -51,6 +51,9 @@ public class Booking {
 	
 	@Column(nullable = false, length = 30)
 	private String subject;
+
+	@Column(nullable = false, length = 30)
+	private String topic;
 	
 	@OneToOne
 	private Report report;
@@ -58,19 +61,14 @@ public class Booking {
 	public Booking() {
 		super();
 	}
-	public Booking(User client, Lawyer lawyer, Date date, boolean bookingStatus) {
-		super();
-		this.client = client;
-		this.lawyer = lawyer;
-		this.date = date;
-		this.bookingStatus = bookingStatus;
-	}
+
 	public Booking(BookingDto booking) {
 		super();
 		this.client = booking.getClient();
 		this.lawyer = booking.getLawyer();
 		this.date = booking.getDateTime();
 		this.subject = booking.getSubject();
+		this.topic = booking.getTopic();
 	}
 	public int getBookingId() {
 		return bookingId;
@@ -114,12 +112,18 @@ public class Booking {
 	public void setReport(Report report) {
 		this.report = report;
 	}
+	public String getTopic() {
+		return topic;
+	}
+
+	public void setTopic(String topic) {
+		this.topic = topic;
+	}
+
 	@Override
 	public String toString() {
 		return "Booking [bookingId=" + bookingId + ", client=" + client + ", lawyer=" + lawyer + ", date=" + date
-				+ ", bookingStatus=" + bookingStatus + ", subject=" + subject + ", report=" + report + "]";
+				+ ", bookingStatus=" + bookingStatus + ", subject=" + subject + ", topic=" + topic + ", report="
+				+ report + "]";
 	}
-	
-	
-	
 }
