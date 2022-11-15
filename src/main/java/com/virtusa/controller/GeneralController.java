@@ -91,6 +91,7 @@ public class GeneralController {
 	
 	@GetMapping("/postLogin")
 	public String afterLogin(Authentication authentication) {
+		// sets active status for user and redirect to its home based on role
 		
 		String loginEmail = authentication.getName();
 		String role = service.loginUser(loginEmail);

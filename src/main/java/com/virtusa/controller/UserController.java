@@ -41,6 +41,7 @@ public class UserController {
 	private static final String REDIRECTHOME = "redirect:/user/home";
 	private static final String REDIRECTBOOKING = "redirect:/user/allBooking";
 	private static final String REDIRECTCASE = "redirect:/user/caseRecord";
+	private static final String REDIRECTLOGIN = "redirect:/login";
 
 	private static final String HOMEPAGE = "UserHome";
 	private static final String CASEPAGE = "UserCase";
@@ -65,6 +66,8 @@ public class UserController {
 			@ModelAttribute("booking") BookingDto bookingDto) {
 		// User home page
 		
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
+		
 		String email = authentication.getName();
 		homeLoader(model, service.getUser(email).getUsername(), service.getAllLawyer());
 		model.addAttribute(ERR, bookingStatus);
@@ -77,6 +80,8 @@ public class UserController {
 			@ModelAttribute(ERR) String message ) {
 		// Shows all cases for the user
 		
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
+		
 		String email = authentication.getName();
 		caseLoader(model, service.getUserCase(email));
 		model.addAttribute(ERR, message);		
@@ -85,9 +90,11 @@ public class UserController {
 	
 	@PostMapping("/bookingForm")
 	public String bookAppointment(@Valid @ModelAttribute("booking") BookingDto booking,
-			Errors error, RedirectAttributes redirectAttribute) {
+			Errors error, RedirectAttributes redirectAttribute, Authentication authentication) {
 		// book appointment of a lawyer
 
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
+		
 		if(error.hasErrors()) {
 			redirectAttribute.addFlashAttribute(ERR, MISSINGVALUE);
 		}
@@ -108,6 +115,8 @@ public class UserController {
 			@ModelAttribute(ERR) String message ) {
 		// returns list of bookings made by user
 		
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
+		
 		String email = authentication.getName();
 		bookingLoader(model, service.getAllBooking(email));
 		model.addAttribute(ERR, message);
@@ -117,8 +126,10 @@ public class UserController {
 	
 	@GetMapping("/removeBooking/{bookingId}")
 	public String removeBooking(@PathVariable("bookingId") int id,
-			RedirectAttributes redirectAttributes) {
+			RedirectAttributes redirectAttributes, Authentication authentication) {
 		// removes booking if it is not confirmed by lawyer
+		
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
 		
 		try {
 			service.removeBooking(id);
@@ -136,6 +147,8 @@ public class UserController {
 			@ModelAttribute("booking") BookingDto bookingDto, RedirectAttributes redirectAttributes ,
 			Model model, Authentication authentication) {
 		// search all lawyers by expertise
+		
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
 		
 		// if search value is empty
 		if(searchField.isEmpty()) {
@@ -161,6 +174,9 @@ public class UserController {
 	public String bookingByYear(@PathVariable("year")String year, Authentication authentication,
 			Model model, RedirectAttributes redirectAttributes) {
 		// returns list of bookings in given year
+		
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
+		
 		String email = authentication.getName();
 		try {
 			bookingLoader(model, service.getBookingByYear(email, year));
@@ -176,6 +192,9 @@ public class UserController {
 	public String caseRecordByYear(@PathVariable("year")String year, Authentication authentication,
 			Model model, RedirectAttributes redirectAttributes) {
 		// returns list of case record in given year
+		
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
+		
 		String email = authentication.getName();
 		try{
 			caseLoader(model, service.getCaseRecordByYear(email, year));
@@ -193,6 +212,8 @@ public class UserController {
 			@ModelAttribute("booking") BookingDto bookingDto) {
 		// search all lawyers by name
 
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
+		
 		// if search value is empty
 		if(searchField.isEmpty()) {
 			redirectAttributes.addFlashAttribute(ERR, MISSINGVALUE);
@@ -219,6 +240,8 @@ public class UserController {
 			RedirectAttributes redirectAttributes, Authentication authentication) {
 		// search all booking by lawyer name
 		
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
+		
 		// if search value is empty
 		if(searchField.isEmpty()) {
 			redirectAttributes.addFlashAttribute(ERR, MISSINGVALUE);
@@ -244,6 +267,8 @@ public class UserController {
 	public String getCaseRecordByLawyerName(@RequestParam("searchField") String searchField, Model model,
 			RedirectAttributes redirectAttributes, Authentication authentication) {
 		// search all booking by lawyer name
+		
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
 		
 		// if search value is empty
 		if(searchField.isEmpty()) {
@@ -295,6 +320,11 @@ public class UserController {
 	public String getValueFromProperties(String key, String defaultValue) {
 		// returns properties based on key and default value
 		return messageSource.getMessage(key, null, defaultValue, Locale.ENGLISH);
+	}
+	
+	public boolean sessionChecker(Authentication authentication) {
+		// checks if user is authenticated. Should redirect login page if null
+		return authentication==null;
 	}
 
 }

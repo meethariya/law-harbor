@@ -41,9 +41,12 @@ public class LawyerController {
 	private static final Logger log = LogManager.getLogger(LawyerController.class);
 	private static final String REDIRECTHOME = "redirect:/lawyer/";
 	private static final String REDIRECTCASERECORD = "redirect:/lawyer/caseRecord";
-	private static final String ERR = "errMessage";
+	private static final String REDIRECTLOGIN = "redirect:/login";
+	
 	private static final String LAWYERHOMEPAGE = "LawyerHome";
 	private static final String LAWYERCASEPAGE = "LawyerCase";
+
+	private static final String ERR = "errMessage";
 	
 	public LawyerController() {
 		log.warn("LawyerController Constructor Called");
@@ -57,6 +60,8 @@ public class LawyerController {
 	public String home(Model model, Authentication authentication, @ModelAttribute(ERR) String errMessage) {
 		// Lawyer home
 		
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
+		
 		String email = authentication.getName();
 		homeLoader(model,service.getAllAppointment(email), service.getLawyer(email).getUsername());
 		model.addAttribute(ERR, errMessage);
@@ -65,10 +70,13 @@ public class LawyerController {
 	}
 		
 	@GetMapping("/approveBooking/{bookingId}")
-	public String approveBooking(@PathVariable("bookingId") int id, RedirectAttributes redirectAttribute) {
+	public String approveBooking(@PathVariable("bookingId") int id, RedirectAttributes redirectAttribute,
+			Authentication authentication) {
 		// approve an appointment
 		
-		try {			
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
+		
+		try {
 			service.approveBooking(id);
 		}
 		catch(NoBookingFoundException e) {
@@ -80,8 +88,10 @@ public class LawyerController {
 
 	@GetMapping("/cancelBooking/{bookingId}")
 	public String cancelBooking(@PathVariable("bookingId") int id,
-			RedirectAttributes redirectAttribute) {
+			RedirectAttributes redirectAttribute, Authentication authentication) {
 		// cancel an appointment
+		
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
 		
 		try {			
 			service.cancelBooking(id);
@@ -98,6 +108,8 @@ public class LawyerController {
 			@ModelAttribute(ERR)String errMessage, Model model, Authentication authentication) {
 		// get list of all case records by the lawyer
 		
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
+		
 		String email = authentication.getName();
 		caseLoader(model, service.getAllCase(email));
 		model.addAttribute(ERR, errMessage);
@@ -109,6 +121,8 @@ public class LawyerController {
 	public String addCaseRecord(@Valid @ModelAttribute("case")CaseRecordDto caseRecordDto, 
 			Errors error, Authentication authentication, RedirectAttributes redirectAttributes) {
 		// add a case record
+		
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
 		
 		if(error.hasErrors()) {			
 			redirectAttributes.addFlashAttribute(ERR, "Enter details correctly");
@@ -132,8 +146,10 @@ public class LawyerController {
 	
 	@GetMapping("/caseRecord/{caseRecordId}")
 	public String deleteCaseRecord(@PathVariable("caseRecordId") int caseRecordId,
-			RedirectAttributes redirectAttributes) {
+			RedirectAttributes redirectAttributes, Authentication authentication) {
 		// deletes a case record
+		
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
 		
 		try {
 			service.deleteCaseRecord(caseRecordId);
@@ -148,8 +164,10 @@ public class LawyerController {
 	@PostMapping("caseRecord/{caseRecordId}")
 	public String editCaseRecord(@PathVariable("caseRecordId") int caseRecordId,
 			@Valid @ModelAttribute("case")CaseRecordDto caseRecordDto, Errors error,
-			RedirectAttributes redirectAttributes) {
+			RedirectAttributes redirectAttributes, Authentication authentication) {
 		// edit case record
+		
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
 		
 		if(error.hasErrors()) {	
 			redirectAttributes.addFlashAttribute(ERR, "Enter details correctly");			
@@ -170,8 +188,10 @@ public class LawyerController {
 	@GetMapping("report/{bookingId}")
 	public String reportPage(@PathVariable("bookingId") int bookingId,
 			@ModelAttribute("report") ReportDto report, 
-			Model model, RedirectAttributes redirectAttributes) {
+			Model model, RedirectAttributes redirectAttributes, Authentication authentication) {
 		// Create Report page
+		
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
 		
 		model.addAttribute("bookingId", bookingId);
 		
@@ -194,6 +214,8 @@ public class LawyerController {
 	public String addReport(@Valid @ModelAttribute("report") ReportDto reportDto,
 			Errors error, RedirectAttributes redirectAttributes, Authentication authentication) {
 		// save report
+		
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
 		
 		if(error.hasErrors()) {			
 			redirectAttributes.addFlashAttribute(ERR, "Select Minimum one case record");
@@ -219,6 +241,9 @@ public class LawyerController {
 	public String bookingByYear(@PathVariable("year")String year, Authentication authentication,
 			Model model, RedirectAttributes redirectAttributes) {
 		// returns list of bookings in given year
+		
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
+		
 		String email = authentication.getName();
 		try {
 			homeLoader(model,service.getBookingByYear(email, year), service.getLawyer(email).getUsername());
@@ -235,6 +260,9 @@ public class LawyerController {
 			@ModelAttribute("case")CaseRecordDto caseRecordDto, 
 			Model model, RedirectAttributes redirectAttributes) {
 		// returns list of case record in given year
+		
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
+		
 		String email = authentication.getName();
 		try{
 			caseLoader(model, service.getCaseRecordByYear(email, year));			
@@ -250,6 +278,9 @@ public class LawyerController {
 	public String bookingByUsername(@RequestParam("username") String username, Authentication authentication,
 			Model model, RedirectAttributes redirectAttributes) {
 		// returns list of case record in given year
+		
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
+		
 		String email = authentication.getName();
 		int z = Integer.parseInt(messageSource.getMessage("editDistance", null, "3", Locale.ENGLISH));
 		try{
@@ -266,6 +297,9 @@ public class LawyerController {
 	public String caseRecordByUsername(@RequestParam("username") String username, Authentication authentication,
 			Model model, RedirectAttributes redirectAttributes, @ModelAttribute("case")CaseRecordDto caseRecordDto) {
 		// returns list of case record in given year
+		
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
+		
 		String email = authentication.getName();
 		int z = Integer.parseInt(messageSource.getMessage("editDistance", null, "3", Locale.ENGLISH));
 		try{
@@ -284,11 +318,17 @@ public class LawyerController {
 	}
 	
 	public void homeLoader(Model model, List<Booking> allBooking, String username) {
+		// loads model attributes for homepage
 		model.addAttribute("allBooking",allBooking);			
 		model.addAttribute("username",username);
 	}
 	
 	public void caseLoader(Model model, List<CaseRecord> allCase) {
+		// loads model attributes for case page
 		model.addAttribute("allCaseRecord",allCase);	
+	}
+	
+	public boolean sessionChecker(Authentication authentication) {
+		return authentication==null;
 	}
 }

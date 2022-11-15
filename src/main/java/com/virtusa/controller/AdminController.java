@@ -35,6 +35,8 @@ public class AdminController {
 	
 	private static final Logger log = LogManager.getLogger(AdminController.class);
 	private static final String REDIRECTHOME = "redirect:/admin/";
+	private static final String REDIRECTLOGIN = "redirect:/login";
+	
 	private static final String ERRMESSAGE = "errMessage";
 	private static final String ADMINHOME = "AdminHome";
 	
@@ -51,6 +53,8 @@ public class AdminController {
 			@ModelAttribute("user") UserDto myuser, @ModelAttribute("errMessage") String err) {
 		//	admin home page
 		
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
+		
 		String email = authentication.getName();
 		model.addAttribute("username",service.getUser(email).getUsername());
 		model.addAttribute("allLawyer",service.getAllLawyer());
@@ -60,8 +64,11 @@ public class AdminController {
 	}
 	
 	@GetMapping("/lawyer/{id}")
-	public String deleteLawyer(@PathVariable("id")int lawyerId, RedirectAttributes redirectAttributes) {
+	public String deleteLawyer(@PathVariable("id")int lawyerId, RedirectAttributes redirectAttributes,
+			Authentication authentication) {
 		// delete lawyer given id
+		
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
 		
 		try {			
 			service.deleteLawyer(lawyerId);
@@ -78,6 +85,8 @@ public class AdminController {
 	public String editLawyer(@Valid @ModelAttribute("user") EditLawyerDto lawyer, Errors error, 
 			Authentication authentication,RedirectAttributes redirectAttributes, Model model) {
 		// updates lawyer information
+		
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
 		
 		try {	
 			if(error.hasErrors()) {
@@ -101,6 +110,8 @@ public class AdminController {
 			Errors error, RedirectAttributes redirectAttributes, Model model,
 			Authentication authentication) {
 		// adds new lawyer
+		
+		if(sessionChecker(authentication)) return REDIRECTLOGIN;
 		
 		try {			
 			if(error.hasErrors()) {	
@@ -128,11 +139,17 @@ public class AdminController {
 	}
 	
 	public Map<String, Object> homeDataLoader(Authentication authentication, String err) {
+		// loads model attributes for home page
 		Map<String, Object> model = new HashMap<>();	
 		String email = authentication.getName();
 		model.put("username", service.getUser(email).getUsername());
 		model.put("allLawyer",service.getAllLawyer());
 		model.put(ERRMESSAGE,err);
 		return model;
+	}
+	
+	public boolean sessionChecker(Authentication authentication) {
+		// checks if user is authenticated. Should redirect login page if null
+		return authentication==null;
 	}
 }
