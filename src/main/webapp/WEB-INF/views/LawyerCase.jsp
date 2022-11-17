@@ -64,23 +64,23 @@
 				<div class="col">
 					<button class="btn btn-primary" onclick="addFormToggler()">Create Case Record</button>
 					<div id="addDiv" style="display: none">
-						<div class="card text-bg-light mx-auto my-2">
+						<div class="card text-bg-light w-75 mx-auto my-2">
 							<div class="card-body">
 								<form:form class="form-control" action="/project/lawyer/caseRecord" method="POST" modelAttribute="case">
-									<label class="form-label" for="userEmail">*User Email: </label>
-									<form:input type="email" name="userEmail" id="userEmail"
+									<label class="form-label" for="userEmail"><strong>User Email: </strong></label>
+									<form:input type="email" name="userEmail" id="userEmail" placeholder="client@mail.com"
 										path="userEmail" class="form-control" required="true" maxlength="30"/>
 									<form:errors class="text-danger" path="userEmail" />
 									<br>
 				
-									<label class="form-label" for="eventDetail">*Event Detail: </label>
-									<form:textarea name="eventDetail" id="eventDetail"
+									<label class="form-label" for="eventDetail"><strong>Event Detail: </strong></label>
+									<form:textarea name="eventDetail" id="eventDetail" placeholder="Brief about the details of event happened"
 										path="eventDetail" class="form-control" required="true" maxlength="255"/>
 									<form:errors class="text-danger" path="eventDetail" />
 									<br>
 				
-									<label class="form-label" for="actionTaken">*Action Taken: </label>
-									<form:textarea name="actionTaken" id="actionTaken"
+									<label class="form-label" for="actionTaken"><strong>Action Taken: </strong></label>
+									<form:textarea name="actionTaken" id="actionTaken" placeholder="Brief about the details of action being taken"
 										class="form-control" path="actionTaken" required="true" maxlength="255"/>
 									<form:errors class="text-danger" path="actionTaken" />
 									<br>
@@ -96,26 +96,30 @@
 			<div class="row">
 				<div class="col">
 					<div id="editDiv" style="display: none">
-						<form:form class="form-control" method="POST" modelAttribute="case" id="editForm">
-							<label class="form-label" for="userEmail">User Email: </label>
-							<input class="form-control" type="email" name="userEmail" id="editUserEmail" disabled />
-							<form:input type="hidden" id="hiddenEditEmail" path="userEmail" />
-							<form:errors class="text-danger" path="userEmail" />
-							<br>
-		
-							<label class="form-label" for="eventDetail">Event Detail: </label>
-							<form:textarea class="form-control" name="eventDetail" id="editEventDetail"
-								path="eventDetail" required="true" maxlength="255"/>
-							<form:errors class="text-danger" path="eventDetail" />
-							<br>
-		
-							<label class="form-label" for="actionTaken">Action Taken: </label>
-							<form:textarea class="form-control" name="actionTaken" id="editActionTaken"
-								path="actionTaken" required="true" maxlength="255"/>
-							<form:errors class="text-danger" path="actionTaken" />
-							<br>
-							<form:button class="btn btn-success" value="Submit">Submit</form:button>
-						</form:form>
+						<div class="card text-bg-light w-75 mx-auto my-2">
+							<div class="card-body">
+								<form:form class="form-control" method="POST" modelAttribute="case" id="editForm">
+									<label class="form-label" for="userEmail"><strong>User Email: </strong></label>
+									<input class="form-control" type="email" name="userEmail" id="editUserEmail" disabled />
+									<form:input type="hidden" id="hiddenEditEmail" path="userEmail" />
+									<form:errors class="text-danger" path="userEmail" />
+									<br>
+				
+									<label class="form-label" for="eventDetail"><strong>Event Detail: </strong></label>
+									<form:textarea class="form-control" name="eventDetail" id="editEventDetail"
+										path="eventDetail" required="true" maxlength="255"/>
+									<form:errors class="text-danger" path="eventDetail" />
+									<br>
+				
+									<label class="form-label" for="actionTaken"><strong>Action Taken: </strong></label>
+									<form:textarea class="form-control" name="actionTaken" id="editActionTaken"
+										path="actionTaken" required="true" maxlength="255"/>
+									<form:errors class="text-danger" path="actionTaken" />
+									<br>
+									<form:button class="btn btn-success" value="Submit">Submit</form:button>
+								</form:form>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

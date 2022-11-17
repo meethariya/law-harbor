@@ -29,10 +29,10 @@
 		    <h1 class="cardd-title">Create Report</h1>
 		  </div>
 		  <div class="card-body">
-		  	<h5 class="card-title">${userCaseRecord[0].getUser().getUsername()}</h5>
+		  	<h5 class="card-title">Client: ${userCaseRecord[0].getUser().getUsername()}</h5>
 		  	<h6 class="class-subtitle" id="currentTime"></h6>
 			<form:form class="form-control" action="/project/lawyer/report" method="POST" modelAttribute="report">
-				<label class="form-label" for="reportDetail">*Report Detail: </label>
+				<label class="form-label" for="reportDetail"><strong>Report Detail: </strong></label>
 				<form:textarea class="form-control" name="reportDetail" id="reportDetail"
 					path="reportDetail" required="true" maxlength="255"/>
 				<form:errors class="text-danger" path="reportDetail" />
@@ -40,7 +40,7 @@
 			
 				<form:input type="hidden" name = "bookingId" path = "bookingId" value="${bookingId }"/>
 				
-				<label class="form-label">*Case Record: </label>
+				<label class="form-label"><strong>Case Record: </strong></label>
 				<c:forEach var="myCaseRecord" items="${userCaseRecord}">
 					<div class="form-check">
 						<form:checkbox class="form-check-input" value = "${myCaseRecord.getCaseRecordId()}" path="tempCaseRecord"/>

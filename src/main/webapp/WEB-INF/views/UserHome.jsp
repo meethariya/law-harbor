@@ -46,7 +46,7 @@
 		<h1>Welcome ${userName}</h1><br>
 		<div class="container">
 			<div class="row">
-				<div class="col col-sm-8">
+				<div class="col">
 					<div class="container">
 						<div class="row text-center border border-primary rounded-3 my-2">
 							<div class="col col-sm-4">
@@ -58,6 +58,8 @@
 									  <button class="btn btn-outline-success" type="submit" id="search">Search</button>
 									</div>
 								</form>								
+							</div>
+							<div class="col col-sm-4">
 							</div>
 							<div class="col col-sm-4">
 								<form action="/project/user/searchByLawyername" method="POST">
@@ -122,45 +124,51 @@
 						</div>
 						<div class="card-body">
 							<form:form action="/project/user/bookingForm" method='POST' modelAttribute="booking">
-								<div class="mb-3">
-									<label for="appointmentDate" class="form-label">Date</label> 
-									<form:input type="date" id="appointmentDate" name="appointmentDate" 
-												class="form-control" path="appointmentDate" required="true" />
-									<form:errors path="appointmentDate" />
+								<div class="row my-2">
+									<div class="col">
+										<label for="appointmentDate" class="form-label"><strong>Date:</strong></label> 
+										<form:input type="date" id="appointmentDate" name="appointmentDate" 
+													class="form-control" path="appointmentDate" required="true" />
+										<form:errors path="appointmentDate" />
+									</div>
+									<div class="col">
+										<label for="appointmentTime" class="form-label"><strong>Slot Time:</strong></label> 
+										<form:select class="form-select" id="appointmentTime" name="appointmentTime"
+													path="appointmentTime" required="true">
+											<%for (int i = 9; i <= 19; i++) {%>
+												<form:option value="<%=i%>"><%=i%>:00</form:option>
+											<%}%>
+										</form:select>
+										<form:errors path="appointmentTime" />
+									</div>
 								</div>
-								<div class="mb-3">
-									<label for="appointmentTime" class="form-label">Slot Time</label> 
-									<form:select class="form-select" id="appointmentTime" name="appointmentTime"
-												path="appointmentTime" required="true">
-										<%for (int i = 9; i <= 19; i++) {%>
-											<form:option value="<%=i%>"><%=i%>:00</form:option>
-										<%}%>
-									</form:select>
-									<form:errors path="appointmentTime" />
+								<div class="row my-2">
+									<div class="col">
+										<label for="topic" class="form-label"><strong>Topic:</strong></label> 
+										<form:input class="form-control" list="datalistOptions" placeholder="Type to search..." 
+												id="topic" name="topic" path="topic" required="true" maxlength="30"/>
+										<datalist id="datalistOptions">
+										  <option value="General">
+										  <option value="Administrative">
+										  <option value="Crime">
+										  <option value="Constitutional">
+										  <option value="Business">
+										</datalist>
+										<form:errors path="topic" />						
+									</div>
+									<div class="col">
+										<label for="setLawyerCharge" class="form-label"><strong>Charge(Rs):</strong></label>
+										<input type="number" class="form-control-plaintext" id="setLawyerCharge" readonly>
+									</div>
 								</div>
-								<div class="mb-3">
-									<label for="topic" class="form-label">Topic</label> 
-									<form:select id="topic" name="topic" class="form-select" path="topic">
-										<form:option value="General" selected="true">General</form:option>
-										<form:option value="Administrative">Administrative</form:option>
-										<form:option value="Crime">Crime</form:option>
-										<form:option value="Constitutional">Constitutional</form:option>
-										<form:option value="Business">Business</form:option>
-									</form:select>
-									<form:errors path="topic" />
+								<div class="row my-2">
+									<div class="col">
+										<label for="subject" class="form-label"><strong>Subject:</strong></label>
+										<form:input type="text" class="form-control" id="subject" name="subject"
+											path="subject" required="true" maxlength="30"/>
+										<form:errors path="subject" />
+									</div>
 								</div>
-								<div class="mb-3">								
-									<label for="subject" class="form-label">Subject</label>
-									<form:input type="text" class="form-control" id="subject" name="subject"
-										path="subject" required="true" maxlength="30"/>
-									<form:errors path="subject" />
-								</div>
-
-								<div class="mb-3">								
-									<label for="setLawyerCharge" class="form-label">Charge(Rs): </label>
-									<input type="number" class="form-control-plaintext" id="setLawyerCharge" readonly>
-								</div>
-
 								<input type="hidden" id="setLawyer" name="lawyerEmail">
 								<input type="hidden" id="setClient" name="userEmail"
 									value="<sec:authentication property='principal.username' />">
