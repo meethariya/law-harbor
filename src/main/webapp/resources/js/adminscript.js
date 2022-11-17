@@ -1,10 +1,9 @@
-function toggleForm(email, username, password, role, mobile, experience, expertise, lawFirmName, id, charge) {
+function toggleForm(email, username, role, mobile, experience, expertise, lawFirmName, id, charge) {
 	//Enables the edit form and sets lawyer values and sets form url
 
 	document.getElementById("email").value = email;
 	document.getElementById("displayemail").value = email;
 	document.getElementById("username").value = username;
-	document.getElementById("password").value = password;
 	document.getElementById("role").value = role;
 	document.getElementById("mobile").value = mobile;
 	document.getElementById("experience").value = experience;

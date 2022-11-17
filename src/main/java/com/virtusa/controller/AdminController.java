@@ -50,7 +50,8 @@ public class AdminController {
 	
 	@GetMapping("/")
 	public String home(Model model, Authentication authentication, 
-			@ModelAttribute("user") UserDto myuser, @ModelAttribute("errMessage") String err) {
+			@ModelAttribute("user") UserDto myuser, @ModelAttribute("errMessage") String err,
+			@ModelAttribute("editUser") EditLawyerDto editLawyerModel) {
 		//	admin home page
 		
 		if(sessionChecker(authentication)) return REDIRECTLOGIN;
@@ -82,8 +83,9 @@ public class AdminController {
 	}
 	
 	@PostMapping("/lawyer")
-	public String editLawyer(@Valid @ModelAttribute("user") EditLawyerDto lawyer, Errors error, 
-			Authentication authentication,RedirectAttributes redirectAttributes, Model model) {
+	public String editLawyer(@Valid @ModelAttribute("editUser") EditLawyerDto lawyer,  
+			Errors error, @ModelAttribute("user") UserDto myuser, Model model, 
+			Authentication authentication, RedirectAttributes redirectAttributes) {
 		// updates lawyer information
 		
 		if(sessionChecker(authentication)) return REDIRECTLOGIN;
@@ -108,7 +110,7 @@ public class AdminController {
 	@PostMapping("/addLawyer")
 	public String addLawyer(@Valid @ModelAttribute("user") UserDto lawyer, 
 			Errors error, RedirectAttributes redirectAttributes, Model model,
-			Authentication authentication) {
+			@ModelAttribute("editUser")EditLawyerDto editLawyer, Authentication authentication) {
 		// adds new lawyer
 		
 		if(sessionChecker(authentication)) return REDIRECTLOGIN;
