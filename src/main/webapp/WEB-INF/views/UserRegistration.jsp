@@ -65,7 +65,6 @@
 						<form:select class="form-select"				name="role"			id="role" 		path="role" required="true" >  			
 							<option value = "<%= userRole %>" > <%= userRole.split("_")[1] %> </option>  
 							<option value = "<%= lawyerRole %>" > <%= lawyerRole.split("_")[1] %> </option>  
-							<!-- <option value = "<%= adminRole %>" > <%= adminRole.split("_")[1] %> </option>   -->
 						</form:select>  
 						<form:errors class="text-danger" path="role"/>
 					</div>
